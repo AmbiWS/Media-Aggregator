@@ -35,10 +35,4 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         tvshows_recycler_view.adapter = adapter.apply { addAll(tvShowsList) }
     }
 
-    companion object {
-
-        @JvmStatic
-        fun newInstance() = TvShowsFragment()
-    }
-
 }
