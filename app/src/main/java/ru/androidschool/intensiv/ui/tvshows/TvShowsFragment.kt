@@ -22,12 +22,12 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvshows_recycler_view.layoutManager = GridLayoutManager(context, 4)
+        tvshows_recycler_view.layoutManager = GridLayoutManager(context, 1)
         tvshows_recycler_view.adapter = adapter.apply { addAll(listOf()) }
 
         val moviesList =
             MockRepository.getMovies().map {
-                MoviePreviewItem(
+                TvShowsItem(
                     it
                 ) { movie -> }
             }.toList()
