@@ -15,6 +15,7 @@
         android:background="@color/colorPrimary"
         android:paddingTop="@dimen/material_margin_large"
         android:scrollbars="vertical"
+        android:paddingBottom="15dp"
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         tools:listitem="@layout/item_tv_shows" >
 

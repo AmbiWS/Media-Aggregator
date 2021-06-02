@@ -25,14 +25,14 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         tvshows_recycler_view.layoutManager = GridLayoutManager(context, 1)
         tvshows_recycler_view.adapter = adapter.apply { addAll(listOf()) }
 
-        val moviesList =
-            MockRepository.getMovies().map {
+        val tvShowsList =
+            MockRepository.getTvShows().map {
                 TvShowsItem(
                     it
-                ) { movie -> }
+                ) { tvShow -> }
             }.toList()
 
-        tvshows_recycler_view.adapter = adapter.apply { addAll(moviesList) }
+        tvshows_recycler_view.adapter = adapter.apply { addAll(tvShowsList) }
     }
 
     companion object {
