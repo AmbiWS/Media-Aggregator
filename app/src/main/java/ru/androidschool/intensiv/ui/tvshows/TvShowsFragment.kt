@@ -7,11 +7,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
-import kotlinx.android.synthetic.main.fragment_watchlist.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MockRepository
-import ru.androidschool.intensiv.ui.watchlist.MoviePreviewItem
-import ru.androidschool.intensiv.ui.watchlist.WatchlistFragment
 
 class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
@@ -34,5 +31,4 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
         tvshows_recycler_view.adapter = adapter.apply { addAll(tvShowsList) }
     }
-
 }
