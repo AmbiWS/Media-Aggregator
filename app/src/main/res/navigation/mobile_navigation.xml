@@ -43,13 +43,14 @@
     <fragment
         android:id="@+id/tv_shows_dest"
         android:name="ru.androidschool.intensiv.ui.tvshows.TvShowsFragment"
-        android:label="@string/tv_show"
-        tools:layout="@layout/tv_shows_fragment">
+        android:label="fragment_tv_shows"
+        tools:layout="@layout/fragment_tv_shows">
 
         <argument
             android:name="myarg"
             android:defaultValue="Android!" />
     </fragment>
+
     <fragment
         android:id="@+id/movie_details_fragment"
         android:name="ru.androidschool.intensiv.ui.movie_details.MovieDetailsFragment"
