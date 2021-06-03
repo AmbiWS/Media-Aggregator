@@ -1,6 +1,6 @@
 package ru.androidschool.intensiv.data
 
-class TvShow(
+data class TvShow(
     var title: String? = "",
     var votePoints: Double = 0.0
 ) {
