@@ -21,7 +21,6 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         super.onViewCreated(view, savedInstanceState)
 
         tvshows_recycler_view.layoutManager = LinearLayoutManager(context)
-        tvshows_recycler_view.adapter = adapter.apply { addAll(listOf()) }
 
         val tvShowsList =
             MockRepository.getTvShows().map {
