@@ -8,6 +8,9 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppTheme.Text.Medium" parent="android:TextAppearance">
+        <item name="android:textSize">14sp</item>
+    </style>
 
     <style name="AppTheme.Title.Collapsed" parent="android:TextAppearance">
         <item name="android:textSize">20sp</item>
