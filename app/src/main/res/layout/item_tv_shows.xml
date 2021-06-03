@@ -33,9 +33,8 @@
             android:ellipsize="end"
             android:maxLines="2"
             android:textColor="@color/white"
-            android:textSize="@style/AppTheme.Text.Medium"
-            android:textStyle="bold"
-            tools:text="QUEEN'S GAMBIT"
+            tools:text="@string/queens_gambit"
+            style="@style/AppTheme.Text.Medium.Bold"
             tools:textColor="@color/white" />
 
         <androidx.appcompat.widget.AppCompatRatingBar
