@@ -3,7 +3,7 @@ package ru.androidschool.intensiv.ui.tvshows
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
@@ -19,8 +19,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvshows_recycler_view.layoutManager = GridLayoutManager(context, 1)
-        tvshows_recycler_view.adapter = adapter.apply { addAll(listOf()) }
+        tvshows_recycler_view.layoutManager = LinearLayoutManager(context)
 
         val tvShowsList =
             MockRepository.getTvShows().map {
