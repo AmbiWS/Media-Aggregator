@@ -18,7 +18,7 @@
 
     <string name="tv_show">Телесериалы</string>
     <string name="close">закрыть</string>
-    <string name="queens_gambit">QUEEN&apos;S GAMBIT</string>
+    <string name="queens_gambit">QUEEN\'S GAMBIT</string>
 
     <string-array name="tab_titles">
         <item>23\n Понравилось</item>
