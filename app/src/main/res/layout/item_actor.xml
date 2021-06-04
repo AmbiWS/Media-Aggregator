@@ -7,7 +7,8 @@
     android:layout_height="wrap_content"
     android:padding="@dimen/actor_padding"
     android:paddingEnd="@dimen/actor_padding_right"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:ignore="RtlSymmetry">
 
 
     <com.google.android.material.imageview.ShapeableImageView

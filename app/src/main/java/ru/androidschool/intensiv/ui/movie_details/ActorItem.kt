@@ -4,14 +4,13 @@ import com.squareup.picasso.Picasso
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_actor.*
-import kotlinx.android.synthetic.main.item_tv_shows.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Actor
 
 class ActorItem(
     private val content: Actor,
     private val onClick: (actor: Actor) -> Unit
-    ) : Item() {
+) : Item() {
 
     override fun getLayout() = R.layout.item_actor
 
@@ -26,5 +25,4 @@ class ActorItem(
             .load("https://ca-times.brightspotcdn.com/dims4/default/f4e021e/2147483647/strip/true/crop/3000x2251+0+0/resize/840x630!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3f%2Fa0%2F27ad67f17d56801f88f223048a4c%2F270ece9466a946488bf8149e39598616")
             .into(viewHolder.actorImage)
     }
-
 }

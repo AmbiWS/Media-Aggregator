@@ -55,6 +55,5 @@ object MockRepository {
             genre = "Drama",
             year = 2020
         )
-
     }
 }
