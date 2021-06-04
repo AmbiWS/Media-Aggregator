@@ -40,6 +40,9 @@
     <dimen name="movie_details_margin_bottom">15dp</dimen>
     <dimen name="movie_details_scrollview_height_fix">0dp</dimen>
 
+    <dimen name="actor_padding">5dp</dimen>
+    <dimen name="actor_size">82dp</dimen>
+
 
 
 </resources>

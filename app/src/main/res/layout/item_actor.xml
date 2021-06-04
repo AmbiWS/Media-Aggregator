@@ -5,19 +5,20 @@
     android:id="@+id/content_actor"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:padding="@dimen/actor_padding"
     android:orientation="vertical">
 
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/actorImage"
-        android:layout_width="92dp"
-        android:layout_height="92dp"
+        android:layout_width="@dimen/actor_size"
+        android:layout_height="@dimen/actor_size"
         app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/actorName"
-        android:layout_width="92dp"
+        android:layout_width="@dimen/actor_size"
         android:layout_height="wrap_content"
         android:maxLines="2"
         android:text="@string/anya_teylor_joy"
