@@ -69,11 +69,11 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="15dp"
-        android:layout_marginBottom="15dp"
+        android:layout_height="@dimen/movie_details_scrollview_height_fix"
+        android:layout_marginStart="@dimen/movie_details_margin_left"
+        android:layout_marginTop="@dimen/movie_details_rating_margin_top"
+        android:layout_marginEnd="@dimen/movie_details_margin_right"
+        android:layout_marginBottom="@dimen/movie_details_margin_bottom"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -82,7 +82,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:orientation="vertical">
 
             <EditText
                 android:id="@+id/editTextTextMultiLine2"
@@ -91,8 +91,8 @@
                 android:ems="10"
                 android:gravity="start|top"
                 android:inputType="textMultiLine"
-                android:textColor="@color/textColorGrey"
-                android:text="The Queen's Gambit follows the life of an orphan chess prodigy, Elizabeth Harmon, during her quest to become the world's greatest chess player while struggling with emotional problems, drugs and alcohol dependency. The title of the series refers to a chess opening of the same name." />
+                android:text="@string/queens_gambit_about"
+                android:textColor="@color/textColorGrey" />
         </LinearLayout>
     </ScrollView>
 
