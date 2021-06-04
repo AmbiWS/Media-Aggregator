@@ -34,6 +34,10 @@
     <dimen name="movie_details_margin_right">15dp</dimen>
     <dimen name="movie_details_like_img_size">24dp</dimen>
     <dimen name="movie_details_margin_top_small">15dp</dimen>
+    <dimen name="movie_details_rating_margin_top">25dp</dimen>
+    <dimen name="movie_details_watch_button_width">120dp</dimen>
+    <dimen name="movie_details_watch_button_height">35dp</dimen>
+
 
 
 </resources>
