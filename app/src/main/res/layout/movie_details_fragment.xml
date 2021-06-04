@@ -1,12 +1,70 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blueDark"
     tools:context="ru.androidschool.intensiv.ui.movie_details.MovieDetailsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imageView3"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/movie_details_img_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/qg_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textView2"
+        style="@style/AppTheme.Title.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/queens_gambit_lowercase"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/movie_details_margin_left"
+        android:layout_marginTop="@dimen/movie_details_title_margin_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <ImageView
+        android:id="@+id/imageView4"
+        android:layout_width="@dimen/movie_details_like_img_size"
+        android:layout_height="@dimen/movie_details_like_img_size"
+        android:layout_marginTop="@dimen/movie_details_like_img_margin_top"
+        android:layout_marginEnd="@dimen/movie_details_margin_right"
+        android:src="@drawable/heart_empty_white"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/movie_details_rating"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:progressBackgroundTint="@color/colorControlNormal"
+        android:layout_marginTop="@dimen/movie_details_margin_top_small"
+        android:layout_marginEnd="@dimen/movie_details_margin_right"
+        android:stepSize="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        tools:rating="5" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="150dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="@dimen/movie_details_margin_left"
+        android:layout_marginTop="@dimen/movie_details_margin_top_small"
+        android:textAllCaps="false"
+        android:background="@drawable/watch_button"
+        android:text="@string/watch"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
