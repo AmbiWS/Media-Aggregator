@@ -10,5 +10,6 @@ data class MovieDetails(
     var genre: String? = "",
     var year: Int? = 0
 ) {
-
+    val rating: Float
+        get() = votePoints.div(2).toFloat()
 }

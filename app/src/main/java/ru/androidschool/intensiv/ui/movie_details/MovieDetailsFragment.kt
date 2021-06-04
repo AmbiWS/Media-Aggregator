@@ -4,8 +4,10 @@ import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import kotlinx.android.synthetic.main.item_tv_shows.*
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MockRepository
@@ -19,16 +21,35 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        //TODO: Get title name & title rating from Bundle
+        val movieDetails = MockRepository.getDetails()
+
+        //TODO: Get title name & title rating from Bundle, after Retrofit refactoring
+
+        Picasso.get()
+            .load("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
+            .into(detailsImagePoster)
+
+        textDetailsTitle.text = movieDetails.title
+        movie_details_rating.rating = movieDetails.rating
+
+        // TODO: Add logic to set/unset favorite movie onClick
+
+        if (movieDetails.isFavoriteMovie)
+            imageViewFavoriteMovie.setImageResource(R.drawable.heart_filled_white)
+
+        textViewAboutMovie.text = movieDetails.aboutMovie
 
         val actorsList =
-            MockRepository.getActors().map {
+            movieDetails.actors?.map {
                 ActorItem(
                     it
                 ) { actor -> }
-            }.toList()
+            }?.toList()
+        actors_recycleView.adapter = adapter.apply { actorsList?.let { addAll(it) } }
 
-        actors_recycleView.adapter = adapter.apply { addAll(actorsList) }
+        textViewProduction.text = movieDetails.production
+        textViewGenre.text = movieDetails.genre
+        textViewYear.text = movieDetails.year.toString()
 
     }
 
