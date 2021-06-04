@@ -42,4 +42,8 @@ object MockRepository {
 
         return actorsList
     }
+
+    fun getDetails(): List<MovieDetails> {
+
+    }
 }
