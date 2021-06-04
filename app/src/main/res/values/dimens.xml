@@ -27,7 +27,7 @@
     <dimen name="tv_show_rating_margin_top">5dp</dimen>
     <dimen name="tv_shows_fragment_padding_bot">15dp</dimen>
 
-    <dimen name="movie_details_img_height">300dp</dimen>
+    <dimen name="movie_details_img_height">200dp</dimen>
     <dimen name="movie_details_margin_left">25dp</dimen>
     <dimen name="movie_details_title_margin_top">35dp</dimen>
     <dimen name="movie_details_like_img_margin_top">40dp</dimen>
