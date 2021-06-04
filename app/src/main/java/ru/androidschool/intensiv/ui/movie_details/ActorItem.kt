@@ -23,7 +23,7 @@ class ActorItem(
 
         // TODO Получать из модели
         Picasso.get()
-            .load("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
+            .load("https://ca-times.brightspotcdn.com/dims4/default/f4e021e/2147483647/strip/true/crop/3000x2251+0+0/resize/840x630!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3f%2Fa0%2F27ad67f17d56801f88f223048a4c%2F270ece9466a946488bf8149e39598616")
             .into(viewHolder.actorImage)
     }
 
