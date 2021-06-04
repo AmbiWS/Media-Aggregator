@@ -95,12 +95,12 @@
                 android:textColor="@color/textColorGrey" />
 
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actors_recycleView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:listitem="@layout/item_actor"
                 android:orientation="horizontal"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                />
+                tools:listitem="@layout/item_actor" />
 
         </LinearLayout>
     </ScrollView>

@@ -29,4 +29,17 @@ object MockRepository {
 
         return tvShowsList
     }
+
+    fun getActors(): List<Actor> {
+
+        val actorsList = mutableListOf<Actor>()
+        for (x in 1..10) {
+            val actor = Actor(
+                name = "Anya Taylor-Joy"
+            )
+            actorsList.add(actor)
+        }
+
+        return actorsList
+    }
 }
