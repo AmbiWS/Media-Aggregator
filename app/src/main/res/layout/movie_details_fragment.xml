@@ -28,13 +28,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailsImagePoster" />
 
-    <ImageView
-        android:id="@+id/imageViewFavoriteMovie"
+    <CheckBox
+        android:id="@+id/checkboxFavoriteMovie"
         android:layout_width="@dimen/movie_details_like_img_size"
         android:layout_height="@dimen/movie_details_like_img_size"
         android:layout_marginTop="@dimen/movie_details_like_img_margin_top"
         android:layout_marginEnd="@dimen/movie_details_margin_right"
-        android:src="@drawable/heart_empty_white"
+        android:background="@drawable/favorite_movie_checkbox"
+        android:button="@android:color/transparent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detailsImagePoster" />
 

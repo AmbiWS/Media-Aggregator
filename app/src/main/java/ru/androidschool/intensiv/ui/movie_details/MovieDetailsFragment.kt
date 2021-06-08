@@ -32,7 +32,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         // TODO: Add logic to set/unset favorite movie onClick
 
         if (movieDetails.isFavoriteMovie) {
-            imageViewFavoriteMovie.setImageResource(R.drawable.heart_filled_white)
+            checkboxFavoriteMovie.isChecked = true
         }
 
         textViewAboutMovie.text = movieDetails.aboutMovie
