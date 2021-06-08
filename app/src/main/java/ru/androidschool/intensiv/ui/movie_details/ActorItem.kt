@@ -5,7 +5,7 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_actor.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Actor
-import ru.androidschool.intensiv.data.ExtensionMethods.loadImage
+import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 
 class ActorItem(
     private val content: Actor,

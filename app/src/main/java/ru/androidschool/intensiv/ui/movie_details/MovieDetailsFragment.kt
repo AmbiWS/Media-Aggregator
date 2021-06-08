@@ -3,13 +3,12 @@ package ru.androidschool.intensiv.ui.movie_details
 import android.os.Bundle
 import android.view.View
 import androidx.fragment.app.Fragment
-import com.squareup.picasso.Picasso
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.ExtensionMethods.loadImage
 import ru.androidschool.intensiv.data.MockRepositoryMovieDetails
+import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
@@ -28,8 +27,6 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         textDetailsTitle.text = movieDetails.title
         movie_details_rating.rating = movieDetails.rating
-
-        // TODO: Add logic to set/unset favorite movie onClick
 
         if (movieDetails.isFavoriteMovie) {
             checkboxFavoriteMovie.isChecked = true

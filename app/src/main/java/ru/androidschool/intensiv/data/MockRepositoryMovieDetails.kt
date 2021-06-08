@@ -28,5 +28,4 @@ object MockRepositoryMovieDetails {
             year = 2020
         )
     }
-
 }
