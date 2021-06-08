@@ -8,7 +8,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MockRepository
+import ru.androidschool.intensiv.data.MockRepositoryMovieDetails
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
@@ -19,13 +19,14 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val movieDetails = MockRepository.getDetails()
+        val movieDetails = MockRepositoryMovieDetails.getDetails()
 
         // TODO: Get title name & title rating from Bundle, after Retrofit refactoring
 
         Picasso.get()
             .load("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
             .into(detailsImagePoster)
+
 
         textDetailsTitle.text = movieDetails.title
         movie_details_rating.rating = movieDetails.rating
