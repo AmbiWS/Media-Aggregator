@@ -12,8 +12,7 @@
     <color name="black">#000000</color>
     <color name="grey">#C2C2C2</color>
     <color name="transparent_grey">#CCFFFFFF</color>
-    <color name="buttor_ltgrey">#6C737E</color>
-
+    <color name="button_movie_details_watch_later">#6C737E</color>
 
     <color name="colorItemSelected">#5CA0D3</color>
     <color name="colorItemDisabled">#4a6e8a</color>
