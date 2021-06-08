@@ -89,8 +89,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@string/queens_gambit_about"
-                android:textColor="@color/textColorGrey"
-                />
+                android:textColor="@color/textColorGrey" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/actors_recycleView"
@@ -99,9 +98,7 @@
                 android:orientation="horizontal"
                 android:layout_marginTop="@dimen/movie_details_margin_top_small"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                tools:listitem="@layout/item_actor" >
-
-            </androidx.recyclerview.widget.RecyclerView>
+                tools:listitem="@layout/item_actor" />
 
             <androidx.gridlayout.widget.GridLayout
                 android:layout_width="match_parent"
@@ -156,7 +153,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/_2020" />
             </androidx.gridlayout.widget.GridLayout>
-
 
         </LinearLayout>
     </ScrollView>
