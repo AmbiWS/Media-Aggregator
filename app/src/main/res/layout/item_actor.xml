@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content_actor"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="@dimen/actor_padding"
+    android:paddingEnd="@dimen/actor_padding_right"
+    android:orientation="vertical"
+    tools:ignore="RtlSymmetry">
+
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/actorImage"
+        android:layout_width="@dimen/actor_size"
+        android:layout_height="@dimen/actor_size"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.CornerSize50Percent"
+        tools:srcCompat="@tools:sample/avatars" />
+
+    <TextView
+        android:id="@+id/actorName"
+        android:layout_width="@dimen/actor_size"
+        android:layout_height="wrap_content"
+        android:maxLines="2"
+        style="@style/AppTheme.Text.Small.White"
+        android:text="@string/anya_teylor_joy"
+        android:textAlignment="center" />
+</LinearLayout>

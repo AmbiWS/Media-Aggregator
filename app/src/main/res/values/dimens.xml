@@ -27,5 +27,25 @@
     <dimen name="tv_show_rating_margin_top">5dp</dimen>
     <dimen name="tv_shows_fragment_padding_bot">15dp</dimen>
 
+    <dimen name="movie_details_img_height">200dp</dimen>
+    <dimen name="movie_details_margin_left">25dp</dimen>
+    <dimen name="movie_details_title_margin_top">35dp</dimen>
+    <dimen name="movie_details_like_img_margin_top">40dp</dimen>
+    <dimen name="movie_details_margin_right">15dp</dimen>
+    <dimen name="movie_details_like_img_size">24dp</dimen>
+    <dimen name="movie_details_margin_top_small">15dp</dimen>
+    <dimen name="movie_details_rating_margin_top">25dp</dimen>
+    <dimen name="movie_details_watch_button_width">120dp</dimen>
+    <dimen name="movie_details_watch_button_height">35dp</dimen>
+    <dimen name="movie_details_margin_bottom">15dp</dimen>
+    <dimen name="movie_details_scrollview_height_fix">0dp</dimen>
+
+    <dimen name="actor_padding">5dp</dimen>
+    <dimen name="actor_size">64dp</dimen>
+    <dimen name="actor_padding_right">30dp</dimen>
+
+    <dimen name="movie_details_additional_info_margin_left">10dp</dimen>
+
+
 
 </resources>

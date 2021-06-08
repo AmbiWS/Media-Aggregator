@@ -1,12 +1,161 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blueDark"
     tools:context="ru.androidschool.intensiv.ui.movie_details.MovieDetailsFragment">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/detailsImagePoster"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/movie_details_img_height"
+        android:scaleType="centerCrop"
+        android:src="@drawable/qg_poster"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/textDetailsTitle"
+        style="@style/AppTheme.Title.Big"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/queens_gambit_lowercase"
+        android:textColor="@color/white"
+        android:layout_marginStart="@dimen/movie_details_margin_left"
+        android:layout_marginTop="@dimen/movie_details_title_margin_top"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsImagePoster" />
+
+    <CheckBox
+        android:id="@+id/checkboxFavoriteMovie"
+        android:layout_width="@dimen/movie_details_like_img_size"
+        android:layout_height="@dimen/movie_details_like_img_size"
+        android:layout_marginTop="@dimen/movie_details_like_img_margin_top"
+        android:layout_marginEnd="@dimen/movie_details_margin_right"
+        android:background="@drawable/favorite_movie_checkbox"
+        android:button="@android:color/transparent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/detailsImagePoster" />
+
+    <androidx.appcompat.widget.AppCompatRatingBar
+        android:id="@+id/movie_details_rating"
+        style="@style/Base.Widget.AppCompat.RatingBar.Small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:isIndicator="true"
+        android:numStars="5"
+        android:progressBackgroundTint="@color/colorControlNormal"
+        android:layout_marginTop="@dimen/movie_details_rating_margin_top"
+        android:layout_marginEnd="@dimen/movie_details_margin_right"
+        android:stepSize="0.5"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDetailsTitle"
+        tools:rating="5" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="@dimen/movie_details_watch_button_width"
+        android:layout_height="@dimen/movie_details_watch_button_height"
+        android:layout_marginStart="@dimen/movie_details_margin_left"
+        android:layout_marginTop="@dimen/movie_details_margin_top_small"
+        android:background="@drawable/watch_button"
+        android:text="@string/watch"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textDetailsTitle" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/movie_details_scrollview_height_fix"
+        android:layout_marginStart="@dimen/movie_details_margin_left"
+        android:layout_marginTop="@dimen/movie_details_rating_margin_top"
+        android:layout_marginEnd="@dimen/movie_details_margin_right"
+        android:layout_marginBottom="@dimen/movie_details_margin_bottom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/textViewAboutMovie"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/queens_gambit_about"
+                android:textColor="@color/textColorGrey" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/actors_recycleView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/movie_details_margin_top_small"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:listitem="@layout/item_actor" />
+
+            <androidx.gridlayout.widget.GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/movie_details_margin_top_small"
+                app:useDefaultMargins="true"
+                app:columnCount="2"
+                app:rowCount="3">
+
+                <TextView
+                    android:id="@+id/textViewProductionTitle"
+                    style="@style/AppTheme.Text.Medium.Bold.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/production" />
+
+                <TextView
+                    android:id="@+id/textViewProduction"
+                    android:textColor="@color/textColorGrey"
+                    android:layout_marginStart="@dimen/movie_details_additional_info_margin_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/flitcraft_studio" />
+
+                <TextView
+                    android:id="@+id/textViewGenreTitle"
+                    style="@style/AppTheme.Text.Medium.Bold.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/genre" />
+
+                <TextView
+                    android:id="@+id/textViewGenre"
+                    android:textColor="@color/textColorGrey"
+                    android:layout_marginStart="@dimen/movie_details_additional_info_margin_left"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/drama" />
+
+                <TextView
+                    android:id="@+id/textViewYearTitle"
+                    style="@style/AppTheme.Text.Medium.Bold.White"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/year" />
+
+                <TextView
+                    android:id="@+id/textViewYear"
+                    android:textColor="@color/textColorGrey"
+                    android:layout_width="wrap_content"
+                    android:layout_marginStart="@dimen/movie_details_additional_info_margin_left"
+                    android:layout_height="wrap_content"
+                    android:text="@string/_2020" />
+            </androidx.gridlayout.widget.GridLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
