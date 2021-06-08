@@ -109,7 +109,7 @@
                 app:rowCount="3">
 
                 <TextView
-                    android:id="@+id/textView6"
+                    android:id="@+id/textViewProductionTitle"
                     style="@style/AppTheme.Text.Medium.Bold.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -124,7 +124,7 @@
                     android:text="@string/flitcraft_studio" />
 
                 <TextView
-                    android:id="@+id/textView11"
+                    android:id="@+id/textViewGenreTitle"
                     style="@style/AppTheme.Text.Medium.Bold.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -139,7 +139,7 @@
                     android:text="@string/drama" />
 
                 <TextView
-                    android:id="@+id/textView8"
+                    android:id="@+id/textViewYearTitle"
                     style="@style/AppTheme.Text.Medium.Bold.White"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
