@@ -43,7 +43,6 @@ android {
 }
 
 dependencies {
-    implementation 'androidx.gridlayout:gridlayout:1.0.0'
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlinVersion"
     implementation "androidx.appcompat:appcompat:$supportLibVersion"
@@ -76,5 +75,9 @@ dependencies {
     implementation "com.xwray:groupie:$rootProject.groupieVersion"
     implementation "com.xwray:groupie-kotlin-android-extensions:$rootProject.groupieVersion"
 
+    // Logging
     implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
+
+    // Layouts
+    implementation "androidx.gridlayout:gridlayout:$rootProject.gridlayoutVersion"
 }
