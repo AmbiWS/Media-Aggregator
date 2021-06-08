@@ -5,6 +5,7 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_tv_shows.*
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.ExtensionMethods.loadImage
 import ru.androidschool.intensiv.data.TvShow
 
 class TvShowsItem(
@@ -22,8 +23,6 @@ class TvShowsItem(
         }
 
         // TODO Получать из модели
-        Picasso.get()
-            .load("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
-            .into(viewHolder.image_tv_shows)
+        viewHolder.image_tv_shows.loadImage("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
     }
 }

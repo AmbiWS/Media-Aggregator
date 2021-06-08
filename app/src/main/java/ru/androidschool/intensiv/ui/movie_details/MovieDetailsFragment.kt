@@ -8,6 +8,7 @@ import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.ExtensionMethods.loadImage
 import ru.androidschool.intensiv.data.MockRepositoryMovieDetails
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
@@ -23,10 +24,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         // TODO: Get title name & title rating from Bundle, after Retrofit refactoring
 
-        Picasso.get()
-            .load("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
-            .into(detailsImagePoster)
-
+        detailsImagePoster.loadImage("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
 
         textDetailsTitle.text = movieDetails.title
         movie_details_rating.rating = movieDetails.rating

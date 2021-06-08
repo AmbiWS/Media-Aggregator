@@ -6,6 +6,7 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_actor.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Actor
+import ru.androidschool.intensiv.data.ExtensionMethods.loadImage
 
 class ActorItem(
     private val content: Actor,
@@ -21,8 +22,6 @@ class ActorItem(
         }
 
         // TODO Получать из модели
-        Picasso.get()
-            .load("https://ca-times.brightspotcdn.com/dims4/default/f4e021e/2147483647/strip/true/crop/3000x2251+0+0/resize/840x630!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3f%2Fa0%2F27ad67f17d56801f88f223048a4c%2F270ece9466a946488bf8149e39598616")
-            .into(viewHolder.actorImage)
+        viewHolder.actorImage.loadImage("https://ca-times.brightspotcdn.com/dims4/default/f4e021e/2147483647/strip/true/crop/3000x2251+0+0/resize/840x630!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3f%2Fa0%2F27ad67f17d56801f88f223048a4c%2F270ece9466a946488bf8149e39598616")
     }
 }

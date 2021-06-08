@@ -5,6 +5,7 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_with_text.*
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.ExtensionMethods.loadImage
 import ru.androidschool.intensiv.data.Movie
 
 class MoviePreviewItem(
@@ -18,9 +19,8 @@ class MoviePreviewItem(
         viewHolder.image_preview.setOnClickListener {
             onClick.invoke(content)
         }
+
         // TODO Получать из модели
-        Picasso.get()
-            .load("https://www.kinopoisk.ru/images/film_big/1143242.jpg")
-            .into(viewHolder.image_preview)
+        viewHolder.image_preview.loadImage("https://www.kinopoisk.ru/images/film_big/1143242.jpg")
     }
 }
