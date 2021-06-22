@@ -21,7 +21,6 @@ class MovieItem(
             onClick.invoke(content)
         }
 
-        // TODO Получать из модели
-        viewHolder.image_preview.loadImage("https://m.media-amazon.com/images/M/MV5BYTk3MDljOWQtNGI2My00OTEzLTlhYjQtOTQ4ODM2MzUwY2IwXkEyXkFqcGdeQXVyNTIzOTk5ODM@._V1_.jpg")
+        viewHolder.image_preview.loadImage("https://www.themoviedb.org/t/p/w220_and_h330_face/" + content.posterPath)
     }
 }

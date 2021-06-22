@@ -1,4 +1,4 @@
-# Built application files
+ Built application files
 *.apk
 *.aar
 *.ap_
@@ -87,3 +87,5 @@ lint/tmp/
 # Android Profiling
 *.hprof
 keystore.properties
+/app/src/main/java/ru/androidschool/intensiv/Exploit.kt
+/app/src/main/java/ru/androidschool/intensiv/ui/Exploit.kt

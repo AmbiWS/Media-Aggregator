@@ -10,7 +10,9 @@ import com.google.android.material.bottomnavigation.BottomNavigationView
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import ru.androidschool.intensiv.MovieFinderApp.Companion.API_KEY
 import ru.androidschool.intensiv.data.Movie
+import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import timber.log.Timber
 
@@ -28,17 +30,8 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavMenu(navController)
 
-        val nowPlayingMovies = TheMovieDBClient.apiClient.getNowPlayingMovies(API_KEY)
-
-        nowPlayingMovies.enqueue(object : Callback<Movie> {
-            override fun onFailure(call: Call<Movie>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<Movie>, response: Response<Movie>) {
-                Timber.d(response.body().toString())
-            }
-        })
+        // Logging
+        //nowPlayingMoviesResponse()
 
     }
 
@@ -47,7 +40,21 @@ class MainActivity : AppCompatActivity() {
         bottomNav?.setupWithNavController(navController)
     }
 
-    companion object {
-        private const val API_KEY = BuildConfig.THE_MOVIE_DATABASE_API
+    private fun nowPlayingMoviesResponse() {
+
+        Timber.d("Now Playing Movies")
+
+        val nowPlayingMovies = TheMovieDBClient.apiClient.getNowPlayingMovies(API_KEY, "ru", 2)
+
+        nowPlayingMovies.enqueue(object : Callback<MovieResponse> {
+            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+                Timber.e(t.toString())
+            }
+
+            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+                Timber.d(response.body()?.movies.toString())
+            }
+        })
+
     }
 }
