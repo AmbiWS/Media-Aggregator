@@ -53,97 +53,14 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         adapter.clear()
 
         // Now Playing, Second Page
-        val nowPlayingMovies = TheMovieDBClient.apiClient.getNowPlayingMovies(MovieFinderApp.API_KEY, "ru", 2)
-
-        nowPlayingMovies.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                Timber.d(response.body()?.movies.toString())
-
-                if (response.code() == 200) {
-
-                    val playingNowMoviesList = listOf(
-                        MainCardContainer(
-                            R.string.upcoming,
-                            response.body()!!.movies.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-
-                    adapter.apply { addAll(playingNowMoviesList) }
-                }
-            }
-        })
+        createCardContainer(R.string.upcoming, TheMovieDBClient.apiClient.getNowPlayingMovies(MovieFinderApp.API_KEY, "ru", 2))
 
         // Top Rated
-        val topRatedMovies = TheMovieDBClient.apiClient.getTopRatedMovies(MovieFinderApp.API_KEY, "ru")
-
-        topRatedMovies.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                Timber.d(response.body()?.movies.toString())
-
-                if (response.code() == 200) {
-
-                    val topRatedMoviesList = listOf(
-                        MainCardContainer(
-                            R.string.top_rated,
-                            response.body()!!.movies.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-
-                    adapter.apply { addAll(topRatedMoviesList) }
-                }
-            }
-        })
+        createCardContainer(R.string.top_rated, TheMovieDBClient.apiClient.getTopRatedMovies(MovieFinderApp.API_KEY, "ru", 1))
 
         // Popular
-        val popularMovies = TheMovieDBClient.apiClient.getPopularMovies(MovieFinderApp.API_KEY, "ru")
+        createCardContainer(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(MovieFinderApp.API_KEY, "ru", 1))
 
-        popularMovies.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                Timber.d(response.body()?.movies.toString())
-
-                if (response.code() == 200) {
-
-                    val popularMoviesList = listOf(
-                        MainCardContainer(
-                            R.string.popular,
-                            response.body()!!.movies.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }.toList()
-                        )
-                    )
-
-                    adapter.apply { addAll(popularMoviesList) }
-                }
-            }
-        })
     }
 
     private fun openMovieDetails(movie: Movie) {
@@ -167,12 +84,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
-    // TODO: find better way, if exists
-    private inline fun <reified T> createCardContainer(titleAsResource: Int, call: Call<T>, dataClass: Class<Any>) {
+    private fun createCardContainer(titleAsResource: Int, call: Call<MovieResponse>) {
 
-        val nowPlayingMovies = TheMovieDBClient.apiClient.getNowPlayingMovies(MovieFinderApp.API_KEY, "ru", 2)
-
-        nowPlayingMovies.enqueue(object : Callback<MovieResponse> {
+        call.enqueue(object : Callback<MovieResponse> {
             override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
                 Timber.e(t.toString())
             }
@@ -182,9 +96,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
                 if (response.code() == 200) {
 
-                    val playingNowMoviesList = listOf(
+                    val moviesList = listOf(
                         MainCardContainer(
-                            R.string.upcoming,
+                            titleAsResource,
                             response.body()!!.movies.map {
                                 MovieItem(it) { movie ->
                                     openMovieDetails(
@@ -195,7 +109,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                         )
                     )
 
-                    adapter.apply { addAll(playingNowMoviesList) }
+                    adapter.apply { addAll(moviesList) }
                 }
             }
         })
@@ -206,6 +120,5 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val MIN_LENGTH = 3
         const val KEY_TITLE = "title"
         const val KEY_SEARCH = "search"
-        const val TAG = "FeedFragment"
     }
 }
