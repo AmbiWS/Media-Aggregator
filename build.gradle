@@ -46,8 +46,9 @@ ext {
     junitVersion = '4.13.2'
     espressoVersion = '3.4.0-beta01'
     timberVersion = '4.7.1'
+    ktLintVersion = '0.36.0'
 
     groupieVersion = '2.8.0'
     retrofitVersion = '2.9.0'
-    ktLintVersion = '0.36.0'
+    converterGson = '2.9.0'
 }
