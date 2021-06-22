@@ -12,7 +12,5 @@ data class MovieResponse(
     @SerializedName("total_pages")
     var totalPages: Int = 0,
     @SerializedName("total_results")
-    var totalResults: Int = 0,
-    @SerializedName("id")
-    var id: Int = 0
+    var totalResults: Int = 0
 )

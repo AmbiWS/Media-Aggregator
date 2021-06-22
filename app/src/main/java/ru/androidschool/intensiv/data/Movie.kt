@@ -8,7 +8,9 @@ data class Movie(
     @SerializedName("vote_average")
     var voteAverage: Double = 0.0,
     @SerializedName("poster_path")
-    var posterPath: String? = ""
+    var posterPath: String? = "",
+    @SerializedName("id")
+    var id: Int = 0
 ) {
     val rating: Float
         get() = voteAverage.div(2).toFloat()
