@@ -21,7 +21,6 @@ class TvShowsItem(
             onClick.invoke(content)
         }
 
-        // TODO Получать из модели
-        viewHolder.image_tv_shows.loadImage("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
+        viewHolder.image_tv_shows.loadImage("https://www.themoviedb.org/t/p/w220_and_h330_face/" + content.posterPath)
     }
 }

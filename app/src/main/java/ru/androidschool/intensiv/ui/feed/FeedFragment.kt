@@ -1,7 +1,6 @@
 package ru.androidschool.intensiv.ui.feed
 
 import android.os.Bundle
-import android.util.Log
 import android.view.*
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -48,7 +47,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
         }
 
-        // TODO: Disappearing rating of movies in second card container
+        // TODO: Fix disappearing rating of movies in second card container
         movies_recycler_view.adapter = adapter.apply { }
         adapter.clear()
 
@@ -92,14 +91,14 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             }
 
             override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                Timber.d(response.body()?.movies.toString())
+                Timber.d(response.body()?.contentList.toString())
 
                 if (response.code() == 200) {
 
                     val moviesList = listOf(
                         MainCardContainer(
                             titleAsResource,
-                            response.body()!!.movies.map {
+                            response.body()!!.contentList.map {
                                 MovieItem(it) { movie ->
                                     openMovieDetails(
                                         movie

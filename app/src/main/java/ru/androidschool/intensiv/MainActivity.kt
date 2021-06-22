@@ -30,31 +30,10 @@ class MainActivity : AppCompatActivity() {
 
         setupBottomNavMenu(navController)
 
-        // Logging
-        //nowPlayingMoviesResponse()
-
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
         val bottomNav = findViewById<BottomNavigationView>(R.id.bottom_nav_view)
         bottomNav?.setupWithNavController(navController)
-    }
-
-    private fun nowPlayingMoviesResponse() {
-
-        Timber.d("Now Playing Movies")
-
-        val nowPlayingMovies = TheMovieDBClient.apiClient.getNowPlayingMovies(API_KEY, "ru", 2)
-
-        nowPlayingMovies.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
-                Timber.d(response.body()?.movies.toString())
-            }
-        })
-
     }
 }
