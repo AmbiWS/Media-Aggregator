@@ -80,4 +80,7 @@ dependencies {
 
     // Layouts
     implementation "androidx.gridlayout:gridlayout:$rootProject.gridlayoutVersion"
+
+    // Web
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
 }
