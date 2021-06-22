@@ -6,7 +6,7 @@ import ru.androidschool.intensiv.data.Movie
 
 interface RetrofitServices {
 
-    @GET("results")
+    @GET("movie/now_playing")
     fun getNowPlayingMovies(): Call<MutableList<Movie>>
 
 }
