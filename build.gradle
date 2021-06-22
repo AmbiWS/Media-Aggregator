@@ -50,5 +50,7 @@ ext {
 
     groupieVersion = '2.8.0'
     retrofitVersion = '2.9.0'
-    converterGson = '2.9.0'
+    converterGsonVersion = '2.9.0'
+    httpLoggingInterceptorVersion = '4.9.1'
+
 }
