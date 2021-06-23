@@ -58,7 +58,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
         // Popular
         createCardContainer(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(MovieFinderApp.API_KEY, "ru", 1))
-
     }
 
     private fun openMovieDetails(movie: Movie) {
@@ -113,7 +112,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 }
             }
         })
-
     }
 
     companion object {

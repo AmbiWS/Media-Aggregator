@@ -40,7 +40,6 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         /*if (isFavoriteMovie) {
             checkboxFavoriteMovie.isChecked = true
         }*/
-
     }
 
     private fun getMovieCredits(call: Call<MovieCredits>) {
@@ -63,13 +62,10 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                         }?.toList()
 
                     actors_recycleView.adapter = adapter.apply { actorsList?.let { addAll(it) } }
-
                 }
             }
         })
-
     }
-
 
     private fun getMovieDetails(call: Call<MovieDetails>) {
 
@@ -89,10 +85,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                     textViewProduction.text = response.body()!!.productionList[0].name
                     textViewGenre.text = response.body()!!.genre[0].name.capitalize()
                     textViewYear.text = response.body()!!.date.substring(0, 4)
-
                 }
             }
         })
-
     }
 }

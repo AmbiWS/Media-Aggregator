@@ -31,7 +31,6 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         adapter.clear()
 
         getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(MovieFinderApp.API_KEY, "ru", 1))
-
     }
 
     private fun getTvShows(call: Call<TvShowsResponse>) {

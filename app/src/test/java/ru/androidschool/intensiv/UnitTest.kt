@@ -6,6 +6,4 @@ package ru.androidschool.intensiv
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 
-class UnitTest {
-
-}
+class UnitTest
