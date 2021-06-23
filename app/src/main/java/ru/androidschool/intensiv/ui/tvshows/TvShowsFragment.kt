@@ -50,7 +50,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
                         response.body()!!.contentList.map {
                             TvShowsItem(
                                 it
-                            ) { tvShow -> }
+                            ) { }
                         }.toList()
 
                     adapter.apply { addAll(tvShowsList) }

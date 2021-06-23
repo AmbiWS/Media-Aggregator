@@ -16,7 +16,6 @@ import ru.androidschool.intensiv.data.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import timber.log.Timber
-import java.util.*
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
@@ -87,8 +86,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                     textDetailsTitle.text = response.body()!!.title
                     movie_details_rating.rating = response.body()!!.rating
                     textViewAboutMovie.text = response.body()!!.aboutMovie
-                    textViewProduction.text = response.body()!!.productionList.get(0).name
-                    textViewGenre.text = response.body()!!.genre.get(0).name.capitalize()
+                    textViewProduction.text = response.body()!!.productionList[0].name
+                    textViewGenre.text = response.body()!!.genre[0].name.capitalize()
                     textViewYear.text = response.body()!!.date.substring(0, 4)
 
                 }

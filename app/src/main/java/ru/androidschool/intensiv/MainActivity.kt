@@ -7,14 +7,6 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
-import ru.androidschool.intensiv.MovieFinderApp.Companion.API_KEY
-import ru.androidschool.intensiv.data.Movie
-import ru.androidschool.intensiv.data.MovieResponse
-import ru.androidschool.intensiv.retrofit.TheMovieDBClient
-import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -29,7 +21,6 @@ class MainActivity : AppCompatActivity() {
         val navController = host.navController
 
         setupBottomNavMenu(navController)
-
     }
 
     private fun setupBottomNavMenu(navController: NavController) {
