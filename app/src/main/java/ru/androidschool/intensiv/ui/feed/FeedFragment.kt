@@ -15,7 +15,6 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MockRepository
 import ru.androidschool.intensiv.data.Movie
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
@@ -64,7 +63,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     private fun openMovieDetails(movie: Movie) {
         val bundle = Bundle()
-        bundle.putInt(KEY_TITLE, movie.id)
+        Timber.d("MOVIE ID: %s", movie.id)
+        bundle.putInt(KEY_ID, movie.id)
+        bundle.putString(KEY_POSTER_PATH, "https://www.themoviedb.org/t/p/w220_and_h330_face/" + movie.posterPath)
         findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }
 
@@ -117,7 +118,8 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     companion object {
         const val MIN_LENGTH = 3
-        const val KEY_TITLE = "id"
+        const val KEY_ID = "id"
+        const val KEY_POSTER_PATH = "poster"
         const val KEY_SEARCH = "search"
     }
 }

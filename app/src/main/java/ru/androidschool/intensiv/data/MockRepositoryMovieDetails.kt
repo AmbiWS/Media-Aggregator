@@ -14,7 +14,7 @@ object MockRepositoryMovieDetails {
 
         return actorsList
     }
-
+/*
     fun getDetails(): MovieDetails {
 
         return MovieDetails(
@@ -27,5 +27,5 @@ object MockRepositoryMovieDetails {
             genre = "Drama",
             year = 2020
         )
-    }
+    }*/
 }

@@ -9,5 +9,4 @@ data class Actor(
     var id: Int = 0,
     @SerializedName("profile_path")
     var photoPath: String? = ""
-    // https://www.themoviedb.org/t/p/w138_and_h175_face/
 )

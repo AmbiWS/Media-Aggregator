@@ -6,19 +6,14 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MockRepository
-import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.data.TvShowsResponse
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
-import ru.androidschool.intensiv.ui.feed.MainCardContainer
-import ru.androidschool.intensiv.ui.feed.MovieItem
 import timber.log.Timber
 
 class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
@@ -36,6 +31,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         adapter.clear()
 
         getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(MovieFinderApp.API_KEY, "ru", 1))
+
     }
 
     private fun getTvShows(call: Call<TvShowsResponse>) {

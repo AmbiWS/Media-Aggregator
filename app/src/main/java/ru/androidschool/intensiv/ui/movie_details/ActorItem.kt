@@ -20,7 +20,6 @@ class ActorItem(
             onClick.invoke(content)
         }
 
-        // TODO Получать из модели
-        viewHolder.actorImage.loadImage("https://ca-times.brightspotcdn.com/dims4/default/f4e021e/2147483647/strip/true/crop/3000x2251+0+0/resize/840x630!/quality/90/?url=https%3A%2F%2Fcalifornia-times-brightspot.s3.amazonaws.com%2F3f%2Fa0%2F27ad67f17d56801f88f223048a4c%2F270ece9466a946488bf8149e39598616")
+        viewHolder.actorImage.loadImage("https://www.themoviedb.org/t/p/w138_and_h175_face/" + content.photoPath)
     }
 }
