@@ -23,5 +23,7 @@ class MovieFinderApp : Application() {
     companion object {
         var instance: MovieFinderApp? = null
             private set
+
+        const val LANGUAGE = "ru"
     }
 }

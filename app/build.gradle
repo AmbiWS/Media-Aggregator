@@ -20,9 +20,20 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         buildConfigField 'String', 'THE_MOVIE_DATABASE_API', keystoreProperties['THE_MOVIE_DATABASE_API']
+        buildConfigField 'String', 'POSTER_PATH', "\"https://www.themoviedb.org/t/p/w220_and_h330_face/\""
+        buildConfigField 'String', 'PHOTO_PATH', "\"https://www.themoviedb.org/t/p/w138_and_h175_face/\""
     }
+
     buildTypes {
+        debug {
+            buildConfigField "String", 'BASE_URL', "\"https://api.themoviedb.org/3/\""
+        }
+        staging {
+            buildConfigField "String", 'BASE_URL', "\"https://api.themoviedb.org/3/\""
+        }
         release {
+            buildConfigField "String", 'BASE_URL', "\"https://api.themoviedb.org/3/\""
+
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -80,4 +91,9 @@ dependencies {
 
     // Layouts
     implementation "androidx.gridlayout:gridlayout:$rootProject.gridlayoutVersion"
+
+    // Network
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
+    implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
+    implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.httpLoggingInterceptorVersion"
 }

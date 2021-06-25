@@ -5,6 +5,7 @@
 
     <string name="main_title">Что будете смотреть\nсегодня?</string>
     <string name="recommended">Рекомендуем</string>
+    <string name="top_rated">Высокий рейтинг</string>
     <string name="popular">Популярные</string>
     <string name="upcoming">Новинки</string>
 
@@ -37,4 +38,8 @@
     <string name="drama">Drama</string>
     <string name="_2020">2020</string>
     <string name="year">Год</string>
+    <string name="playing_now">В прокате</string>
+    <string name="genre_missing">Жанр отсутствует</string>
+    <string name="production_missing">Студия отсутствует</string>
+    <string name="year_missing">Год отсутствует</string>
 </resources>

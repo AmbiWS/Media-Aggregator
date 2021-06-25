@@ -8,11 +8,12 @@
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/detailsImagePoster"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/movie_details_img_height"
         android:scaleType="centerCrop"
-        android:src="@drawable/qg_poster"
+        android:src="@drawable/no_poster"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

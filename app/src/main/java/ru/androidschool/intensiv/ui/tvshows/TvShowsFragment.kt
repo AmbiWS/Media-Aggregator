@@ -7,8 +7,13 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MockRepository
+import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import timber.log.Timber
 
 class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
@@ -21,13 +26,36 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
         tvshows_recycler_view.layoutManager = LinearLayoutManager(context)
 
-        val tvShowsList =
-            MockRepository.getTvShows().map {
-                TvShowsItem(
-                    it
-                ) { tvShow -> }
-            }.toList()
+        tvshows_recycler_view.adapter = adapter.apply { }
+        adapter.clear()
 
-        tvshows_recycler_view.adapter = adapter.apply { addAll(tvShowsList) }
+        getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(1))
+    }
+
+    private fun getTvShows(call: Call<MovieDBResponse>) {
+
+        call.enqueue(object : Callback<MovieDBResponse> {
+            override fun onFailure(call: Call<MovieDBResponse>, t: Throwable) {
+                Timber.e(t.toString())
+            }
+
+            override fun onResponse(call: Call<MovieDBResponse>, response: Response<MovieDBResponse>) {
+                Timber.d(response.body()?.contentList.toString())
+
+                if (response.isSuccessful) {
+
+                    val tvShowsList =
+                        response.body()?.let {
+                            response.body()?.contentList?.map {
+                                TvShowsItem(
+                                    it
+                                ) { }
+                            }
+                        }?.toList()
+
+                    adapter.apply { tvShowsList?.let { addAll(it) } }
+                }
+            }
+        })
     }
 }

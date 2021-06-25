@@ -3,13 +3,14 @@ package ru.androidschool.intensiv.ui.tvshows
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_tv_shows.*
+import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.TvShow
+import ru.androidschool.intensiv.data.MovieDBContent
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 
 class TvShowsItem(
-    private val content: TvShow,
-    private val onClick: (tvShow: TvShow) -> Unit
+    private val content: MovieDBContent,
+    private val onClick: (tvShow: MovieDBContent) -> Unit
 ) : Item() {
 
     override fun getLayout() = R.layout.item_tv_shows
@@ -21,7 +22,6 @@ class TvShowsItem(
             onClick.invoke(content)
         }
 
-        // TODO Получать из модели
-        viewHolder.image_tv_shows.loadImage("https://assets.vogue.in/photos/5fb498ce49cee77f06f7e19f/16:9/w_2400,h_1350,c_limit/The-Queens-Gambit-vogue-171120-courtesy-Netflix-4.jpg")
+        viewHolder.image_tv_shows.loadImage(BuildConfig.POSTER_PATH + content.posterPath)
     }
 }
