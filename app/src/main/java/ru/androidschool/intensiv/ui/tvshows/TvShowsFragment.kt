@@ -12,7 +12,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.TvShowsResponse
+import ru.androidschool.intensiv.data.MovieDBResponse
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import timber.log.Timber
 
@@ -33,14 +33,14 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(MovieFinderApp.API_KEY, "ru", 1))
     }
 
-    private fun getTvShows(call: Call<TvShowsResponse>) {
+    private fun getTvShows(call: Call<MovieDBResponse>) {
 
-        call.enqueue(object : Callback<TvShowsResponse> {
-            override fun onFailure(call: Call<TvShowsResponse>, t: Throwable) {
+        call.enqueue(object : Callback<MovieDBResponse> {
+            override fun onFailure(call: Call<MovieDBResponse>, t: Throwable) {
                 Timber.e(t.toString())
             }
 
-            override fun onResponse(call: Call<TvShowsResponse>, response: Response<TvShowsResponse>) {
+            override fun onResponse(call: Call<MovieDBResponse>, response: Response<MovieDBResponse>) {
                 Timber.d(response.body()?.contentList.toString())
 
                 if (response.code() == 200) {

@@ -2,11 +2,11 @@ package ru.androidschool.intensiv.data
 
 object MockRepository {
 
-    fun getMovies(): List<Movie> {
+    fun getMovies(): List<MovieDBContent> {
 
-        val moviesList = mutableListOf<Movie>()
+        val moviesList = mutableListOf<MovieDBContent>()
         for (x in 0..10) {
-            val movie = Movie(
+            val movie = MovieDBContent(
                 title = "Spider-Man $x",
                 voteAverage = 10.0 - x
             )

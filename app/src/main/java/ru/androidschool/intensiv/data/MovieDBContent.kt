@@ -2,8 +2,8 @@ package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
 
-data class Movie(
-    @SerializedName("title")
+data class MovieDBContent(
+    @SerializedName(value = "title", alternate = ["name"])
     var title: String = "",
     @SerializedName("vote_average")
     var voteAverage: Double = 0.0,

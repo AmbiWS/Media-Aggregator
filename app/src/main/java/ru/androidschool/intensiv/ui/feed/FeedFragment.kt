@@ -15,8 +15,8 @@ import retrofit2.Callback
 import retrofit2.Response
 import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.Movie
-import ru.androidschool.intensiv.data.MovieResponse
+import ru.androidschool.intensiv.data.MovieDBContent
+import ru.androidschool.intensiv.data.MovieDBResponse
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
@@ -60,7 +60,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         createCardContainer(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(MovieFinderApp.API_KEY, "ru", 1))
     }
 
-    private fun openMovieDetails(movie: Movie) {
+    private fun openMovieDetails(movie: MovieDBContent) {
         val bundle = Bundle()
         Timber.d("MOVIE ID: %s", movie.id)
         bundle.putInt(KEY_ID, movie.id)
@@ -83,14 +83,14 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
-    private fun createCardContainer(titleAsResource: Int, call: Call<MovieResponse>) {
+    private fun createCardContainer(titleAsResource: Int, call: Call<MovieDBResponse>) {
 
-        call.enqueue(object : Callback<MovieResponse> {
-            override fun onFailure(call: Call<MovieResponse>, t: Throwable) {
+        call.enqueue(object : Callback<MovieDBResponse> {
+            override fun onFailure(call: Call<MovieDBResponse>, t: Throwable) {
                 Timber.e(t.toString())
             }
 
-            override fun onResponse(call: Call<MovieResponse>, response: Response<MovieResponse>) {
+            override fun onResponse(call: Call<MovieDBResponse>, response: Response<MovieDBResponse>) {
                 Timber.d(response.body()?.contentList.toString())
 
                 if (response.code() == 200) {
