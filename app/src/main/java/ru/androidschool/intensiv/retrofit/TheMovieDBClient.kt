@@ -1,5 +1,6 @@
 package ru.androidschool.intensiv.retrofit
 
+import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -17,6 +18,17 @@ object TheMovieDBClient {
                 this.level = HttpLoggingInterceptor.Level.BODY
             }
         })
+        .addInterceptor { chain ->
+            val url = chain
+                .request()
+                .url
+                .newBuilder()
+                .addQueryParameter("api_key", BuildConfig.THE_MOVIE_DATABASE_API)
+                .addQueryParameter("language", "ru")
+                .build()
+
+            chain.proceed(chain.request().newBuilder().url(url).build())
+        }
         .build()
 
     val apiClient: TheMovieDBApi by lazy {

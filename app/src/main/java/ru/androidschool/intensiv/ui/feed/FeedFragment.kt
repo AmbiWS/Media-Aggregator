@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.search_toolbar.view.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBContent
 import ru.androidschool.intensiv.data.MovieDBResponse
@@ -51,13 +50,13 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         adapter.clear()
 
         // Now Playing, Second Page
-        createCardContainer(R.string.upcoming, TheMovieDBClient.apiClient.getNowPlayingMovies(MovieFinderApp.API_KEY, "ru", 2))
+        createCardContainer(R.string.upcoming, TheMovieDBClient.apiClient.getNowPlayingMovies(2))
 
         // Top Rated
-        createCardContainer(R.string.top_rated, TheMovieDBClient.apiClient.getTopRatedMovies(MovieFinderApp.API_KEY, "ru", 1))
+        createCardContainer(R.string.top_rated, TheMovieDBClient.apiClient.getTopRatedMovies(1))
 
         // Popular
-        createCardContainer(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(MovieFinderApp.API_KEY, "ru", 1))
+        createCardContainer(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(1))
     }
 
     private fun openMovieDetails(movie: MovieDBContent) {

@@ -30,7 +30,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         tvshows_recycler_view.adapter = adapter.apply { }
         adapter.clear()
 
-        getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(MovieFinderApp.API_KEY, "ru", 1))
+        getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(1))
     }
 
     private fun getTvShows(call: Call<MovieDBResponse>) {

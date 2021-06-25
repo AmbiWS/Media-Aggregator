@@ -9,7 +9,6 @@ import kotlinx.android.synthetic.main.movie_details_fragment.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieCredits
 import ru.androidschool.intensiv.data.MovieDetails
@@ -33,8 +32,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
             detailsImagePoster.loadImage(posterPath)
         }
 
-        getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId, MovieFinderApp.API_KEY, "ru"))
-        getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId, MovieFinderApp.API_KEY, "ru"))
+        getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
+        getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
         // TODO: Get favorite movie boolean from db
         /*if (isFavoriteMovie) {
