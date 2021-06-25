@@ -43,7 +43,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
             override fun onResponse(call: Call<MovieDBResponse>, response: Response<MovieDBResponse>) {
                 Timber.d(response.body()?.contentList.toString())
 
-                if (response.code() == 200) {
+                if (response.isSuccessful) {
 
                     val tvShowsList =
                         response.body()!!.contentList.map {

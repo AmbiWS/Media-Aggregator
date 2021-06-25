@@ -92,7 +92,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             override fun onResponse(call: Call<MovieDBResponse>, response: Response<MovieDBResponse>) {
                 Timber.d(response.body()?.contentList.toString())
 
-                if (response.code() == 200) {
+                if (response.isSuccessful) {
 
                     val moviesList = listOf(
                         MainCardContainer(

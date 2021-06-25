@@ -51,7 +51,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
             override fun onResponse(call: Call<MovieCredits>, response: Response<MovieCredits>) {
                 Timber.d(response.body().toString())
 
-                if (response.code() == 200) {
+                if (response.isSuccessful) {
 
                     val actorsList =
                         response.body()!!.actorsList?.map {
@@ -76,7 +76,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
             override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
                 Timber.d(response.body().toString())
 
-                if (response.code() == 200) {
+                if (response.isSuccessful) {
 
                     textDetailsTitle.text = response.body()!!.title
                     movie_details_rating.rating = response.body()!!.rating
