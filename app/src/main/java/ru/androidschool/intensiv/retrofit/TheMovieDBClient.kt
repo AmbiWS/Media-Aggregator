@@ -13,7 +13,9 @@ object TheMovieDBClient {
 
     private var client: OkHttpClient = OkHttpClient.Builder()
         .addInterceptor(HttpLoggingInterceptor().apply {
-            this.level = HttpLoggingInterceptor.Level.BODY
+            if (BuildConfig.DEBUG) {
+                this.level = HttpLoggingInterceptor.Level.BODY
+            }
         })
         .build()
 
