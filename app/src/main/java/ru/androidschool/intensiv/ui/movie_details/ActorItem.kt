@@ -3,6 +3,7 @@ package ru.androidschool.intensiv.ui.movie_details
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_actor.*
+import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.Actor
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
@@ -20,6 +21,6 @@ class ActorItem(
             onClick.invoke(content)
         }
 
-        viewHolder.actorImage.loadImage("https://www.themoviedb.org/t/p/w138_and_h175_face/" + content.photoPath)
+        viewHolder.actorImage.loadImage(BuildConfig.PHOTO_PATH + content.photoPath)
     }
 }

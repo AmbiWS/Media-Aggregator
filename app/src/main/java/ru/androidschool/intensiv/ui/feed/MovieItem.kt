@@ -3,6 +3,7 @@ package ru.androidschool.intensiv.ui.feed
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_with_text.*
+import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBContent
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
@@ -21,6 +22,6 @@ class MovieItem(
             onClick.invoke(content)
         }
 
-        viewHolder.image_preview.loadImage("https://www.themoviedb.org/t/p/w220_and_h330_face/" + content.posterPath)
+        viewHolder.image_preview.loadImage(BuildConfig.POSTER_PATH + content.posterPath)
     }
 }
