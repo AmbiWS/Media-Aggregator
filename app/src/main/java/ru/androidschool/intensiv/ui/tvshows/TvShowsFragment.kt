@@ -10,7 +10,6 @@ import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBResponse
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
@@ -46,13 +45,15 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
                 if (response.isSuccessful) {
 
                     val tvShowsList =
-                        response.body()!!.contentList.map {
-                            TvShowsItem(
-                                it
-                            ) { }
-                        }.toList()
+                        response.body()?.let {
+                            response.body()?.contentList?.map {
+                                TvShowsItem(
+                                    it
+                                ) { }
+                            }
+                        }?.toList()
 
-                    adapter.apply { addAll(tvShowsList) }
+                    adapter.apply { tvShowsList?.let { addAll(it) } }
                 }
             }
         })

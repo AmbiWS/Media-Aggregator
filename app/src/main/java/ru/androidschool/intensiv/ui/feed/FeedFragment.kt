@@ -95,16 +95,20 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 if (response.isSuccessful) {
 
                     val moviesList = listOf(
-                        MainCardContainer(
-                            titleAsResource,
-                            response.body()!!.contentList.map {
+                        response.body()?.let {
+                            response.body()?.contentList?.map {
                                 MovieItem(it) { movie ->
                                     openMovieDetails(
                                         movie
                                     )
                                 }
-                            }.toList()
-                        )
+                            }
+                        }?.toList()?.let {
+                            MainCardContainer(
+                                titleAsResource,
+                                it
+                            )
+                        }
                     )
 
                     adapter.apply { addAll(moviesList) }

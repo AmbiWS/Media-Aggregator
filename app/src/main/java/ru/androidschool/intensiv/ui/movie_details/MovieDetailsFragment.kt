@@ -54,10 +54,11 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                 if (response.isSuccessful) {
 
                     val actorsList =
-                        response.body()!!.actorsList?.map {
+                        response.body()?.let { response.body()?.actorsList?.map {
                             ActorItem(
                                 it
                             ) { }
+                        }
                         }?.toList()
 
                     actors_recycleView.adapter = adapter.apply { actorsList?.let { addAll(it) } }
@@ -78,12 +79,12 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
                 if (response.isSuccessful) {
 
-                    textDetailsTitle.text = response.body()!!.title
-                    movie_details_rating.rating = response.body()!!.rating
-                    textViewAboutMovie.text = response.body()!!.aboutMovie
-                    textViewProduction.text = response.body()!!.productionList[0].name
-                    textViewGenre.text = response.body()!!.genre[0].name.capitalize()
-                    textViewYear.text = response.body()!!.date.substring(0, 4)
+                    textDetailsTitle.text = response.body()?.title
+                    movie_details_rating.rating = response.body()?.rating ?: 0.0F
+                    textViewAboutMovie.text = response.body()?.aboutMovie
+                    textViewProduction.text = response.body()?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
+                    textViewGenre.text = response.body()?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
+                    textViewYear.text = response.body()?.date?.substring(0, 4) ?: getString(R.string.year_missing)
                 }
             }
         })

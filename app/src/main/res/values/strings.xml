@@ -39,4 +39,7 @@
     <string name="_2020">2020</string>
     <string name="year">Год</string>
     <string name="playing_now">В прокате</string>
+    <string name="genre_missing">Жанр отсутствует</string>
+    <string name="production_missing">Студия отсутствует</string>
+    <string name="year_missing">Год отсутствует</string>
 </resources>
