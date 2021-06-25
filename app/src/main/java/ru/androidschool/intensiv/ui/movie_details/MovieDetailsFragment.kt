@@ -28,9 +28,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         val movieId: Int = arguments?.getInt("id") ?: 0
         val posterPath: String? = arguments?.getString("poster")
 
-        if (posterPath != null) {
-            detailsImagePoster.loadImage(posterPath)
-        }
+        posterPath?.let { detailsImagePoster.loadImage(it) }
 
         getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
         getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
