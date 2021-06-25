@@ -66,6 +66,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion"
+    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
 
     // Testing
     testImplementation "junit:junit:$junitVersion"
@@ -79,8 +80,6 @@ dependencies {
     // Picasso
     implementation "com.squareup.picasso:picasso:$rootProject.picassoVersion"
     implementation "jp.wasabeef:picasso-transformations:$rootProject.picassoTransformation"
-
-    implementation "androidx.recyclerview:recyclerview:$rootProject.recyclerViewVersion"
 
     // Groupie
     implementation "com.xwray:groupie:$rootProject.groupieVersion"
@@ -96,4 +95,9 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "com.squareup.retrofit2:converter-gson:$rootProject.converterGsonVersion"
     implementation "com.squareup.okhttp3:logging-interceptor:$rootProject.httpLoggingInterceptorVersion"
+
+    // Reactive programming
+    implementation "io.reactivex.rxjava3:rxandroid:$rootProject.rxAndroidVersion"
+    implementation "io.reactivex.rxjava3:rxjava:$rootProject.rxJavaVersion"
+
 }
