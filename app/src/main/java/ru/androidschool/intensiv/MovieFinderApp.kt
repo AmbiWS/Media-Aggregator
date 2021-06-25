@@ -24,6 +24,6 @@ class MovieFinderApp : Application() {
         var instance: MovieFinderApp? = null
             private set
 
-        const val API_KEY = BuildConfig.THE_MOVIE_DATABASE_API
+        const val LANGUAGE = "ru"
     }
 }

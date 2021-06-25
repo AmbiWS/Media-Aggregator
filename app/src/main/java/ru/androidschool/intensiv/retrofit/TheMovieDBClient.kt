@@ -6,6 +6,7 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.androidschool.intensiv.BuildConfig
+import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.services.TheMovieDBApi
 
 object TheMovieDBClient {
@@ -24,7 +25,7 @@ object TheMovieDBClient {
                 .url
                 .newBuilder()
                 .addQueryParameter("api_key", BuildConfig.THE_MOVIE_DATABASE_API)
-                .addQueryParameter("language", "ru")
+                .addQueryParameter("language", MovieFinderApp.LANGUAGE)
                 .build()
 
             chain.proceed(chain.request().newBuilder().url(url).build())
