@@ -30,8 +30,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         posterPath?.let { detailsImagePoster.loadImage(it) }
 
-        getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
-        getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
+        //getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
+        //getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
         // TODO: Get favorite movie boolean from db
         /*if (isFavoriteMovie) {
