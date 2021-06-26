@@ -44,47 +44,12 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
             .subscribe(
                 { i ->
                     i.toList().map {
-                        TvShowsItem(it) { }
-                    }.toList().let {
                         activity?.runOnUiThread {
-                            adapter.apply {
-                                add(
-                                    MainCardContainer(
-                                        titleAsResource,
-                                        it
-                                    )
-                                )
-                            }
+                            adapter.apply { add(TvShowsItem(it) {}) }
                         }
+
                     }
                 },
                 { e -> Timber.d("$e") })
     }
-
-    /*private fun getTvShows(call: Call<MovieDBResponse>) {
-
-        call.enqueue(object : Callback<MovieDBResponse> {
-            override fun onFailure(call: Call<MovieDBResponse>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieDBResponse>, response: Response<MovieDBResponse>) {
-                Timber.d(response.body()?.contentList.toString())
-
-                if (response.isSuccessful) {
-
-                    val tvShowsList =
-                        response.body()?.let {
-                            response.body()?.contentList?.map {
-                                TvShowsItem(
-                                    it
-                                ) { }
-                            }
-                        }?.toList()
-
-                    adapter.apply { tvShowsList?.let { addAll(it) } }
-                }
-            }
-        })
-    }*/
 }
