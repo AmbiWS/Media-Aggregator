@@ -12,6 +12,7 @@ import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
+import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBContent
 import ru.androidschool.intensiv.data.MovieDBResponse
@@ -64,7 +65,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         bundle.putInt(KEY_ID, movie.id)
         bundle.putString(
             KEY_POSTER_PATH,
-            "https://www.themoviedb.org/t/p/w220_and_h330_face/" + movie.posterPath
+            BuildConfig.POSTER_PATH + movie.posterPath
         )
         findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }
