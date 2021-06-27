@@ -88,7 +88,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                 override fun onComplete() {
                     Timber.d("onComplete")
                 }
-
             })
     }
 

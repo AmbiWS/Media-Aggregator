@@ -8,16 +8,11 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.movie_details_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieCredits
-import ru.androidschool.intensiv.data.MovieDBResponse
 import ru.androidschool.intensiv.data.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
-import ru.androidschool.intensiv.ui.tvshows.TvShowsItem
 import timber.log.Timber
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {

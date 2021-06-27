@@ -9,14 +9,9 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.Single
 import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBResponse
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
-import ru.androidschool.intensiv.ui.feed.MainCardContainer
-import ru.androidschool.intensiv.ui.feed.MovieItem
 import timber.log.Timber
 
 class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
@@ -47,7 +42,6 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
                         activity?.runOnUiThread {
                             adapter.apply { add(TvShowsItem(it) {}) }
                         }
-
                     }
                 },
                 { e -> Timber.d("$e") })
