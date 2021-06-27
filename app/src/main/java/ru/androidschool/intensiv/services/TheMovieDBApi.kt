@@ -26,4 +26,7 @@ interface TheMovieDBApi {
 
     @GET("movie/{movie_id}/credits")
     fun getMovieCredits(@Path("movie_id") id: Int): Single<MovieCredits>
+
+    @GET("search/movie")
+    fun getMovieByQuery(@Query("page") page: Int, @Query("query") query: String): Single<MovieDBResponse>
 }
