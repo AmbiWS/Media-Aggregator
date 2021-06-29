@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -18,10 +19,13 @@ import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBContent
 import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import ru.androidschool.intensiv.ui.LoadingImageView
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
+
 
 class FeedFragment : Fragment(R.layout.feed_fragment) {
 
@@ -44,8 +48,12 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         POPULAR(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(1))
     }
 
+    private lateinit var feedFragmentLoadingImageView: ImageView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        feedFragmentLoadingImageView = LoadingImageView.getLoadingImage(this.requireActivity())
 
         search_toolbar.search_edit_text.afterTextChanged {
             Timber.d(it.toString())
@@ -73,14 +81,16 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 listOf(nowPlayingResponse, topRatedResponse, popularResponse)
 
             }).subscribeAndObserveOnRetrofit()
+            .animateOnLoading(feedFragmentLoadingImageView)
             .subscribe { i -> linkFeedData(i) }
+
     }
 
     private fun linkFeedData(feed: List<MovieDBResponse>) {
 
         for (i in feed.indices) {
 
-            feed.get(i).contentList.map {
+            feed[i].contentList.map {
                 MovieItem(it) { movie ->
                     openMovieDetails(
                         movie

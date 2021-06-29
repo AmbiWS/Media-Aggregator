@@ -1,5 +1,7 @@
 package ru.androidschool.intensiv.retrofit
 
+import android.app.Activity
+import android.widget.ImageView
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -7,6 +9,7 @@ import retrofit2.adapter.rxjava3.RxJava3CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.MovieFinderApp
+import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.services.TheMovieDBApi
 
 object TheMovieDBClient {

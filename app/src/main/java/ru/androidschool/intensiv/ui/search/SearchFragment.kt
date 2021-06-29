@@ -1,13 +1,11 @@
 package ru.androidschool.intensiv.ui.search
 
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.View
+import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
@@ -18,8 +16,10 @@ import kotlinx.android.synthetic.main.search_toolbar.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBResponse
 import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
+import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import ru.androidschool.intensiv.ui.LoadingImageView
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -30,11 +30,15 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         GroupAdapter<GroupieViewHolder>()
     }
 
+    private lateinit var searchFragmentLoadingImageView: ImageView
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        searchFragmentLoadingImageView = LoadingImageView.getLoadingImage(this.requireActivity())
+
         val halfOfSecondMs: Long = 500
-        val minLettersInWord: Int = 3
+        val minLettersInWord = 3
 
         val source: PublishSubject<String> = PublishSubject.create()
 
@@ -85,10 +89,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     private fun findMovie(observable: Single<MovieDBResponse>) {
 
         observable.subscribeAndObserveOnRetrofit()
+            .animateOnLoading(searchFragmentLoadingImageView)
             .map(MovieDBResponse::contentList)
             .subscribe(
                 { i ->
                     i.toList().map {
+                        // TODO: remove runOnUiThread and fix CalledFromWrongThreadException
+                        activity?.runOnUiThread {
                             adapter.apply {
                                 add(
                                     SearchItem(
@@ -97,7 +104,8 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                                     )
                                 )
                             }
-                            Timber.d(it.title)
+                        }
+                        Timber.d(it.title)
                     }
                 },
                 { e -> Timber.d("$e") })
