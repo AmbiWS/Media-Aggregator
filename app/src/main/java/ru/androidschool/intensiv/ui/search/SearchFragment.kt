@@ -38,7 +38,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val source: PublishSubject<String> = PublishSubject.create()
 
-        val watcher: TextWatcher = search_edit_text.onChange {
+        search_edit_text.onChange {
             source.onNext(it)
         }
 
