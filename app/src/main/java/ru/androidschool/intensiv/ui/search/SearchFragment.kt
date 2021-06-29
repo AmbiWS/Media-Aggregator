@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.subjects.PublishSubject
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.fragment_search.movies_recycler_view
 import kotlinx.android.synthetic.main.search_toolbar.*
@@ -35,16 +36,11 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val halfOfSecondMs: Long = 500
         val minLettersInWord: Int = 3
 
-        val source = Observable.create(ObservableOnSubscribe<String> { emitter ->
+        val source: PublishSubject<String> = PublishSubject.create()
 
-            val watcher: TextWatcher = search_edit_text.onChange {
-                if (!emitter.isDisposed) {
-                    emitter.onNext(it)
-                }
-            }
-
-            emitter.setCancellable { search_edit_text.removeTextChangedListener(watcher) }
-        })
+        val watcher: TextWatcher = search_edit_text.onChange {
+            source.onNext(it)
+        }
 
         movies_recycler_view.adapter = adapter.apply { }
         adapter.clear()
@@ -52,7 +48,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val searchTerm = requireArguments().getString(KEY_SEARCH)
         search_toolbar.setText(searchTerm)
 
-        source?.debounce(halfOfSecondMs, TimeUnit.MILLISECONDS)
+        source.debounce(halfOfSecondMs, TimeUnit.MILLISECONDS)
             ?.map { x -> x.trim() }
             ?.filter { x -> x.length > minLettersInWord }
             ?.subscribe(object : Observer<String> {
