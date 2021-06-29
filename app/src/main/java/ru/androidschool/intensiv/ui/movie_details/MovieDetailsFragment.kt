@@ -71,7 +71,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                         textViewAboutMovie.text = i?.aboutMovie
                         textViewProduction.text = i?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
                         textViewGenre.text = i?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
-                        textViewYear.text = i?.date?.substring(0, 4) ?: getString(R.string.year_missing)
+                        textViewYear.text = if (i?.date?.length ?: 0 >= 4) i?.date?.substring(0, 4) else getString(R.string.year_missing)
                     }
                 },
                 { e -> Timber.d("$e") })
