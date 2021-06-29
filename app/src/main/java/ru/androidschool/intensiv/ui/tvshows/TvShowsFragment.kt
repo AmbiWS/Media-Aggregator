@@ -6,12 +6,11 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import timber.log.Timber
 
@@ -34,8 +33,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
     private fun getTvShows(observable: Single<MovieDBResponse>) {
 
-        observable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        observable.subscribeAndObserveOnRetrofit()
             .map(MovieDBResponse::contentList)
             .subscribe(
                 { i ->

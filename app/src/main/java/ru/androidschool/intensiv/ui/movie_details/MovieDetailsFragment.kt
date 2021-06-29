@@ -13,6 +13,7 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieCredits
 import ru.androidschool.intensiv.data.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import timber.log.Timber
 
@@ -61,8 +62,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private fun getMovieDetails(observable: Single<MovieDetails>) {
 
-        observable.subscribeOn(Schedulers.computation())
-            .observeOn(Schedulers.newThread())
+        observable.subscribeAndObserveOnRetrofit()
             .subscribe(
                 { i ->
                     textDetailsTitle.text = i.title
