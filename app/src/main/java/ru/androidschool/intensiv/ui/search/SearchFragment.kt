@@ -88,26 +88,27 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun findMovie(observable: Single<MovieDBResponse>) {
 
-        observable.subscribeAndObserveOnRetrofit()
-            .animateOnLoading(searchFragmentLoadingImageView)
-            .map(MovieDBResponse::contentList)
-            .subscribe(
-                { i ->
-                    i.toList().map {
-                        // TODO: remove runOnUiThread and fix CalledFromWrongThreadException
-                        activity?.runOnUiThread {
-                            adapter.apply {
-                                add(
-                                    SearchItem(
-                                        it.title +
-                                                " (" + it.rating + ")"
+        observable.subscribeAndObserveOnRetrofit().let {
+            // TODO: remove runOnUiThread and fix CalledFromWrongThreadException
+            activity?.runOnUiThread {
+                it.animateOnLoading(searchFragmentLoadingImageView)
+                    .map(MovieDBResponse::contentList)
+                    .subscribe(
+                        { i ->
+                            i.toList().map {
+                                adapter.apply {
+                                    add(
+                                        SearchItem(
+                                            it.title +
+                                                    " (" + it.rating + ")"
+                                        )
                                     )
-                                )
+                                }
+                                Timber.d(it.title)
                             }
-                        }
-                        Timber.d(it.title)
-                    }
-                },
-                { e -> Timber.d("$e") })
+                        },
+                        { e -> Timber.d("$e") })
+            }
+        }
     }
 }
