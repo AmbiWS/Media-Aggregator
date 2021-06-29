@@ -1,7 +1,6 @@
 package ru.androidschool.intensiv.ui.search
 
 import android.os.Bundle
-import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
 import androidx.fragment.app.Fragment
@@ -19,6 +18,7 @@ import kotlinx.android.synthetic.main.fragment_search.movies_recycler_view
 import kotlinx.android.synthetic.main.search_toolbar.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
 import timber.log.Timber
@@ -35,23 +35,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
         val source = Observable.create(ObservableOnSubscribe<String> { emitter ->
 
-            val watcher: TextWatcher = object : TextWatcher {
-                override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                }
-
-                override fun afterTextChanged(p0: Editable?) {
-                    if (!emitter.isDisposed) {
-                        emitter.onNext(p0.toString())
-                        Timber.d(p0.toString())
-                    }
+            val watcher: TextWatcher = search_edit_text.onChange {
+                if (!emitter.isDisposed) {
+                    emitter.onNext(it)
                 }
             }
 
             emitter.setCancellable { search_edit_text.removeTextChangedListener(watcher) }
-            search_edit_text.addTextChangedListener(watcher)
         })
 
         movies_recycler_view.adapter = adapter.apply { }
