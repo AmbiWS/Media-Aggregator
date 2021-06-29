@@ -99,6 +99,6 @@ dependencies {
     // Reactive programming
     implementation "io.reactivex.rxjava3:rxandroid:$rootProject.rxAndroidVersion"
     implementation "io.reactivex.rxjava3:rxjava:$rootProject.rxJavaVersion"
-    implementation "com.squareup.retrofit2:adapter-rxjava2:$rootProject.rxJavaAdapter"
+    implementation "com.squareup.retrofit2:adapter-rxjava3:$rootProject.rxJavaAdapter"
 
 }
