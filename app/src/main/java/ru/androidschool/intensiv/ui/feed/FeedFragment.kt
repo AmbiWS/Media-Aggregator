@@ -7,8 +7,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.Single
-import io.reactivex.schedulers.Schedulers
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
@@ -87,8 +88,8 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     private fun createCardContainer(titleAsResource: Int, observable: Single<MovieDBResponse>) {
 
-        observable.subscribeOn(Schedulers.computation())
-            .observeOn(Schedulers.newThread())
+        observable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .map(MovieDBResponse::contentList)
             .subscribe(
                 { i ->
