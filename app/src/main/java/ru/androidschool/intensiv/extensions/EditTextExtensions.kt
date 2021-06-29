@@ -9,7 +9,7 @@ object EditTextExtensions {
 
     fun EditText.onChange(string: (String) -> Unit): TextWatcher {
 
-        val watcher: TextWatcher = object: TextWatcher {
+        val watcher: TextWatcher = object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
                 string(p0.toString())
             }
