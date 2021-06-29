@@ -98,7 +98,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                             )
                         }
                     }.toList().let {
-                        activity?.runOnUiThread {
                             adapter.apply {
                                 add(
                                     MainCardContainer(
@@ -107,7 +106,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                                     )
                                 )
                             }
-                        }
                     }
                 },
                 { e -> Timber.d("$e") })
