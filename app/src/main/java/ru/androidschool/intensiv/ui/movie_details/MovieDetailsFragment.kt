@@ -5,14 +5,15 @@ import android.view.View
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.movie_details_fragment.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieCredits
 import ru.androidschool.intensiv.data.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import timber.log.Timber
 
@@ -30,6 +31,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         posterPath?.let { detailsImagePoster.loadImage(it) }
 
+        actors_recycleView.adapter = adapter.apply { }
+        adapter.clear()
         getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
         getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
@@ -39,52 +42,41 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         }*/
     }
 
-    private fun getMovieCredits(call: Call<MovieCredits>) {
+    private fun getMovieCredits(observable: Single<MovieCredits>) {
 
-        call.enqueue(object : Callback<MovieCredits> {
-            override fun onFailure(call: Call<MovieCredits>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieCredits>, response: Response<MovieCredits>) {
-                Timber.d(response.body().toString())
-
-                if (response.isSuccessful) {
-
-                    val actorsList =
-                        response.body()?.let { response.body()?.actorsList?.map {
-                            ActorItem(
-                                it
-                            ) { }
+        observable.subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .map(MovieCredits::actorsList)
+            .subscribe(
+                { i ->
+                    i?.let {
+                        i.toList().map {
+                            activity?.runOnUiThread {
+                                adapter.apply { add(ActorItem(it) {}) }
+                            }
                         }
-                        }?.toList()
-
-                    actors_recycleView.adapter = adapter.apply { actorsList?.let { addAll(it) } }
-                }
-            }
-        })
+                    }
+                },
+                { e -> Timber.d("$e") })
     }
 
-    private fun getMovieDetails(call: Call<MovieDetails>) {
+    private fun getMovieDetails(observable: Single<MovieDetails>) {
 
-        call.enqueue(object : Callback<MovieDetails> {
-            override fun onFailure(call: Call<MovieDetails>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieDetails>, response: Response<MovieDetails>) {
-                Timber.d(response.body().toString())
-
-                if (response.isSuccessful) {
-
-                    textDetailsTitle.text = response.body()?.title
-                    movie_details_rating.rating = response.body()?.rating ?: 0.0F
-                    textViewAboutMovie.text = response.body()?.aboutMovie
-                    textViewProduction.text = response.body()?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
-                    textViewGenre.text = response.body()?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
-                    textViewYear.text = response.body()?.date?.substring(0, 4) ?: getString(R.string.year_missing)
-                }
-            }
-        })
+        observable.subscribeAndObserveOnRetrofit()
+            .subscribe(
+                { i ->
+                    textDetailsTitle.text = i.title
+                    movie_details_rating.rating = i?.rating ?: 0.0F
+                    textViewAboutMovie.text = i?.aboutMovie
+                    textViewProduction.text =
+                        i?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
+                    textViewGenre.text =
+                        i?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
+                    textViewYear.text = if (i?.date?.length ?: 0 >= 4) i?.date?.substring(
+                        0,
+                        4
+                    ) else getString(R.string.year_missing)
+                },
+                { e -> Timber.d("$e") })
     }
 }

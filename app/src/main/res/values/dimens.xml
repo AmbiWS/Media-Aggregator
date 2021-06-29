@@ -45,6 +45,8 @@
     <dimen name="actor_padding_right">30dp</dimen>
 
     <dimen name="movie_details_additional_info_margin_left">10dp</dimen>
+    <dimen name="search_padding_height">10dp</dimen>
+    <dimen name="search_padding_width">15dp</dimen>
 
 
 

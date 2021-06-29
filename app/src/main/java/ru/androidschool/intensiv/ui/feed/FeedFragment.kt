@@ -7,15 +7,15 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
+import io.reactivex.rxjava3.core.Single
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBContent
 import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
@@ -63,7 +63,10 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         val bundle = Bundle()
         Timber.d("MOVIE ID: %s", movie.id)
         bundle.putInt(KEY_ID, movie.id)
-        bundle.putString(KEY_POSTER_PATH, "https://www.themoviedb.org/t/p/w220_and_h330_face/" + movie.posterPath)
+        bundle.putString(
+            KEY_POSTER_PATH,
+            BuildConfig.POSTER_PATH + movie.posterPath
+        )
         findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }
 
@@ -82,39 +85,32 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         inflater.inflate(R.menu.main_menu, menu)
     }
 
-    private fun createCardContainer(titleAsResource: Int, call: Call<MovieDBResponse>) {
+    private fun createCardContainer(titleAsResource: Int, observable: Single<MovieDBResponse>) {
 
-        call.enqueue(object : Callback<MovieDBResponse> {
-            override fun onFailure(call: Call<MovieDBResponse>, t: Throwable) {
-                Timber.e(t.toString())
-            }
-
-            override fun onResponse(call: Call<MovieDBResponse>, response: Response<MovieDBResponse>) {
-                Timber.d(response.body()?.contentList.toString())
-
-                if (response.isSuccessful) {
-
-                    val moviesList = listOf(
-                        response.body()?.let {
-                            response.body()?.contentList?.map {
-                                MovieItem(it) { movie ->
-                                    openMovieDetails(
-                                        movie
-                                    )
-                                }
-                            }
-                        }?.toList()?.let {
-                            MainCardContainer(
-                                titleAsResource,
-                                it
+        observable.subscribeAndObserveOnRetrofit()
+            .map(MovieDBResponse::contentList)
+            .subscribe(
+                { i ->
+                    i.toList().map {
+                        MovieItem(it) { movie ->
+                            openMovieDetails(
+                                movie
                             )
                         }
-                    )
-
-                    adapter.apply { addAll(moviesList) }
-                }
-            }
-        })
+                    }.toList().let {
+                        activity?.runOnUiThread {
+                            adapter.apply {
+                                add(
+                                    MainCardContainer(
+                                        titleAsResource,
+                                        it
+                                    )
+                                )
+                            }
+                        }
+                    }
+                },
+                { e -> Timber.d("$e") })
     }
 
     companion object {

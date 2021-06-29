@@ -53,4 +53,7 @@ ext {
     converterGsonVersion = '2.9.0'
     httpLoggingInterceptorVersion = '4.9.1'
 
+    rxJavaVersion = '3.0.0'
+    rxAndroidVersion = '3.0.0'
+    rxJavaAdapter = '2.9.0'
 }
