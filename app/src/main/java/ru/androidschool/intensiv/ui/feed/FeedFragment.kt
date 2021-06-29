@@ -58,9 +58,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         movies_recycler_view.adapter = adapter.apply { }
         adapter.clear()
 
-        val nowPlaying: Single<MovieDBResponse> = FeedContent.values()[0].single
-        val topRated: Single<MovieDBResponse> = FeedContent.values()[1].single
-        val popular: Single<MovieDBResponse> = FeedContent.values()[2].single
+        val nowPlaying: Single<MovieDBResponse> = FeedContent.NOW_PLAYING.single
+        val topRated: Single<MovieDBResponse> = FeedContent.TOP_RATED.single
+        val popular: Single<MovieDBResponse> = FeedContent.POPULAR.single
 
         Single.zip(
             nowPlaying,
