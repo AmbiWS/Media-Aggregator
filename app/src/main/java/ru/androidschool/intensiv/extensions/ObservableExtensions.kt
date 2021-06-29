@@ -19,7 +19,6 @@ object ObservableExtensions {
 
         imageView.setImageResource(R.drawable.loading)
         imageView.startAnimation(LoadingImageView.getRotateStyle())
-        return this.doOnTerminate{imageView.setImageDrawable(null)}
-
+        return this.doOnTerminate { imageView.setImageDrawable(null) }
     }
 }

@@ -23,6 +23,5 @@ object EditTextExtensions {
         }
 
         this.addTextChangedListener(watcher)
-
     }
 }

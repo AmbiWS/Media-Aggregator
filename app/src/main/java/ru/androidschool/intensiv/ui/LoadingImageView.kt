@@ -9,7 +9,7 @@ import ru.androidschool.intensiv.R
 
 object LoadingImageView {
 
-    private val params : ViewGroup.LayoutParams = ViewGroup.LayoutParams(
+    private val params: ViewGroup.LayoutParams = ViewGroup.LayoutParams(
         ViewGroup.LayoutParams.WRAP_CONTENT,
         ViewGroup.LayoutParams.WRAP_CONTENT
     )
@@ -31,7 +31,6 @@ object LoadingImageView {
         ) / 2))
 
         return imageView
-
     }
 
     fun getRotateStyle(): RotateAnimation {
@@ -46,6 +45,5 @@ object LoadingImageView {
         rotate.repeatCount = Animation.INFINITE
 
         return rotate
-
     }
 }

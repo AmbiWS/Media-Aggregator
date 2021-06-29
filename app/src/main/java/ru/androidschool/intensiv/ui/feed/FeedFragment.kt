@@ -26,7 +26,6 @@ import ru.androidschool.intensiv.ui.LoadingImageView
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
 
-
 class FeedFragment : Fragment(R.layout.feed_fragment) {
 
     private val adapter by lazy {
@@ -79,11 +78,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                                                                                                   popularResponse: MovieDBResponse ->
 
                 listOf(nowPlayingResponse, topRatedResponse, popularResponse)
-
             }).subscribeAndObserveOnRetrofit()
             .animateOnLoading(feedFragmentLoadingImageView)
             .subscribe { i -> linkFeedData(i) }
-
     }
 
     private fun linkFeedData(feed: List<MovieDBResponse>) {
