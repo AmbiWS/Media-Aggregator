@@ -33,6 +33,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val halfOfSecondMs: Long = 500
+        val minLettersInWord: Int = 3
+
         val source = Observable.create(ObservableOnSubscribe<String> { emitter ->
 
             val watcher: TextWatcher = search_edit_text.onChange {
@@ -50,10 +53,9 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val searchTerm = requireArguments().getString(KEY_SEARCH)
         search_toolbar.setText(searchTerm)
 
-        source?.debounce(500, TimeUnit.MILLISECONDS)
-            ?.skip(1)
+        source?.debounce(halfOfSecondMs, TimeUnit.MILLISECONDS)
             ?.map { x -> x.trim() }
-            ?.filter { x -> x.length > 3 }
+            ?.filter { x -> x.length > minLettersInWord }
             ?.subscribe(object : Observer<String> {
 
                 override fun onSubscribe(d: Disposable?) {
