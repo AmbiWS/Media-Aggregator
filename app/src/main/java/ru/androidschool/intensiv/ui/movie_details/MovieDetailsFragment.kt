@@ -65,14 +65,17 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
             .observeOn(Schedulers.newThread())
             .subscribe(
                 { i ->
-                    activity?.runOnUiThread {
-                        textDetailsTitle.text = i.title
-                        movie_details_rating.rating = i?.rating ?: 0.0F
-                        textViewAboutMovie.text = i?.aboutMovie
-                        textViewProduction.text = i?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
-                        textViewGenre.text = i?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
-                        textViewYear.text = if (i?.date?.length ?: 0 >= 4) i?.date?.substring(0, 4) else getString(R.string.year_missing)
-                    }
+                    textDetailsTitle.text = i.title
+                    movie_details_rating.rating = i?.rating ?: 0.0F
+                    textViewAboutMovie.text = i?.aboutMovie
+                    textViewProduction.text =
+                        i?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
+                    textViewGenre.text =
+                        i?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
+                    textViewYear.text = if (i?.date?.length ?: 0 >= 4) i?.date?.substring(
+                        0,
+                        4
+                    ) else getString(R.string.year_missing)
                 },
                 { e -> Timber.d("$e") })
     }

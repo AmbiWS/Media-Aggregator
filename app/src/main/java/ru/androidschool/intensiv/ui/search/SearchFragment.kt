@@ -95,7 +95,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             .subscribe(
                 { i ->
                     i.toList().map {
-                        activity?.runOnUiThread {
                             adapter.apply {
                                 add(
                                     SearchItem(
@@ -105,7 +104,6 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
                                 )
                             }
                             Timber.d(it.title)
-                        }
                     }
                 },
                 { e -> Timber.d("$e") })

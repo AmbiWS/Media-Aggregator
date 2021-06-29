@@ -40,9 +40,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
             .subscribe(
                 { i ->
                     i.toList().map {
-                        activity?.runOnUiThread {
-                            adapter.apply { add(TvShowsItem(it) {}) }
-                        }
+                        adapter.apply { add(TvShowsItem(it) {}) }
                     }
                 },
                 { e -> Timber.d("$e") })
