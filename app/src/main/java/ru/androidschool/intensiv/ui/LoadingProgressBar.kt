@@ -20,11 +20,12 @@ object LoadingProgressBar {
 
         val progressBar = ProgressBar(activity)
 
-        progressBar.indeterminateDrawable = ResourcesCompat.getDrawable(activity.resources, R.drawable.loading, null)
+        progressBar.isIndeterminate = true
+        progressBar.indeterminateDrawable = ResourcesCompat.getDrawable(activity.resources, R.drawable.rotating_loader, null)
         activity.addContentView(progressBar, params)
 
-        progressBar.scaleX = 0.5F
-        progressBar.scaleY = 0.5F
+        progressBar.scaleX = 0.8F
+        progressBar.scaleY = 0.8F
         progressBar.x = ((activity.windowManager.defaultDisplay.width.toFloat() / 2) - (activity.resources.getDimension(R.dimen.loading_img_size) / 2))
         progressBar.y = ((activity.windowManager.defaultDisplay.height.toFloat() / 2) - (activity.resources.getDimension(R.dimen.loading_img_size) / 2))
 
