@@ -1,9 +1,6 @@
 package ru.androidschool.intensiv.ui
 
 import android.view.ViewGroup
-import android.view.animation.Animation
-import android.view.animation.RotateAnimation
-import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.core.content.res.ResourcesCompat
 import androidx.fragment.app.FragmentActivity
@@ -31,5 +28,4 @@ object LoadingProgressBar {
 
         return progressBar
     }
-
 }

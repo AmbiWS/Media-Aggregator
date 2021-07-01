@@ -2,7 +2,6 @@ package ru.androidschool.intensiv.ui.search
 
 import android.os.Bundle
 import android.view.View
-import android.widget.ImageView
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
