@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieDBContent
+import ru.androidschool.intensiv.data.MovieContent
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
@@ -106,7 +106,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         }
     }
 
-    private fun openMovieDetails(movie: MovieDBContent) {
+    private fun openMovieDetails(movie: MovieContent) {
         val bundle = Bundle()
         Timber.d("MOVIE ID: %s", movie.id)
         bundle.putInt(KEY_ID, movie.id)
