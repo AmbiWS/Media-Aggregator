@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.fragment_search.movies_recycler_view
 import kotlinx.android.synthetic.main.search_toolbar.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
@@ -86,13 +86,13 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             })
     }
 
-    private fun findMovie(observable: Single<MovieDBResponse>) {
+    private fun findMovie(observable: Single<MovieResponse>) {
 
         observable.subscribeAndObserveOnRetrofit().let {
             // TODO: remove runOnUiThread and fix CalledFromWrongThreadException
             activity?.runOnUiThread {
                 it.animateOnLoading(searchFragmentLoadingImageView)
-                    .map(MovieDBResponse::contentList)
+                    .map(MovieResponse::contentList)
                     .subscribe(
                         { i ->
                             i.toList().map {

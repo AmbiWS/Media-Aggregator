@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.search_toolbar.view.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieDBContent
-import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
@@ -41,7 +41,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         }
     }
 
-    enum class FeedContent(val id: Int, val single: Single<MovieDBResponse>) {
+    enum class FeedContent(val id: Int, val single: Single<MovieResponse>) {
         NOW_PLAYING(R.string.upcoming, TheMovieDBClient.apiClient.getNowPlayingMovies(2)),
         TOP_RATED(R.string.top_rated, TheMovieDBClient.apiClient.getTopRatedMovies(1)),
         POPULAR(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(1))
@@ -65,17 +65,17 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         movies_recycler_view.adapter = adapter.apply { }
         adapter.clear()
 
-        val nowPlaying: Single<MovieDBResponse> = FeedContent.NOW_PLAYING.single
-        val topRated: Single<MovieDBResponse> = FeedContent.TOP_RATED.single
-        val popular: Single<MovieDBResponse> = FeedContent.POPULAR.single
+        val nowPlaying: Single<MovieResponse> = FeedContent.NOW_PLAYING.single
+        val topRated: Single<MovieResponse> = FeedContent.TOP_RATED.single
+        val popular: Single<MovieResponse> = FeedContent.POPULAR.single
 
         Single.zip(
             nowPlaying,
             topRated,
             popular,
-            Function3<MovieDBResponse, MovieDBResponse, MovieDBResponse, List<MovieDBResponse>> { nowPlayingResponse: MovieDBResponse,
-                                                                                                  topRatedResponse: MovieDBResponse,
-                                                                                                  popularResponse: MovieDBResponse ->
+            Function3<MovieResponse, MovieResponse, MovieResponse, List<MovieResponse>> { nowPlayingResponse: MovieResponse,
+                                                                                          topRatedResponse: MovieResponse,
+                                                                                          popularResponse: MovieResponse ->
 
                 listOf(nowPlayingResponse, topRatedResponse, popularResponse)
             }).subscribeAndObserveOnRetrofit()
@@ -83,7 +83,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             .subscribe { i -> linkFeedData(i) }
     }
 
-    private fun linkFeedData(feed: List<MovieDBResponse>) {
+    private fun linkFeedData(feed: List<MovieResponse>) {
 
         for (i in feed.indices) {
 

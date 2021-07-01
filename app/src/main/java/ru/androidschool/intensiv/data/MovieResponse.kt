@@ -2,7 +2,7 @@ package ru.androidschool.intensiv.data
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieDBResponse(
+data class MovieResponse(
     @SerializedName("page")
     var page: Int = 1,
     @SerializedName("results")

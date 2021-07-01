@@ -10,7 +10,7 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.rxjava3.core.Single
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
@@ -38,11 +38,11 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(1))
     }
 
-    private fun getTvShows(observable: Single<MovieDBResponse>) {
+    private fun getTvShows(observable: Single<MovieResponse>) {
 
         observable.subscribeAndObserveOnRetrofit()
             .animateOnLoading(tvShowsFragmentLoadingImageView)
-            .map(MovieDBResponse::contentList)
+            .map(MovieResponse::contentList)
             .subscribe(
                 { i ->
                     i.toList().map {
