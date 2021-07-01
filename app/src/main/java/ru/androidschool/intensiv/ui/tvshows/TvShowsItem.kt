@@ -5,12 +5,12 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_tv_shows.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieDBContent
+import ru.androidschool.intensiv.data.MovieContent
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 
 class TvShowsItem(
-    private val content: MovieDBContent,
-    private val onClick: (tvShow: MovieDBContent) -> Unit
+    private val content: MovieContent,
+    private val onClick: (tvShow: MovieContent) -> Unit
 ) : Item() {
 
     override fun getLayout() = R.layout.item_tv_shows

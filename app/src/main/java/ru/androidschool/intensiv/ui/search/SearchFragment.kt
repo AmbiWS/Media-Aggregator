@@ -1,24 +1,25 @@
 package ru.androidschool.intensiv.ui.search
 
 import android.os.Bundle
-import android.text.TextWatcher
 import android.view.View
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.core.Observable
-import io.reactivex.rxjava3.core.ObservableOnSubscribe
 import io.reactivex.rxjava3.core.Observer
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.Disposable
+import io.reactivex.rxjava3.subjects.PublishSubject
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.fragment_search.movies_recycler_view
 import kotlinx.android.synthetic.main.search_toolbar.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieDBResponse
+import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
+import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import ru.androidschool.intensiv.ui.LoadingProgressBar
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -29,22 +30,21 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         GroupAdapter<GroupieViewHolder>()
     }
 
+    private lateinit var searchFragmentLoadingImageView: ProgressBar
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        searchFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())
+
         val halfOfSecondMs: Long = 500
-        val minLettersInWord: Int = 3
+        val minLettersInWord = 3
 
-        val source = Observable.create(ObservableOnSubscribe<String> { emitter ->
+        val source: PublishSubject<String> = PublishSubject.create()
 
-            val watcher: TextWatcher = search_edit_text.onChange {
-                if (!emitter.isDisposed) {
-                    emitter.onNext(it)
-                }
-            }
-
-            emitter.setCancellable { search_edit_text.removeTextChangedListener(watcher) }
-        })
+        search_edit_text.onChange {
+            source.onNext(it)
+        }
 
         movies_recycler_view.adapter = adapter.apply { }
         adapter.clear()
@@ -52,7 +52,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         val searchTerm = requireArguments().getString(KEY_SEARCH)
         search_toolbar.setText(searchTerm)
 
-        source?.debounce(halfOfSecondMs, TimeUnit.MILLISECONDS)
+        source.debounce(halfOfSecondMs, TimeUnit.MILLISECONDS)
             ?.map { x -> x.trim() }
             ?.filter { x -> x.length > minLettersInWord }
             ?.subscribe(object : Observer<String> {
@@ -86,24 +86,29 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
             })
     }
 
-    private fun findMovie(observable: Single<MovieDBResponse>) {
+    private fun findMovie(observable: Single<MovieResponse>) {
 
-        observable.subscribeAndObserveOnRetrofit()
-            .map(MovieDBResponse::contentList)
-            .subscribe(
-                { i ->
-                    i.toList().map {
-                            adapter.apply {
-                                add(
-                                    SearchItem(
-                                        it.title +
-                                                " (" + it.rating + ")"
+        observable.subscribeAndObserveOnRetrofit().let {
+            // TODO: remove runOnUiThread and fix CalledFromWrongThreadException
+            activity?.runOnUiThread {
+                it.animateOnLoading(searchFragmentLoadingImageView)
+                    .map(MovieResponse::contentList)
+                    .subscribe(
+                        { i ->
+                            i.toList().map {
+                                adapter.apply {
+                                    add(
+                                        SearchItem(
+                                            it.title +
+                                                    " (" + it.rating + ")"
+                                        )
                                     )
-                                )
+                                }
+                                Timber.d(it.title)
                             }
-                            Timber.d(it.title)
-                    }
-                },
-                { e -> Timber.d("$e") })
+                        },
+                        { e -> Timber.d("$e") })
+            }
+        }
     }
 }

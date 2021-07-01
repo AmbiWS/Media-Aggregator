@@ -11,9 +11,9 @@ data class MovieDetails(
     @SerializedName("overview")
     var aboutMovie: String? = "",
     @SerializedName("production_companies")
-    var productionList: List<Production> = listOf<Production>(),
+    var productionList: List<Production> = listOf(),
     @SerializedName("genres")
-    var genre: List<Genre> = listOf<Genre>(),
+    var genre: List<Genre> = listOf(),
     @SerializedName("release_date")
     var date: String = ""
 ) {

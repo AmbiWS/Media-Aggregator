@@ -7,7 +7,7 @@ import timber.log.Timber
 
 object EditTextExtensions {
 
-    fun EditText.onChange(string: (String) -> Unit): TextWatcher {
+    fun EditText.onChange(string: (String) -> Unit) {
 
         val watcher: TextWatcher = object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
@@ -23,7 +23,5 @@ object EditTextExtensions {
         }
 
         this.addTextChangedListener(watcher)
-
-        return watcher
     }
 }

@@ -48,6 +48,8 @@
     <dimen name="search_padding_height">10dp</dimen>
     <dimen name="search_padding_width">15dp</dimen>
 
+    <dimen name="loading_img_size">64dp</dimen>
+
 
 
 </resources>
