@@ -3,6 +3,7 @@ package ru.androidschool.intensiv.ui.tvshows
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
@@ -14,7 +15,7 @@ import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
-import ru.androidschool.intensiv.ui.LoadingImageView
+import ru.androidschool.intensiv.ui.LoadingProgressBar
 import timber.log.Timber
 
 class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
@@ -23,12 +24,12 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         GroupAdapter<GroupieViewHolder>()
     }
 
-    private lateinit var tvShowsFragmentLoadingImageView: ImageView
+    private lateinit var tvShowsFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvShowsFragmentLoadingImageView = LoadingImageView.getLoadingImage(this.requireActivity())
+        tvShowsFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())
 
         tvshows_recycler_view.layoutManager = LinearLayoutManager(context)
 

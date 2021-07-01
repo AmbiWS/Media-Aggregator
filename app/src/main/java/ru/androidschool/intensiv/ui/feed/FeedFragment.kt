@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
@@ -22,7 +23,7 @@ import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
-import ru.androidschool.intensiv.ui.LoadingImageView
+import ru.androidschool.intensiv.ui.LoadingProgressBar
 import ru.androidschool.intensiv.ui.afterTextChanged
 import timber.log.Timber
 
@@ -47,12 +48,12 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         POPULAR(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(1))
     }
 
-    private lateinit var feedFragmentLoadingImageView: ImageView
+    private lateinit var feedFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        feedFragmentLoadingImageView = LoadingImageView.getLoadingImage(this.requireActivity())
+        feedFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())
 
         search_toolbar.search_edit_text.afterTextChanged {
             Timber.d(it.toString())

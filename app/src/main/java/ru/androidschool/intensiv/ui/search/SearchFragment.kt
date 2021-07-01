@@ -3,6 +3,7 @@ package ru.androidschool.intensiv.ui.search
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -19,7 +20,7 @@ import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
-import ru.androidschool.intensiv.ui.LoadingImageView
+import ru.androidschool.intensiv.ui.LoadingProgressBar
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
@@ -30,12 +31,12 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
         GroupAdapter<GroupieViewHolder>()
     }
 
-    private lateinit var searchFragmentLoadingImageView: ImageView
+    private lateinit var searchFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        searchFragmentLoadingImageView = LoadingImageView.getLoadingImage(this.requireActivity())
+        searchFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())
 
         val halfOfSecondMs: Long = 500
         val minLettersInWord = 3
