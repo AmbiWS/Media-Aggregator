@@ -40,7 +40,9 @@ class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
                 }.toList()
 
                 movies_recycler_view?. let { it.adapter = adapter.apply { addAll(moviesList) } }
+                mDisposable.dispose()
             })
+
     }
 
     companion object {
