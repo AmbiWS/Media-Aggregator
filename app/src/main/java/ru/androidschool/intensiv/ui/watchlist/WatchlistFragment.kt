@@ -13,7 +13,6 @@ import kotlinx.android.synthetic.main.fragment_watchlist.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.room.MovieDB
 
-
 class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
 
     private val adapter by lazy {
@@ -40,10 +39,8 @@ class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
                     ) { movie -> }
                 }.toList()
 
-                movies_recycler_view.adapter = adapter.apply { addAll(moviesList) }
+                movies_recycler_view?. let { it.adapter = adapter.apply { addAll(moviesList) } }
             })
-
-
     }
 
     companion object {
