@@ -114,6 +114,11 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             KEY_POSTER_PATH,
             BuildConfig.POSTER_PATH + movie.posterPath
         )
+        bundle.putString(
+            KEY_TITLE,
+            movie.title
+        )
+
         findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }
 
@@ -137,5 +142,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val KEY_ID = "id"
         const val KEY_POSTER_PATH = "poster"
         const val KEY_SEARCH = "search"
+        const val KEY_TITLE = "title"
     }
 }

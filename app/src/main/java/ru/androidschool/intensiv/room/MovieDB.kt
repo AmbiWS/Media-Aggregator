@@ -21,7 +21,7 @@ abstract class MovieDB : RoomDatabase() {
 
                     db = Room.databaseBuilder(context.applicationContext,
                         MovieDB::class.java,
-                        "movies")
+                        "movies-db")
                         .allowMainThreadQueries()
                         .build()
                 }

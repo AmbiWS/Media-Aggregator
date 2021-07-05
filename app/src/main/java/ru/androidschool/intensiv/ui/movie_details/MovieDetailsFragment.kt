@@ -3,6 +3,7 @@ package ru.androidschool.intensiv.ui.movie_details
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -10,14 +11,15 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.movie_details_fragment.*
-import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.MovieContent
 import ru.androidschool.intensiv.data.MovieCredits
 import ru.androidschool.intensiv.data.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import timber.log.Timber
 
@@ -36,6 +38,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         val movieId: Int = arguments?.getInt("id") ?: 0
         val posterPath: String? = arguments?.getString("poster")
+        val movieTitle: String = arguments.let { it?.getString("title") ?: "" }
 
         posterPath?.let { detailsImagePoster.loadImage(it) }
 
@@ -45,7 +48,20 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
         // TODO: Get favorite movie boolean from db
-        val movieDao = MovieFinderApp
+        val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
+        val currentMovie = MovieContent(movieTitle, 0.0, posterPath, movieId)
+
+        checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
+
+            Timber.d("Favorite movie: %s", !isFavorite)
+            Timber.d("Current movie: %s", currentMovie)
+
+            if (isFavorite) {
+
+            } else {
+
+            }
+        }
         /*if (isFavoriteMovie) {
             checkboxFavoriteMovie.isChecked = true
         }*/
