@@ -1,13 +1,9 @@
 package ru.androidschool.intensiv
 
 import android.app.Application
-import androidx.room.Room
-import ru.androidschool.intensiv.room.MovieDB
 import timber.log.Timber
 
 class MovieFinderApp : Application() {
-
-    var db: MovieDB? = null
 
     override fun onCreate() {
         super.onCreate()
@@ -23,18 +19,6 @@ class MovieFinderApp : Application() {
 
     private fun initTimber() {
         Timber.plant(Timber.DebugTree())
-    }
-
-    fun getDatabase(): MovieDB {
-
-        if (db == null)
-            db = Room.databaseBuilder(
-                applicationContext,
-                MovieDB::class.java,
-                "movies"
-            ).build()
-
-        return db as MovieDB
     }
 
     companion object {

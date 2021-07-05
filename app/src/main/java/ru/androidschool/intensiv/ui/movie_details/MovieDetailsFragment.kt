@@ -10,6 +10,7 @@ import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.movie_details_fragment.*
+import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieCredits
 import ru.androidschool.intensiv.data.MovieDetails
@@ -44,6 +45,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
         // TODO: Get favorite movie boolean from db
+        val movieDao = MovieFinderApp
         /*if (isFavoriteMovie) {
             checkboxFavoriteMovie.isChecked = true
         }*/
