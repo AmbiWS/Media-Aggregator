@@ -3,12 +3,12 @@ package ru.androidschool.intensiv.ui.movie_details
 import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
-import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
@@ -23,6 +23,7 @@ import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import timber.log.Timber
 
+
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private val adapter by lazy {
@@ -30,6 +31,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     }
 
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
+
+    private val mDisposable = CompositeDisposable()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -47,24 +50,34 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
         getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
-        // TODO: Get favorite movie boolean from db
         val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
         val currentMovie = MovieContent(movieTitle, 0.0, posterPath, movieId)
 
         checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
 
-            Timber.d("Favorite movie: %s", !isFavorite)
+            Timber.d("Favorite movie: %s", isFavorite)
             Timber.d("Current movie: %s", currentMovie)
 
             if (isFavorite) {
 
+                mDisposable.add(
+                    movieDao?.insertMovie(currentMovie)
+                        ?.subscribeOn(Schedulers.io())
+                        ?.observeOn(AndroidSchedulers.mainThread())
+                        ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
+                        ?.subscribe { Timber.d("Movie inserted") }
+                )
             } else {
 
+                mDisposable.add(
+                    movieDao?.deleteMovie(currentMovie)
+                        ?.subscribeOn(Schedulers.io())
+                        ?.observeOn(AndroidSchedulers.mainThread())
+                        ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
+                        ?.subscribe { Timber.d("Movie deleted") }
+                )
             }
         }
-        /*if (isFavoriteMovie) {
-            checkboxFavoriteMovie.isChecked = true
-        }*/
     }
 
     private fun getMovieCredits(observable: Single<MovieCredits>) {
