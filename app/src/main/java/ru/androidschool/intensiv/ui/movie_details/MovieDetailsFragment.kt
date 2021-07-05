@@ -23,7 +23,6 @@ import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import timber.log.Timber
 
-
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private val adapter by lazy {

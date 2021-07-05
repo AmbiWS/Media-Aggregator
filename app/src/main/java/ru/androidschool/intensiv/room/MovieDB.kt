@@ -29,7 +29,6 @@ abstract class MovieDB : RoomDatabase() {
 
             return db
         }
-
     }
 
     abstract fun movieDao(): MovieDao
