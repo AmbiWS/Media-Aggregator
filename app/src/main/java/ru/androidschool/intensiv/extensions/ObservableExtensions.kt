@@ -8,7 +8,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 
 object ObservableExtensions {
 
-    fun <T> Single<T>.subscribeAndObserveOnRetrofit(): Single<T> {
+    fun <T> Single<T>.subscribeIoObserveMT(): Single<T> {
 
         return this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

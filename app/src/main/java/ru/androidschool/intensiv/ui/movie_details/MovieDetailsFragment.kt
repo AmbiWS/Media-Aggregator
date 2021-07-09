@@ -17,7 +17,7 @@ import ru.androidschool.intensiv.data.MovieCredits
 import ru.androidschool.intensiv.data.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.ui.LoadingProgressBar
@@ -99,7 +99,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private fun getMovieDetails(observable: Single<MovieDetails>) {
 
-        observable.subscribeAndObserveOnRetrofit()
+        observable.subscribeIoObserveMT()
             .animateOnLoading(detailsFragmentLoadingImageView)
             .subscribe(
                 { i ->

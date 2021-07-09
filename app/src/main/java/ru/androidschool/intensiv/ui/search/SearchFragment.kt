@@ -17,7 +17,7 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
@@ -88,7 +88,7 @@ class SearchFragment : Fragment(R.layout.fragment_search) {
 
     private fun findMovie(observable: Single<MovieResponse>) {
 
-        observable.subscribeAndObserveOnRetrofit().let {
+        observable.subscribeIoObserveMT().let {
             // TODO: remove runOnUiThread and fix CalledFromWrongThreadException
             activity?.runOnUiThread {
                 it.animateOnLoading(searchFragmentLoadingImageView)
