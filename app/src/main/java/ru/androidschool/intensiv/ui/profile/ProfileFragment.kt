@@ -10,9 +10,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.squareup.picasso.Picasso
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.androidschool.intensiv.R
@@ -98,12 +96,10 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
 
                         mDisposable.clear()
                     })
-
             }
 
             number = parts[0]
             loadData(title, number, tab)
-
         }.attach()
     }
 

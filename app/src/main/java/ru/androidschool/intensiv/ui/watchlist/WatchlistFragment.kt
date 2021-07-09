@@ -6,9 +6,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_watchlist.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieContent
@@ -35,8 +33,8 @@ class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
             ?.subscribeIoObserveMT()
             ?.subscribe {
 
-                val movieContentList = it.map {
-                        i -> MovieContent(i.title, 0.0, i.posterPath, i.id)
+                val movieContentList = it.map { i ->
+                    MovieContent(i.title, 0.0, i.posterPath, i.id)
                 }
 
                 val moviesList = movieContentList.map {
@@ -45,7 +43,7 @@ class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
                     ) { movie -> }
                 }.toList()
 
-                movies_recycler_view?. let { it.adapter = adapter.apply { addAll(moviesList) } }
+                movies_recycler_view?.let { it.adapter = adapter.apply { addAll(moviesList) } }
                 mDisposable.clear()
             })
     }

@@ -3,7 +3,6 @@ package ru.androidschool.intensiv.dao
 import androidx.room.*
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
-import ru.androidschool.intensiv.data.MovieContent
 import ru.androidschool.intensiv.room.MovieDBEntity
 
 @Dao

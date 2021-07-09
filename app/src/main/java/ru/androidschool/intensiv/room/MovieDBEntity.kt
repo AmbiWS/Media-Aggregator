@@ -12,5 +12,4 @@ data class MovieDBEntity(
     var posterPath: String? = "",
     @PrimaryKey
     var id: Int = 0
-) {
-}
+)
