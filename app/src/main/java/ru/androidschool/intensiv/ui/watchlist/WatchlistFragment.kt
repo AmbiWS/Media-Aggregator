@@ -11,6 +11,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import io.reactivex.rxjava3.schedulers.Schedulers
 import kotlinx.android.synthetic.main.fragment_watchlist.*
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.room.MovieDB
 
 class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
@@ -30,8 +31,7 @@ class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
         movies_recycler_view.adapter = adapter.apply { addAll(listOf()) }
 
         mDisposable.add(movieDao?.getAll()
-            ?.subscribeOn(Schedulers.io())
-            ?.observeOn(AndroidSchedulers.mainThread())
+            ?.subscribeIoObserveMT()
             ?.subscribe {
                 val moviesList = it.map {
                     MoviePreviewItem(
