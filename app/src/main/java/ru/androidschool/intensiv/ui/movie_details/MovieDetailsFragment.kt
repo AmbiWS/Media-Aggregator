@@ -61,6 +61,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
                 mDisposable.add(
                     movieDao?.insertMovie(currentMovie)
+                        ?.subscribeO
                         ?.subscribeOn(Schedulers.io())
                         ?.observeOn(AndroidSchedulers.mainThread())
                         ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
