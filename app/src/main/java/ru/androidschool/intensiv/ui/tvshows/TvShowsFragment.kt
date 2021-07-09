@@ -12,7 +12,7 @@ import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import timber.log.Timber
@@ -40,7 +40,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
     private fun getTvShows(observable: Single<MovieResponse>) {
 
-        observable.subscribeAndObserveOnRetrofit()
+        observable.subscribeIoObserveMT()
             .animateOnLoading(tvShowsFragmentLoadingImageView)
             .map(MovieResponse::contentList)
             .subscribe(

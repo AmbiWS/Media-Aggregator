@@ -20,7 +20,7 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieContent
 import ru.androidschool.intensiv.data.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import ru.androidschool.intensiv.ui.afterTextChanged
@@ -78,7 +78,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                                                                                           popularResponse: MovieResponse ->
 
                 listOf(nowPlayingResponse, topRatedResponse, popularResponse)
-            }).subscribeAndObserveOnRetrofit()
+            }).subscribeIoObserveMT()
             .animateOnLoading(feedFragmentLoadingImageView)
             .subscribe { i -> linkFeedData(i) }
     }
@@ -114,6 +114,11 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
             KEY_POSTER_PATH,
             BuildConfig.POSTER_PATH + movie.posterPath
         )
+        bundle.putString(
+            KEY_TITLE,
+            movie.title
+        )
+
         findNavController().navigate(R.id.movie_details_fragment, bundle, options)
     }
 
@@ -137,5 +142,6 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val KEY_ID = "id"
         const val KEY_POSTER_PATH = "poster"
         const val KEY_SEARCH = "search"
+        const val KEY_TITLE = "title"
     }
 }

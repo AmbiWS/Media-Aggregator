@@ -6,17 +6,18 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.schedulers.Schedulers
+import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.MovieCredits
 import ru.androidschool.intensiv.data.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeAndObserveOnRetrofit
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import ru.androidschool.intensiv.room.MovieDB
+import ru.androidschool.intensiv.room.MovieDBEntity
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import timber.log.Timber
 
@@ -28,6 +29,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
 
+    private val mDisposable = CompositeDisposable()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
@@ -35,6 +38,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         val movieId: Int = arguments?.getInt("id") ?: 0
         val posterPath: String? = arguments?.getString("poster")
+        val movieTitle: String = arguments.let { it?.getString("title") ?: "" }
 
         posterPath?.let { detailsImagePoster.loadImage(it) }
 
@@ -43,16 +47,37 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
         getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
-        // TODO: Get favorite movie boolean from db
-        /*if (isFavoriteMovie) {
-            checkboxFavoriteMovie.isChecked = true
-        }*/
+        val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
+        val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
+
+        checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
+
+            Timber.d("Favorite movie: %s", isFavorite)
+            Timber.d("Current movie: %s", currentMovie)
+
+            if (isFavorite) {
+
+                mDisposable.add(
+                    movieDao?.insertMovie(currentMovie)
+                        ?.subscribeIoObserveMT()
+                        ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
+                        ?.subscribe { Timber.d("Movie inserted") }
+                )
+            } else {
+
+                mDisposable.add(
+                    movieDao?.deleteMovie(currentMovie)
+                        ?.subscribeIoObserveMT()
+                        ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
+                        ?.subscribe { Timber.d("Movie deleted") }
+                )
+            }
+        }
     }
 
     private fun getMovieCredits(observable: Single<MovieCredits>) {
 
-        observable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        observable.subscribeIoObserveMT()
             .map(MovieCredits::actorsList)
             .subscribe(
                 { i ->
@@ -69,7 +94,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private fun getMovieDetails(observable: Single<MovieDetails>) {
 
-        observable.subscribeAndObserveOnRetrofit()
+        observable.subscribeIoObserveMT()
             .animateOnLoading(detailsFragmentLoadingImageView)
             .subscribe(
                 { i ->

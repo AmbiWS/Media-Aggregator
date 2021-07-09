@@ -19,7 +19,6 @@ class MoviePreviewItem(
             onClick.invoke(content)
         }
 
-        // TODO Получать из модели
-        viewHolder.image_preview.loadImage("https://www.kinopoisk.ru/images/film_big/1143242.jpg")
+        content.posterPath?.let { viewHolder.image_preview.loadImage(it) }
     }
 }
