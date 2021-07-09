@@ -20,6 +20,7 @@ import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoadin
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient
 import ru.androidschool.intensiv.room.MovieDB
+import ru.androidschool.intensiv.room.MovieDBEntity
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import timber.log.Timber
 
@@ -50,7 +51,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
         val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
-        val currentMovie = MovieContent(movieTitle, 0.0, posterPath, movieId)
+        val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
 
         checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
 

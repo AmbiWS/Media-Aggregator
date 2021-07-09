@@ -16,6 +16,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.androidschool.intensiv.R
+import ru.androidschool.intensiv.data.MovieContent
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.ui.watchlist.MoviePreviewItem
@@ -74,7 +75,12 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
                 mDisposable.add(movieDao?.getAll()
                     ?.subscribeIoObserveMT()
                     ?.subscribe {
-                        val moviesCount = it.map {
+
+                        val movieContentList = it.map {
+                            i -> MovieContent(i.title, 0.0, i.posterPath, i.id)
+                        }
+
+                        val moviesCount = movieContentList.map {
                             MoviePreviewItem(
                                 it
                             ) { movie -> }

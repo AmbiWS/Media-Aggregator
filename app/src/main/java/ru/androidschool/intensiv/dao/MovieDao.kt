@@ -4,16 +4,17 @@ import androidx.room.*
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import ru.androidschool.intensiv.data.MovieContent
+import ru.androidschool.intensiv.room.MovieDBEntity
 
 @Dao
 interface MovieDao {
 
     @Query("SELECT * FROM movies")
-    fun getAll(): Flowable<List<MovieContent>>
+    fun getAll(): Flowable<List<MovieDBEntity>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertMovie(movie: MovieContent): Completable
+    fun insertMovie(movie: MovieDBEntity): Completable
 
     @Delete
-    fun deleteMovie(movie: MovieContent): Completable
+    fun deleteMovie(movie: MovieDBEntity): Completable
 }

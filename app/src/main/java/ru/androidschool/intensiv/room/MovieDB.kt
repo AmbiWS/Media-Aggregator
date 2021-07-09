@@ -7,7 +7,7 @@ import androidx.room.RoomDatabase
 import ru.androidschool.intensiv.dao.MovieDao
 import ru.androidschool.intensiv.data.MovieContent
 
-@Database(entities = arrayOf(MovieContent::class), version = 1)
+@Database(entities = arrayOf(MovieDBEntity::class), version = 1)
 abstract class MovieDB : RoomDatabase() {
 
     companion object {
