@@ -61,9 +61,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
                 mDisposable.add(
                     movieDao?.insertMovie(currentMovie)
-                        ?.subscribeO
-                        ?.subscribeOn(Schedulers.io())
-                        ?.observeOn(AndroidSchedulers.mainThread())
+                        ?.subscribeIoObserveMT()
                         ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
                         ?.subscribe { Timber.d("Movie inserted") }
                 )
@@ -71,8 +69,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
                 mDisposable.add(
                     movieDao?.deleteMovie(currentMovie)
-                        ?.subscribeOn(Schedulers.io())
-                        ?.observeOn(AndroidSchedulers.mainThread())
+                        ?.subscribeIoObserveMT()
                         ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
                         ?.subscribe { Timber.d("Movie deleted") }
                 )
@@ -82,8 +79,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
     private fun getMovieCredits(observable: Single<MovieCredits>) {
 
-        observable.subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
+        observable.subscribeIoObserveMT()
             .map(MovieCredits::actorsList)
             .subscribe(
                 { i ->
