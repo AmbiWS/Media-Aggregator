@@ -2,16 +2,17 @@ package ru.androidschool.intensiv.data.mappers
 
 import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.data.dto.MovieResponse
+import ru.androidschool.intensiv.data.vo.Movie
 
 object MovieMapper {
 
-    fun toValueObject(dto: MovieResponse): List<MovieContent> {
+    fun toValueObject(dto: MovieResponse): List<Movie> {
         return dto.contentList.map { toValueObject(it) }
     }
 
-    fun toValueObject(dto: MovieContent): MovieContent {
+    fun toValueObject(dto: MovieContent): Movie {
 
-        return MovieContent(
+        return Movie(
             id = dto.id,
             title = dto.title,
             voteAverage = dto.voteAverage,
