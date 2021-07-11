@@ -16,8 +16,8 @@ import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
-import ru.androidschool.intensiv.room.MovieDB
-import ru.androidschool.intensiv.room.MovieDBEntity
+import ru.androidschool.intensiv.data.room.MovieDB
+import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
 

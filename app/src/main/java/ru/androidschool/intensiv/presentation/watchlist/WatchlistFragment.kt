@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.fragment_watchlist.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
-import ru.androidschool.intensiv.room.MovieDB
+import ru.androidschool.intensiv.data.room.MovieDB
 
 class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {
 

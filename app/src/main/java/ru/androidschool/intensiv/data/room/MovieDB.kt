@@ -1,10 +1,10 @@
-package ru.androidschool.intensiv.room
+package ru.androidschool.intensiv.data.room
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import ru.androidschool.intensiv.dao.MovieDao
+import ru.androidschool.intensiv.data.room.dao.MovieDao
 
 @Database(entities = arrayOf(MovieDBEntity::class), version = 1)
 abstract class MovieDB : RoomDatabase() {
