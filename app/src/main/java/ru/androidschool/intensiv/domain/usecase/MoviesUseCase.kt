@@ -9,6 +9,7 @@ import timber.log.Timber
 class MoviesUseCase(private val repository: MoviesRepository) {
 
     fun getMovies(): Single<List<Movie>> {
+
         return repository.getMovies()
             .doOnError { i -> Timber.d(i.toString()) }
             .applySchedulers()

@@ -10,15 +10,11 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.core.Single
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.dto.MovieContent
-import ru.androidschool.intensiv.data.dto.MovieResponse
-import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.repository.NowPlayingMoviesRepository
 import ru.androidschool.intensiv.data.repository.PopularMoviesRepository
 import ru.androidschool.intensiv.data.repository.TopRatedMoviesRepository
@@ -33,8 +29,8 @@ class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
     private val presenter: FeedPresenter by lazy {
         FeedPresenter(
             MoviesUseCase(TopRatedMoviesRepository()),
-            MoviesUseCase(NowPlayingMoviesRepository()),
-            MoviesUseCase(PopularMoviesRepository())
+            MoviesUseCase(PopularMoviesRepository()),
+            MoviesUseCase(NowPlayingMoviesRepository())
         )
     }
 
@@ -77,33 +73,14 @@ class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
         movies_recycler_view.adapter = adapter.apply { }
         adapter.clear()
 
-        /*val nowPlaying: Single<MovieResponse> = FeedContent.NOW_PLAYING.single
-        val topRated: Single<MovieResponse> = FeedContent.TOP_RATED.single
-        val popular: Single<MovieResponse> = FeedContent.POPULAR.single
-
-        Single.zip(
-            nowPlaying,
-            topRated,
-            popular,
-            Function3<MovieResponse, MovieResponse, MovieResponse, List<MovieResponse>> { nowPlayingResponse: MovieResponse,
-                                                                                          topRatedResponse: MovieResponse,
-                                                                                          popularResponse: MovieResponse ->
-
-                listOf(nowPlayingResponse, topRatedResponse, popularResponse)
-            }).subscribeIoObserveMT()
-            .animateOnLoading(feedFragmentLoadingImageView)
-            .subscribe { i -> linkFeedData(i) }*/
-
-        presenter.getMovies()
+        presenter.getMovies(feedFragmentLoadingImageView)
     }
 
-
-
-    /*private fun linkFeedData(feed: List<MovieResponse>) {
+    override fun linkFeedData(feed: List<List<Movie>>) {
 
         for (i in feed.indices) {
 
-            feed[i].contentList.map {
+            feed[i].map {
                 MovieItem(it) { movie ->
                     openMovieDetails(
                         movie
@@ -120,9 +97,9 @@ class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
                 }
             }
         }
-    }*/
+    }
 
-    private fun openMovieDetails(movie: MovieContent) {
+    private fun openMovieDetails(movie: Movie) {
         val bundle = Bundle()
         Timber.d("MOVIE ID: %s", movie.id)
         bundle.putInt(KEY_ID, movie.id)
@@ -161,12 +138,12 @@ class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
         const val KEY_TITLE = "title"
     }
 
-    override fun showMovies(movies: List<Movie>, titleResPosition: Int) {
+    override fun showMovies(movies: List<Movie>, titleRes: Int) {
         movies_recycler_view.adapter = adapter.apply {
             addAll(
                 listOf(
                     MainCardContainer(
-                        title = FeedContent.values()[titleResPosition - 1].id,
+                        title = FeedContent.values()[titleRes - 1].id,
                         items = movies.map { MovieItem(it, {}) }.toList()
                     )
                 )

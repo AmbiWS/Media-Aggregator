@@ -1,7 +1,12 @@
 package ru.androidschool.intensiv.presentation.feed
 
+import android.widget.ProgressBar
+import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.functions.Function3
 import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.domain.usecase.MoviesUseCase
+import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
+import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.presentation.base.BasePresenter
 import timber.log.Timber
 
@@ -12,32 +17,44 @@ class FeedPresenter(
 ) :
     BasePresenter<FeedPresenter.FeedView>() {
 
-    val NOW_PLAYING_MOVIES_POSITION: Int = 1
-    val TOP_RATED_MOVIES_POSITION: Int = 2
-    val POPULAR_MOVIES_POSITION: Int = 3
+    fun getMovies(progressBar: ProgressBar) {
 
-    fun getMovies() {
-
-        getMovies(nowPlayingUseCase, NOW_PLAYING_MOVIES_POSITION)
-        getMovies(topRatedUseCase, TOP_RATED_MOVIES_POSITION)
-        getMovies(popularUseCase, POPULAR_MOVIES_POSITION)
-
+        getMovies(nowPlayingUseCase, topRatedUseCase, popularUseCase, progressBar)
     }
 
-    private fun getMovies(useCase: MoviesUseCase, titleResPosition: Int) {
-        useCase.getMovies()
+    private fun getMovies(
+        nowPlayingUseCase: MoviesUseCase,
+        topRatedUseCase: MoviesUseCase,
+        popularUseCase: MoviesUseCase,
+        progressBar: ProgressBar
+    ) {
+
+        val nowPlaying: Single<List<Movie>> = nowPlayingUseCase.getMovies()
+        val topRated: Single<List<Movie>> = topRatedUseCase.getMovies()
+        val popular: Single<List<Movie>> = popularUseCase.getMovies()
+
+        Single.zip(nowPlaying, topRated, popular,
+            Function3<List<Movie>, List<Movie>, List<Movie>, List<List<Movie>>> { nowPlayingResp: List<Movie>,
+                                                                                  topRatedResp: List<Movie>,
+                                                                                  popularResp: List<Movie> ->
+
+                listOf(nowPlayingResp, topRatedResp, popularResp)
+            }).subscribeIoObserveMT()
+            .animateOnLoading(progressBar)
             .subscribe(
-                {
-                    view?.showMovies(it, titleResPosition)
+                { i ->
+                    view?.linkFeedData(i)
                 },
-                { t ->
+                {t ->
                     Timber.e(t, t.toString())
                     view?.showEmptyMovies()
                 })
+
     }
 
     interface FeedView {
         fun showMovies(movies: List<Movie>, titleRes: Int)
+        fun linkFeedData(feed: List<List<Movie>>)
         fun showLoading()
         fun hideLoading()
         fun showEmptyMovies()
