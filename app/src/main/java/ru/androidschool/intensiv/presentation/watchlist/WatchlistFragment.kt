@@ -10,7 +10,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.fragment_watchlist.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.room.MovieDB
 
 class WatchlistFragment : Fragment(R.layout.fragment_watchlist) {

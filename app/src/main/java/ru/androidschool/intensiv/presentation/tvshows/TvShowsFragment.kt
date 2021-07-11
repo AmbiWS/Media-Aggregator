@@ -11,8 +11,8 @@ import io.reactivex.rxjava3.core.Single
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieResponse
-import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber

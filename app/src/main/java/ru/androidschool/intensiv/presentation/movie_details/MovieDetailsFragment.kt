@@ -12,9 +12,9 @@ import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieCredits
 import ru.androidschool.intensiv.data.dto.MovieDetails
-import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
-import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
+import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.room.MovieDBEntity

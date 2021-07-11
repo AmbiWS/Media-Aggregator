@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.extensions
+package ru.androidschool.intensiv.domain.extensions
 
 import android.widget.ImageView
 import com.squareup.picasso.Picasso

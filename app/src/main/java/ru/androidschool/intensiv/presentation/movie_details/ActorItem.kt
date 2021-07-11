@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.item_actor.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.Actor
-import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
+import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
 
 class ActorItem(
     private val content: Actor,

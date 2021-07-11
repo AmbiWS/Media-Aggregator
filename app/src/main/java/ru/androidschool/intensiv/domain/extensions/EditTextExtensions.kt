@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.extensions
+package ru.androidschool.intensiv.domain.extensions
 
 import android.text.Editable
 import android.text.TextWatcher

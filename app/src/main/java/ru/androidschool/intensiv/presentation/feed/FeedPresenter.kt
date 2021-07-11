@@ -5,8 +5,8 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.functions.Function3
 import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.domain.usecase.MoviesUseCase
-import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.presentation.base.BasePresenter
 import timber.log.Timber
 

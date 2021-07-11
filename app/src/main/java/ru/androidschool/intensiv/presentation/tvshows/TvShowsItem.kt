@@ -6,7 +6,7 @@ import kotlinx.android.synthetic.main.item_tv_shows.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
-import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
+import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
 
 class TvShowsItem(
     private val content: MovieContent,

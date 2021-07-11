@@ -5,7 +5,7 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_with_text.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
-import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
+import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
 
 class MoviePreviewItem(
     private val content: MovieContent,

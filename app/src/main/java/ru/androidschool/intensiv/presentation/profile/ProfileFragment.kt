@@ -15,7 +15,7 @@ import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
+import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.presentation.watchlist.MoviePreviewItem
 import timber.log.Timber
