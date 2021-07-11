@@ -10,7 +10,7 @@ import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.rxjava3.core.Single
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieResponse
+import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient

@@ -1,5 +1,7 @@
 package ru.androidschool.intensiv.data
 
+import ru.androidschool.intensiv.data.dto.MovieContent
+
 object MockRepository {
 
     fun getMovies(): List<MovieContent> {

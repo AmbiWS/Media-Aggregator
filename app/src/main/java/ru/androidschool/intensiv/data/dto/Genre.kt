@@ -1,8 +1,8 @@
-package ru.androidschool.intensiv.data
+package ru.androidschool.intensiv.data.dto
 
 import com.google.gson.annotations.SerializedName
 
-data class Production(
+data class Genre(
     @SerializedName("name")
     var name: String = ""
 )

@@ -17,8 +17,8 @@ import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieContent
-import ru.androidschool.intensiv.data.MovieResponse
+import ru.androidschool.intensiv.data.dto.MovieContent
+import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.retrofit.TheMovieDBClient

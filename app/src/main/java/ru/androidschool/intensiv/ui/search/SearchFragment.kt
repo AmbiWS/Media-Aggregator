@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.fragment_search.movies_recycler_view
 import kotlinx.android.synthetic.main.search_toolbar.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieResponse
+import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT

@@ -14,7 +14,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable
 import jp.wasabeef.picasso.transformations.CropCircleTransformation
 import kotlinx.android.synthetic.main.fragment_profile.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieContent
+import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.ui.watchlist.MoviePreviewItem

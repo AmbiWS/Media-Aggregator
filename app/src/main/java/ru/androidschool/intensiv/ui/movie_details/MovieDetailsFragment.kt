@@ -10,8 +10,8 @@ import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.MovieCredits
-import ru.androidschool.intensiv.data.MovieDetails
+import ru.androidschool.intensiv.data.dto.MovieCredits
+import ru.androidschool.intensiv.data.dto.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
