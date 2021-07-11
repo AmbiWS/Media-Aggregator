@@ -6,11 +6,12 @@ import kotlinx.android.synthetic.main.item_with_text.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
+import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 
 class MovieItem(
-    private val content: MovieContent,
-    private val onClick: (movie: MovieContent) -> Unit
+    private val content: Movie,
+    private val onClick: (movie: Movie) -> Unit
 ) : Item() {
 
     override fun getLayout() = R.layout.item_with_text

@@ -22,11 +22,18 @@ import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
+import ru.androidschool.intensiv.data.repository.TopRatedMoviesRepository
+import ru.androidschool.intensiv.data.vo.Movie
+import ru.androidschool.intensiv.domain.usecase.TopRatedMoviesUseCase
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import ru.androidschool.intensiv.presentation.afterTextChanged
 import timber.log.Timber
 
-class FeedFragment : Fragment(R.layout.feed_fragment) {
+class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
+
+    private val presenter: FeedPresenter by lazy {
+        FeedPresenter(TopRatedMoviesUseCase(TopRatedMoviesRepository()))
+    }
 
     private val adapter by lazy {
         GroupAdapter<GroupieViewHolder>()
@@ -42,15 +49,17 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
     }
 
     enum class FeedContent(val id: Int, val single: Single<MovieResponse>) {
-        NOW_PLAYING(R.string.upcoming, TheMovieDBClient.apiClient.getNowPlayingMovies(2)),
-        TOP_RATED(R.string.top_rated, TheMovieDBClient.apiClient.getTopRatedMovies(1)),
-        POPULAR(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies(1))
+        NOW_PLAYING(R.string.upcoming, TheMovieDBClient.apiClient.getNowPlayingMovies()),
+        TOP_RATED(R.string.top_rated, TheMovieDBClient.apiClient.getTopRatedMovies()),
+        POPULAR(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies())
     }
 
     private lateinit var feedFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        presenter.attachView(this)
 
         feedFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())
 
@@ -65,7 +74,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         movies_recycler_view.adapter = adapter.apply { }
         adapter.clear()
 
-        val nowPlaying: Single<MovieResponse> = FeedContent.NOW_PLAYING.single
+        /*val nowPlaying: Single<MovieResponse> = FeedContent.NOW_PLAYING.single
         val topRated: Single<MovieResponse> = FeedContent.TOP_RATED.single
         val popular: Single<MovieResponse> = FeedContent.POPULAR.single
 
@@ -80,10 +89,14 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 listOf(nowPlayingResponse, topRatedResponse, popularResponse)
             }).subscribeIoObserveMT()
             .animateOnLoading(feedFragmentLoadingImageView)
-            .subscribe { i -> linkFeedData(i) }
+            .subscribe { i -> linkFeedData(i) }*/
+
+        presenter.getMovies()
     }
 
-    private fun linkFeedData(feed: List<MovieResponse>) {
+
+
+    /*private fun linkFeedData(feed: List<MovieResponse>) {
 
         for (i in feed.indices) {
 
@@ -104,7 +117,7 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
                 }
             }
         }
-    }
+    }*/
 
     private fun openMovieDetails(movie: MovieContent) {
         val bundle = Bundle()
@@ -143,5 +156,34 @@ class FeedFragment : Fragment(R.layout.feed_fragment) {
         const val KEY_POSTER_PATH = "poster"
         const val KEY_SEARCH = "search"
         const val KEY_TITLE = "title"
+    }
+
+    override fun showMovies(movies: List<Movie>) {
+        movies_recycler_view.adapter = adapter.apply {
+            addAll(
+                listOf(
+                    MainCardContainer(
+                        title = FeedContent.TOP_RATED.id,
+                        items = movies.map { MovieItem(it, {}) }.toList()
+                    )
+                )
+            )
+        }
+    }
+
+    override fun showLoading() {
+
+    }
+
+    override fun hideLoading() {
+
+    }
+
+    override fun showEmptyMovies() {
+
+    }
+
+    override fun showError() {
+
     }
 }
