@@ -19,6 +19,8 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
+import ru.androidschool.intensiv.data.repository.NowPlayingMoviesRepository
+import ru.androidschool.intensiv.data.repository.PopularMoviesRepository
 import ru.androidschool.intensiv.data.repository.TopRatedMoviesRepository
 import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.domain.usecase.MoviesUseCase
@@ -29,7 +31,11 @@ import timber.log.Timber
 class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
 
     private val presenter: FeedPresenter by lazy {
-        FeedPresenter(MoviesUseCase(TopRatedMoviesRepository()))
+        FeedPresenter(
+            MoviesUseCase(TopRatedMoviesRepository()),
+            MoviesUseCase(NowPlayingMoviesRepository()),
+            MoviesUseCase(PopularMoviesRepository())
+        )
     }
 
     private val adapter by lazy {
@@ -45,10 +51,10 @@ class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
         }
     }
 
-    enum class FeedContent(val id: Int, val single: Single<MovieResponse>) {
-        NOW_PLAYING(R.string.upcoming, TheMovieDBClient.apiClient.getNowPlayingMovies()),
-        TOP_RATED(R.string.top_rated, TheMovieDBClient.apiClient.getTopRatedMovies()),
-        POPULAR(R.string.popular, TheMovieDBClient.apiClient.getPopularMovies())
+    enum class FeedContent(val id: Int) {
+        NOW_PLAYING(R.string.upcoming),
+        TOP_RATED(R.string.top_rated),
+        POPULAR(R.string.popular)
     }
 
     private lateinit var feedFragmentLoadingImageView: ProgressBar
@@ -155,12 +161,12 @@ class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
         const val KEY_TITLE = "title"
     }
 
-    override fun showMovies(movies: List<Movie>) {
+    override fun showMovies(movies: List<Movie>, titleResPosition: Int) {
         movies_recycler_view.adapter = adapter.apply {
             addAll(
                 listOf(
                     MainCardContainer(
-                        title = FeedContent.TOP_RATED.id,
+                        title = FeedContent.values()[titleResPosition - 1].id,
                         items = movies.map { MovieItem(it, {}) }.toList()
                     )
                 )
