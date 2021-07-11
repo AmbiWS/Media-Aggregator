@@ -4,7 +4,7 @@ import io.reactivex.rxjava3.core.Single
 import ru.androidschool.intensiv.data.mappers.MovieMapper
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.vo.Movie
-import ru.androidschool.intensiv.domain.MoviesRepository
+import ru.androidschool.intensiv.domain.repository.MoviesRepository
 
 class PopularMoviesRepository : MoviesRepository {
 
