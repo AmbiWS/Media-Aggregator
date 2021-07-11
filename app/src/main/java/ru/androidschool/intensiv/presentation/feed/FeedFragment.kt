@@ -11,7 +11,6 @@ import androidx.navigation.navOptions
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.functions.Function3
 import kotlinx.android.synthetic.main.feed_fragment.*
 import kotlinx.android.synthetic.main.feed_header.*
 import kotlinx.android.synthetic.main.search_toolbar.view.*
@@ -19,12 +18,10 @@ import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.data.dto.MovieResponse
-import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.repository.TopRatedMoviesRepository
 import ru.androidschool.intensiv.data.vo.Movie
-import ru.androidschool.intensiv.domain.usecase.TopRatedMoviesUseCase
+import ru.androidschool.intensiv.domain.usecase.MoviesUseCase
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import ru.androidschool.intensiv.presentation.afterTextChanged
 import timber.log.Timber
@@ -32,7 +29,7 @@ import timber.log.Timber
 class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
 
     private val presenter: FeedPresenter by lazy {
-        FeedPresenter(TopRatedMoviesUseCase(TopRatedMoviesRepository()))
+        FeedPresenter(MoviesUseCase(TopRatedMoviesRepository()))
     }
 
     private val adapter by lazy {

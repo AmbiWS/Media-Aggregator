@@ -6,7 +6,7 @@ import ru.androidschool.intensiv.domain.repository.MoviesRepository
 import ru.androidschool.intensiv.domain.usecase.SchedulersExtension.applySchedulers
 import timber.log.Timber
 
-class TopRatedMoviesUseCase(private val repository: MoviesRepository) {
+class MoviesUseCase(private val repository: MoviesRepository) {
 
     fun getMovies(): Single<List<Movie>> {
         return repository.getMovies()
