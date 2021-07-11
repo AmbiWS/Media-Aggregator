@@ -152,18 +152,14 @@ class FeedFragment : Fragment(R.layout.feed_fragment), FeedPresenter.FeedView {
     }
 
     override fun showLoading() {
-
     }
 
     override fun hideLoading() {
-
     }
 
     override fun showEmptyMovies() {
-
     }
 
     override fun showError() {
-
     }
 }

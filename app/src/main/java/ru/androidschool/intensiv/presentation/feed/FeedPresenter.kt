@@ -45,11 +45,10 @@ class FeedPresenter(
                 { i ->
                     view?.linkFeedData(i)
                 },
-                {t ->
+                { t ->
                     Timber.e(t, t.toString())
                     view?.showEmptyMovies()
                 })
-
     }
 
     interface FeedView {
