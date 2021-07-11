@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.profile
+package ru.androidschool.intensiv.presentation.profile
 
 import android.os.Bundle
 import android.text.SpannableString
@@ -17,7 +17,7 @@ import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.room.MovieDB
-import ru.androidschool.intensiv.ui.watchlist.MoviePreviewItem
+import ru.androidschool.intensiv.presentation.watchlist.MoviePreviewItem
 import timber.log.Timber
 
 class ProfileFragment : Fragment(R.layout.fragment_profile) {

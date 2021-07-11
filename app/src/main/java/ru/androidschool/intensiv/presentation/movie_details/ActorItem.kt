@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.movie_details
+package ru.androidschool.intensiv.presentation.movie_details
 
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item

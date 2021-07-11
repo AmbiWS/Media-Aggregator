@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.feed
+package ru.androidschool.intensiv.presentation.feed
 
 import androidx.annotation.StringRes
 import com.xwray.groupie.GroupAdapter

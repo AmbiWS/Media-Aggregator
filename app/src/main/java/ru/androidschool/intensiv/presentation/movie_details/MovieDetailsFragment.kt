@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.movie_details
+package ru.androidschool.intensiv.presentation.movie_details
 
 import android.os.Bundle
 import android.view.View
@@ -18,7 +18,7 @@ import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObse
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.room.MovieDBEntity
-import ru.androidschool.intensiv.ui.LoadingProgressBar
+import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {

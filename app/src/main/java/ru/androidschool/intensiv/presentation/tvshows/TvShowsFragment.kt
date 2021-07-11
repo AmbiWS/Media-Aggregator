@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.tvshows
+package ru.androidschool.intensiv.presentation.tvshows
 
 import android.os.Bundle
 import android.view.View
@@ -14,7 +14,7 @@ import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
-import ru.androidschool.intensiv.ui.LoadingProgressBar
+import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
 
 class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {

@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.search
+package ru.androidschool.intensiv.presentation.search
 
 import android.os.Bundle
 import android.view.View
@@ -19,8 +19,8 @@ import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
-import ru.androidschool.intensiv.ui.LoadingProgressBar
-import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
+import ru.androidschool.intensiv.presentation.LoadingProgressBar
+import ru.androidschool.intensiv.presentation.feed.FeedFragment.Companion.KEY_SEARCH
 import timber.log.Timber
 import java.util.concurrent.TimeUnit
 

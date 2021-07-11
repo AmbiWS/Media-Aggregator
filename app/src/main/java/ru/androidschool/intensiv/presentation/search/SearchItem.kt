@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.search
+package ru.androidschool.intensiv.presentation.search
 
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item

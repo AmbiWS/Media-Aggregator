@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.feed
+package ru.androidschool.intensiv.presentation.feed
 
 import android.os.Bundle
 import android.view.Menu
@@ -22,8 +22,8 @@ import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
-import ru.androidschool.intensiv.ui.LoadingProgressBar
-import ru.androidschool.intensiv.ui.afterTextChanged
+import ru.androidschool.intensiv.presentation.LoadingProgressBar
+import ru.androidschool.intensiv.presentation.afterTextChanged
 import timber.log.Timber
 
 class FeedFragment : Fragment(R.layout.feed_fragment) {

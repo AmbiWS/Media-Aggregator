@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blueDark"
-    tools:context="ru.androidschool.intensiv.ui.movie_details.MovieDetailsFragment">
+    tools:context=".presentation.movie_details.MovieDetailsFragment">
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/detailsImagePoster"

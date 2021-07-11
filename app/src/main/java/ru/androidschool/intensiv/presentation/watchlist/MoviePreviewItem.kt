@@ -1,4 +1,4 @@
-package ru.androidschool.intensiv.ui.watchlist
+package ru.androidschool.intensiv.presentation.watchlist
 
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import com.xwray.groupie.kotlinandroidextensions.Item
