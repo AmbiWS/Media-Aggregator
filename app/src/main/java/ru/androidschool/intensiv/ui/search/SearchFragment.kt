@@ -18,7 +18,7 @@ import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.extensions.EditTextExtensions.onChange
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
-import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.ui.LoadingProgressBar
 import ru.androidschool.intensiv.ui.feed.FeedFragment.Companion.KEY_SEARCH
 import timber.log.Timber

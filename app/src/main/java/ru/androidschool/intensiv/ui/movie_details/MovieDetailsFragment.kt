@@ -15,7 +15,7 @@ import ru.androidschool.intensiv.data.dto.MovieDetails
 import ru.androidschool.intensiv.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.extensions.ObservableExtensions.subscribeIoObserveMT
-import ru.androidschool.intensiv.retrofit.TheMovieDBClient
+import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.room.MovieDB
 import ru.androidschool.intensiv.room.MovieDBEntity
 import ru.androidschool.intensiv.ui.LoadingProgressBar
