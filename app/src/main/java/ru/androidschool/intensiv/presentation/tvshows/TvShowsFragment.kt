@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.View
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -14,6 +16,7 @@ import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
+import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
 
@@ -36,6 +39,11 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         adapter.clear()
 
         getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(1))
+
+        val model: TvShowsViewModel by viewModels()
+        model.getMovies().observe(viewLifecycleOwner, Observer<List<Movie>>{ movies ->
+
+        })
     }
 
     private fun getTvShows(observable: Single<MovieResponse>) {
