@@ -9,18 +9,10 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
-import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.dto.MovieResponse
-import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
-import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
-import timber.log.Timber
 
 class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
@@ -41,7 +33,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
         val model: TvShowsViewModel by viewModels()
         model.setProgressBar(tvShowsFragmentLoadingImageView)
-        model.getMovies().observe(viewLifecycleOwner, Observer<List<Movie>>{ movies ->
+        model.getMovies().observe(viewLifecycleOwner, Observer<List<Movie>> { movies ->
             movies.map {
                 adapter.apply { add(TvShowsItem(it) {}) }
             }

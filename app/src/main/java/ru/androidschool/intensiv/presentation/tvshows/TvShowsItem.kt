@@ -5,7 +5,6 @@ import com.xwray.groupie.kotlinandroidextensions.Item
 import kotlinx.android.synthetic.main.item_tv_shows.*
 import ru.androidschool.intensiv.BuildConfig
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
 

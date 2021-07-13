@@ -34,7 +34,7 @@ class TvShowsViewModel : ViewModel() {
         tvShowsFragmentLoadingImageView = progressBar
     }
 
-    fun getMovies() : LiveData<List<Movie>> {
+    fun getMovies(): LiveData<List<Movie>> {
         return movies
     }
 
