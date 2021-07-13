@@ -39,6 +39,7 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         adapter.clear()
 
         val model: TvShowsViewModel by viewModels()
+        model.setProgressBar(tvShowsFragmentLoadingImageView)
         model.getMovies().observe(viewLifecycleOwner, Observer<List<Movie>>{ movies ->
             movies.map {
                 adapter.apply { add(TvShowsItem(it) {}) }
