@@ -11,7 +11,7 @@ class MoviesUseCase(private val repository: MoviesRepository) {
     fun getMovies(): Single<List<Movie>> {
 
         return repository.getMovies()
-            .doOnError { i -> Timber.d(i.toString()) }
+            .doOnError { i -> Timber.e(i.toString()) }
             .applySchedulers()
     }
 }
