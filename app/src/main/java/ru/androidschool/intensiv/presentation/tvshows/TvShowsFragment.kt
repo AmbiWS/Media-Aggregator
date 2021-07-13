@@ -38,8 +38,6 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         tvshows_recycler_view.adapter = adapter.apply { }
         adapter.clear()
 
-        //getTvShows(TheMovieDBClient.apiClient.getPopularTvShows(1))
-
         val model: TvShowsViewModel by viewModels()
         model.getMovies().observe(viewLifecycleOwner, Observer<List<Movie>>{ movies ->
             movies.map {
@@ -47,18 +45,4 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
             }
         })
     }
-
-    /*private fun getTvShows(observable: Single<MovieResponse>) {
-
-        observable.subscribeIoObserveMT()
-            .animateOnLoading(tvShowsFragmentLoadingImageView)
-            .map(MovieResponse::contentList)
-            .subscribe(
-                { i ->
-                    i.toList().map {
-                        adapter.apply { add(TvShowsItem(it) {}) }
-                    }
-                },
-                { e -> Timber.d("$e") })
-    }*/
 }
