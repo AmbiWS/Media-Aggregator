@@ -10,6 +10,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.rxjava3.core.Single
+import io.reactivex.rxjava3.disposables.CompositeDisposable
+import io.reactivex.rxjava3.disposables.Disposable
 import kotlinx.android.synthetic.main.fragment_tv_shows.*
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.data.dto.MovieResponse
@@ -30,7 +32,6 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         tvShowsFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())
 
         tvshows_recycler_view.layoutManager = LinearLayoutManager(context)
