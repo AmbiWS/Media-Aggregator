@@ -33,7 +33,7 @@ class FeedPresenter(
         val topRated: Single<List<Movie>> = topRatedUseCase.getMovies()
         val popular: Single<List<Movie>> = popularUseCase.getMovies()
 
-        Single.zip(nowPlaying, topRated, popular,
+        val disposable = Single.zip(nowPlaying, topRated, popular,
             Function3<List<Movie>, List<Movie>, List<Movie>, List<List<Movie>>> { nowPlayingResp: List<Movie>,
                                                                                   topRatedResp: List<Movie>,
                                                                                   popularResp: List<Movie> ->
@@ -44,11 +44,14 @@ class FeedPresenter(
             .subscribe(
                 { i ->
                     view?.linkFeedData(i)
+                    clearCompositeDisposable()
                 },
                 { t ->
                     Timber.e(t, t.toString())
                     view?.showEmptyMovies()
                 })
+
+        addDisposable(disposable)
     }
 
     interface FeedView {
