@@ -17,21 +17,23 @@ class TvShowsViewModel : ViewModel() {
     private var disposables: CompositeDisposable? = null
 
     private val movies: MutableLiveData<List<Movie>> by lazy {
-        MutableLiveData<List<Movie>>().also {
-            loadMovies()
-        }
-    }
-
-    fun getMovies(): LiveData<List<Movie>> {
-        return movies
+        MutableLiveData<List<Movie>>()
     }
 
     private val isLoaded: MutableLiveData<Boolean> by lazy {
         MutableLiveData<Boolean>()
     }
 
+    fun getMovies(): LiveData<List<Movie>> {
+        return movies
+    }
+
     fun getIsLoaded(): LiveData<Boolean> {
         return isLoaded
+    }
+
+    init {
+        loadMovies()
     }
 
     private fun loadMovies() {
