@@ -16,8 +16,9 @@ import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscrib
 import ru.androidschool.intensiv.domain.usecase.MovieCreditsUseCase
 import ru.androidschool.intensiv.domain.usecase.MovieDetailsUseCase
 import timber.log.Timber
+import javax.inject.Inject
 
-class MovieDetailsViewModel(
+class MovieDetailsViewModel @Inject constructor(
     var id: Int, application: Application
 ) : AndroidViewModel(application) {
 
