@@ -9,6 +9,7 @@ import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
 import io.reactivex.rxjava3.core.Single
 import io.reactivex.rxjava3.schedulers.Schedulers
+import timber.log.Timber
 
 object ObservableExtensions {
 
@@ -16,6 +17,11 @@ object ObservableExtensions {
 
         return this.subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
+    }
+
+    fun <T> Single<T>.errorCatching(): Single<T> {
+
+        return this.doOnError { i -> Timber.e(i.toString()) }
     }
 
     fun <T> Flowable<T>.subscribeIoObserveMT(): Flowable<T> {
