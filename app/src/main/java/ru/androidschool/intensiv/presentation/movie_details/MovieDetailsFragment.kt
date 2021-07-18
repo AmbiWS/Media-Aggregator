@@ -24,8 +24,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         GroupAdapter<GroupieViewHolder>()
     }
 
-    // TODO: on ANR replace AndroidViewModel with ViewModel
-    lateinit var model: MovieDetailsViewModel
+    lateinit var modelFactory: MovieDetailsViewModelFactory
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,8 +43,9 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(movieId, requireActivity().application))
-        model = ViewModelProvider(this, modelFactory).get(MovieDetailsViewModel::class.java)
+        // TODO: on ANR replace AndroidViewModel with ViewModel
+        //val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(movieId, requireActivity().application))
+        val model = ViewModelProvider(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
         checkboxFavoriteMovie.setOnCheckedChangeListener { _, isFavorite ->
             Timber.d("Current movie: %s", currentMovie)
