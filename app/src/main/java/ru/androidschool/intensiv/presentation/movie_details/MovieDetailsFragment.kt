@@ -16,6 +16,7 @@ import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
+import javax.inject.Inject
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
@@ -23,6 +24,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         GroupAdapter<GroupieViewHolder>()
     }
 
+    @Inject lateinit var model: MovieDetailsViewModel
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,16 +35,15 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         val movieId: Int = arguments?.getInt("id") ?: 0
         val posterPath: String? = arguments?.getString("poster")
         val movieTitle: String = arguments.let { it?.getString("title") ?: "" }
+        val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
 
         posterPath?.let { detailsImagePoster.loadImage(it) }
 
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
-
-        val modelFactory = MovieDetailsViewModelFactory(movieId, requireActivity().application)
-        val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
+        //val modelFactory = MovieDetailsViewModelFactory(movieId, requireActivity().application)
+        //val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
         checkboxFavoriteMovie.setOnCheckedChangeListener { _, isFavorite ->
             Timber.d("Current movie: %s", currentMovie)
