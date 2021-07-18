@@ -52,8 +52,6 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
-        //getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
-        //getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
         val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
         val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
@@ -116,42 +114,4 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         textViewGenre.text = details.genre[0].name.capitalize()
         textViewYear.text = if (details.date.length >= 4) details.date.substring(0,4) else getString(R.string.year_missing)
     }
-
-    /*private fun getMovieCredits(observable: Single<MovieCredits>) {
-
-        observable.subscribeIoObserveMT()
-            .map(MovieCredits::actorsList)
-            .subscribe(
-                { i ->
-                    i?.let {
-                        i.toList().map {
-                            activity?.runOnUiThread {
-                                adapter.apply { add(ActorItem(it) {}) }
-                            }
-                        }
-                    }
-                },
-                { e -> Timber.d("$e") })
-    }*/
-
-    /*private fun getMovieDetails(observable: Single<MovieDetails>) {
-
-        observable.subscribeIoObserveMT()
-            .animateOnLoading(detailsFragmentLoadingImageView)
-            .subscribe(
-                { i ->
-                    textDetailsTitle.text = i.title
-                    movie_details_rating.rating = i?.rating ?: 0.0F
-                    textViewAboutMovie.text = i?.aboutMovie
-                    textViewProduction.text =
-                        i?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
-                    textViewGenre.text =
-                        i?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
-                    textViewYear.text = if (i?.date?.length ?: 0 >= 4) i?.date?.substring(
-                        0,
-                        4
-                    ) else getString(R.string.year_missing)
-                },
-                { e -> Timber.d("$e") })
-    }*/
 }
