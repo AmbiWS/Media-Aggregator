@@ -1,8 +1,8 @@
 package ru.androidschool.intensiv.domain.repository
 
 import io.reactivex.rxjava3.core.Single
-import ru.androidschool.intensiv.data.dto.MovieDetails
+import ru.androidschool.intensiv.data.vo.MovieDetails
 
 interface MovieDetailsRepository {
-    fun getMovieDetails(): Single<MovieDetails>
+    fun getMovieDetails(id: Int): Single<MovieDetails>
 }

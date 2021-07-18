@@ -1,8 +1,8 @@
 package ru.androidschool.intensiv.domain.repository
 
 import io.reactivex.rxjava3.core.Single
-import ru.androidschool.intensiv.data.dto.Actor
+import ru.androidschool.intensiv.data.vo.Actor
 
 interface MovieCreditsRepository {
-    fun getMovieCredits(): Single<List<Actor>>
+    fun getMovieCredits(id: Int): Single<List<Actor>>
 }
