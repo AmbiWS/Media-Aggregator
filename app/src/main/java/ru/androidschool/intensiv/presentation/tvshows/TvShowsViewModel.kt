@@ -36,6 +36,11 @@ class TvShowsViewModel : ViewModel() {
         loadMovies()
     }
 
+    override fun onCleared() {
+        disposables?.clear()
+        super.onCleared()
+    }
+
     private fun loadMovies() {
         val disp = tvShowsUseCase.getMovies()
             .subscribeIoObserveMT()
@@ -43,7 +48,6 @@ class TvShowsViewModel : ViewModel() {
             .subscribe(
                 { i ->
                     movies.postValue(i)
-                    disposables?.clear()
                 },
                 { t ->
                     Timber.e(t, t.toString())
