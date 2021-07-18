@@ -9,6 +9,8 @@ class MovieFinderApp : Application() {
         super.onCreate()
         instance = this
         initDebugTools()
+
+        val appComponent = DaggerApplicationComponent.create()
     }
 
     private fun initDebugTools() {
