@@ -2,8 +2,11 @@ package ru.androidschool.intensiv.presentation.movie_details
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.rxjava3.core.Single
@@ -18,7 +21,11 @@ import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscrib
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.room.MovieDB
 import ru.androidschool.intensiv.data.room.MovieDBEntity
+import ru.androidschool.intensiv.data.vo.Actor
+import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
+import ru.androidschool.intensiv.presentation.tvshows.TvShowsItem
+import ru.androidschool.intensiv.presentation.tvshows.TvShowsViewModel
 import timber.log.Timber
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
@@ -44,8 +51,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
-        getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
-        getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
+        //getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
+        //getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
         val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
         val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
@@ -73,9 +80,42 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                 )
             }
         }
+
+        val model: MovieDetailsViewModel by viewModels()
+
+        model.getDetails().observe(viewLifecycleOwner, Observer<ru.androidschool.intensiv.data.vo.MovieDetails> { details ->
+            getDetails(details)
+        })
+
+        model.getCredits().observe(viewLifecycleOwner, Observer<List<Actor>> { actors ->
+            getCredits(actors)
+        })
+
+        model.getIsLoaded().observe(viewLifecycleOwner, Observer<Boolean> {isLoaded ->
+            if (isLoaded) {
+                detailsFragmentLoadingImageView.visibility = ViewGroup.VISIBLE
+            } else {
+                detailsFragmentLoadingImageView.visibility = ViewGroup.GONE
+            }
+        })
     }
 
-    private fun getMovieCredits(observable: Single<MovieCredits>) {
+    private fun getCredits(credits: List<Actor>) {
+        credits.map {
+            adapter.apply { add(ActorItem(it) {}) }
+        }
+    }
+
+    private fun getDetails(details: ru.androidschool.intensiv.data.vo.MovieDetails) {
+        textDetailsTitle.text = details.title
+        movie_details_rating.rating = details.rating
+        textViewAboutMovie.text = details.aboutMovie
+        textViewProduction.text = details.productionList[0].name
+        textViewGenre.text = details.genre[0].name.capitalize()
+        textViewYear.text = if (details.date.length >= 4) details.date.substring(0,4) else getString(R.string.year_missing)
+    }
+
+    /*private fun getMovieCredits(observable: Single<MovieCredits>) {
 
         observable.subscribeIoObserveMT()
             .map(MovieCredits::actorsList)
@@ -90,9 +130,9 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                     }
                 },
                 { e -> Timber.d("$e") })
-    }
+    }*/
 
-    private fun getMovieDetails(observable: Single<MovieDetails>) {
+    /*private fun getMovieDetails(observable: Single<MovieDetails>) {
 
         observable.subscribeIoObserveMT()
             .animateOnLoading(detailsFragmentLoadingImageView)
@@ -111,5 +151,5 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                     ) else getString(R.string.year_missing)
                 },
                 { e -> Timber.d("$e") })
-    }
+    }*/
 }
