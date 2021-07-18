@@ -47,7 +47,7 @@ class TvShowsViewModel : ViewModel() {
             .animateOnLoading(isLoaded)
             .subscribe(
                 { i ->
-                    movies.postValue(i)
+                    movies.setValue(i)
                 },
                 { t ->
                     Timber.e(t, t.toString())
