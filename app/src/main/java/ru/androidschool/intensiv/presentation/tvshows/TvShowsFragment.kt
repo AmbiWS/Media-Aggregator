@@ -2,6 +2,7 @@ package ru.androidschool.intensiv.presentation.tvshows
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -32,10 +33,17 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         adapter.clear()
 
         val model: TvShowsViewModel by viewModels()
-        model.setProgressBar(tvShowsFragmentLoadingImageView)
         model.getMovies().observe(viewLifecycleOwner, Observer<List<Movie>> { movies ->
             movies.map {
                 adapter.apply { add(TvShowsItem(it) {}) }
+            }
+        })
+
+        model.getIsLoaded().observe(viewLifecycleOwner, Observer<Boolean> { isLoaded ->
+            if (isLoaded) {
+                tvShowsFragmentLoadingImageView.visibility = ViewGroup.VISIBLE
+            } else {
+                tvShowsFragmentLoadingImageView.visibility = ViewGroup.GONE
             }
         })
     }

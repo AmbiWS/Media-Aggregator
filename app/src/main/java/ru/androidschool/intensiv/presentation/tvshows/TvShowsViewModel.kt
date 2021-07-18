@@ -1,6 +1,5 @@
 package ru.androidschool.intensiv.presentation.tvshows
 
-import android.widget.ProgressBar
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -15,8 +14,6 @@ import timber.log.Timber
 class TvShowsViewModel : ViewModel() {
 
     private val tvShowsUseCase: MoviesUseCase = MoviesUseCase(TvShowsRepository())
-
-    private var tvShowsFragmentLoadingImageView: ProgressBar? = null
     private var disposables: CompositeDisposable? = null
 
     private val movies: MutableLiveData<List<Movie>> by lazy {
@@ -25,33 +22,30 @@ class TvShowsViewModel : ViewModel() {
         }
     }
 
-    override fun onCleared() {
-        tvShowsFragmentLoadingImageView = null
-        super.onCleared()
-    }
-
-    fun setProgressBar(progressBar: ProgressBar) {
-        tvShowsFragmentLoadingImageView = progressBar
-    }
-
     fun getMovies(): LiveData<List<Movie>> {
         return movies
     }
 
+    private val isLoaded: MutableLiveData<Boolean> by lazy {
+        MutableLiveData<Boolean>()
+    }
+
+    fun getIsLoaded(): LiveData<Boolean> {
+        return isLoaded
+    }
+
     private fun loadMovies() {
-        val disp = tvShowsFragmentLoadingImageView?.let {
-            tvShowsUseCase.getMovies()
-                .subscribeIoObserveMT()
-                .animateOnLoading(it)
-                .subscribe(
-                    { i ->
-                        movies.postValue(i)
-                        disposables?.clear()
-                    },
-                    { t ->
-                        Timber.e(t, t.toString())
-                    })
-        }
+        val disp = tvShowsUseCase.getMovies()
+            .subscribeIoObserveMT()
+            .animateOnLoading(isLoaded)
+            .subscribe(
+                { i ->
+                    movies.postValue(i)
+                    disposables?.clear()
+                },
+                { t ->
+                    Timber.e(t, t.toString())
+                })
 
         disposables?.add(disp)
     }
