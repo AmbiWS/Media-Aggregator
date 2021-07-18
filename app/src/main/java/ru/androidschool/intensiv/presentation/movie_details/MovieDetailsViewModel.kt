@@ -22,10 +22,8 @@ class MovieDetailsViewModel @Inject constructor(
     var id: Int, application: Application
 ) : AndroidViewModel(application) {
 
-    private val movieCreditsUseCase: MovieCreditsUseCase =
-        MovieCreditsUseCase(MovieCreditsRepository())
-    private val movieDetailsUseCase: MovieDetailsUseCase =
-        MovieDetailsUseCase(MovieDetailsRepository())
+    private val movieCreditsUseCase: MovieCreditsUseCase = MovieCreditsUseCase(MovieCreditsRepository())
+    private val movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsUseCase(MovieDetailsRepository())
 
     private val movieDao = MovieDB.getInstance(application)?.movieDao()
     private var disposables: CompositeDisposable? = null

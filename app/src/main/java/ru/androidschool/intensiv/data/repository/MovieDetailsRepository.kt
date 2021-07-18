@@ -5,8 +5,9 @@ import ru.androidschool.intensiv.data.mappers.MovieMapper
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.vo.MovieDetails
 import ru.androidschool.intensiv.domain.repository.IMovieDetailsRepository
+import javax.inject.Inject
 
-class MovieDetailsRepository : IMovieDetailsRepository {
+class MovieDetailsRepository @Inject constructor() : IMovieDetailsRepository {
 
     override fun getMovieDetails(id: Int): Single<MovieDetails> {
         return TheMovieDBClient.apiClient.getMovieDetails(id)
