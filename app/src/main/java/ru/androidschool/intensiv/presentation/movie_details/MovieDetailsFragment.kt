@@ -7,7 +7,6 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.movie_details_fragment.*
@@ -18,7 +17,6 @@ import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
-import javax.inject.Inject
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
@@ -45,8 +43,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        val modelFactory = MovieDetailsViewModelFactory(movieId, requireActivity().application)
-        //val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
+        val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(movieId, requireActivity().application))
         model = ViewModelProvider(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
         checkboxFavoriteMovie.setOnCheckedChangeListener { _, isFavorite ->
