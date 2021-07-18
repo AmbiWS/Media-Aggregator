@@ -2,14 +2,14 @@ package ru.androidschool.intensiv.presentation.movie_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import java.lang.IllegalStateException
+import javax.inject.Inject
+import javax.inject.Provider
+import javax.inject.Singleton
 
-class MovieDetailsViewModelFactory constructor(private val model: MovieDetailsViewModel) : ViewModelProvider.Factory {
+@Singleton
+class MovieDetailsViewModelFactory @Inject constructor(private val models: MutableMap<Class<out ViewModel>,
+        @JvmSuppressWildcards Provider<ViewModel>>) : ViewModelProvider.Factory {
 
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        if (modelClass == MovieDetailsViewModel::class.java){
-            model as T
-        } else {
-            throw IllegalStateException("Unknown entity")
-        }
+        models[modelClass]?.get() as T
 }

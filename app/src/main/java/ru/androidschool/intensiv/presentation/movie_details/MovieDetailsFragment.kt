@@ -24,6 +24,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         GroupAdapter<GroupieViewHolder>()
     }
 
+    // TODO: on ANR replace AndroidViewModel with ViewModel
     lateinit var model: MovieDetailsViewModel
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
 
