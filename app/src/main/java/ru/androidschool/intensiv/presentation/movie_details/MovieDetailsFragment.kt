@@ -5,28 +5,16 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.movie_details_fragment.*
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.dto.MovieCredits
-import ru.androidschool.intensiv.data.dto.MovieDetails
 import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
-import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
-import ru.androidschool.intensiv.data.network.TheMovieDBClient
-import ru.androidschool.intensiv.data.room.MovieDB
 import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.data.vo.Actor
-import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
-import ru.androidschool.intensiv.presentation.tvshows.TvShowsItem
-import ru.androidschool.intensiv.presentation.tvshows.TvShowsViewModel
 import timber.log.Timber
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
@@ -36,8 +24,6 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     }
 
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
-
-    private val mDisposable = CompositeDisposable()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -58,26 +44,14 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         val modelFactory = MovieDetailsViewModelFactory(movieId, requireActivity().application)
         val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
-        checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
+        checkboxFavoriteMovie.setOnCheckedChangeListener { _, isFavorite ->
             Timber.d("Current movie: %s", currentMovie)
 
-            /*if (isFavorite) {
-
-                mDisposable.add(
-                    movieDao?.insertMovie(currentMovie)
-                        ?.subscribeIoObserveMT()
-                        ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
-                        ?.subscribe { Timber.d("Movie inserted") }
-                )
+            if (isFavorite) {
+                model.insert(currentMovie)
             } else {
-
-                mDisposable.add(
-                    movieDao?.deleteMovie(currentMovie)
-                        ?.subscribeIoObserveMT()
-                        ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
-                        ?.subscribe { Timber.d("Movie deleted") }
-                )
-            }*/
+                model.delete(currentMovie)
+            }
         }
 
         model.getDetails().observe(viewLifecycleOwner, Observer<ru.androidschool.intensiv.data.vo.MovieDetails> { details ->

@@ -1,15 +1,14 @@
 package ru.androidschool.intensiv.presentation.movie_details
 
 import android.app.Application
-import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.androidschool.intensiv.data.repository.MovieCreditsRepository
 import ru.androidschool.intensiv.data.repository.MovieDetailsRepository
 import ru.androidschool.intensiv.data.room.MovieDB
+import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.data.vo.MovieDetails
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
@@ -22,8 +21,10 @@ class MovieDetailsViewModel(
     var id: Int, application: Application
 ) : AndroidViewModel(application) {
 
-    private val movieCreditsUseCase: MovieCreditsUseCase = MovieCreditsUseCase(MovieCreditsRepository())
-    private val movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsUseCase(MovieDetailsRepository())
+    private val movieCreditsUseCase: MovieCreditsUseCase =
+        MovieCreditsUseCase(MovieCreditsRepository())
+    private val movieDetailsUseCase: MovieDetailsUseCase =
+        MovieDetailsUseCase(MovieDetailsRepository())
 
     private val movieDao = MovieDB.getInstance(application)?.movieDao()
     private var disposables: CompositeDisposable? = null
@@ -50,6 +51,20 @@ class MovieDetailsViewModel(
 
     fun getIsLoaded(): LiveData<Boolean> {
         return isLoaded
+    }
+
+    fun insert(movie: MovieDBEntity) {
+        movieDao?.insertMovie(movie)
+            ?.subscribeIoObserveMT()
+            ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
+            ?.subscribe { Timber.d("Movie inserted") }
+    }
+
+    fun delete(movie: MovieDBEntity) {
+        movieDao?.deleteMovie(movie)
+            ?.subscribeIoObserveMT()
+            ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
+            ?.subscribe { Timber.d("Movie deleted") }
     }
 
     init {
