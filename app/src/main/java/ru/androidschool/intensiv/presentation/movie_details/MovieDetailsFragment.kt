@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
@@ -25,7 +26,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         GroupAdapter<GroupieViewHolder>()
     }
 
-    @Inject lateinit var model: MovieDetailsViewModel
+    lateinit var model: MovieDetailsViewModel
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -44,8 +45,9 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        //val modelFactory = MovieDetailsViewModelFactory(movieId, requireActivity().application)
+        val modelFactory = MovieDetailsViewModelFactory(movieId, requireActivity().application)
         //val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
+        model = ViewModelProvider(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
         checkboxFavoriteMovie.setOnCheckedChangeListener { _, isFavorite ->
             Timber.d("Current movie: %s", currentMovie)
