@@ -10,6 +10,7 @@ import androidx.lifecycle.ViewModelProviders
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import kotlinx.android.synthetic.main.movie_details_fragment.*
+import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
 import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.data.room.MovieDBEntity
@@ -28,6 +29,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (requireActivity().applicationContext as MovieFinderApp).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
 
         detailsFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())

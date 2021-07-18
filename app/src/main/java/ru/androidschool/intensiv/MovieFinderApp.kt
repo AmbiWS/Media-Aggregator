@@ -5,12 +5,13 @@ import timber.log.Timber
 
 class MovieFinderApp : Application() {
 
+    val appComponent = DaggerApplicationComponent.create()
+
     override fun onCreate() {
         super.onCreate()
         instance = this
         initDebugTools()
 
-        val appComponent = DaggerApplicationComponent.create()
     }
 
     private fun initDebugTools() {
