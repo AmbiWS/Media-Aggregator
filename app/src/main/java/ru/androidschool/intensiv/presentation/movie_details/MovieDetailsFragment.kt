@@ -17,6 +17,7 @@ import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
+import javax.inject.Inject
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
@@ -43,9 +44,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        // TODO: on ANR replace AndroidViewModel with ViewModel
-        //val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(movieId, requireActivity().application))
-        val model = ViewModelProvider(this, modelFactory).get(MovieDetailsViewModel::class.java)
+        val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(movieId, requireActivity().application))
+        val model = ViewModelProvider(this, modelFactory)[MovieDetailsViewModel::class.java]
 
         checkboxFavoriteMovie.setOnCheckedChangeListener { _, isFavorite ->
             Timber.d("Current movie: %s", currentMovie)

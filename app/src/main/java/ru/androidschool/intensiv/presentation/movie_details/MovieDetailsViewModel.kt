@@ -1,9 +1,9 @@
 package ru.androidschool.intensiv.presentation.movie_details
 
 import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.androidschool.intensiv.data.repository.MovieCreditsRepository
 import ru.androidschool.intensiv.data.repository.MovieDetailsRepository
@@ -18,9 +18,10 @@ import ru.androidschool.intensiv.domain.usecase.MovieDetailsUseCase
 import timber.log.Timber
 import javax.inject.Inject
 
-class MovieDetailsViewModel (
-    var id: Int, application: Application
-) : AndroidViewModel(application) {
+class MovieDetailsViewModel(
+    val id: Int,
+    val application: Application
+) : ViewModel() {
 
     private val movieCreditsUseCase: MovieCreditsUseCase = MovieCreditsUseCase(MovieCreditsRepository())
     private val movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsUseCase(MovieDetailsRepository())
