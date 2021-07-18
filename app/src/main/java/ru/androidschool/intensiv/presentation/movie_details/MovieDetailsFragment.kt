@@ -53,15 +53,15 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
         val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
 
-        checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
+        val modelFactory = MovieDetailsViewModelFactory(movieId, requireActivity().application)
+        val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
-            Timber.d("Favorite movie: %s", isFavorite)
+        checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
             Timber.d("Current movie: %s", currentMovie)
 
-            if (isFavorite) {
+            /*if (isFavorite) {
 
                 mDisposable.add(
                     movieDao?.insertMovie(currentMovie)
@@ -77,11 +77,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
                         ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
                         ?.subscribe { Timber.d("Movie deleted") }
                 )
-            }
+            }*/
         }
-
-        val modelFactory = MovieDetailsViewModelFactory(movieId)
-        val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
         model.getDetails().observe(viewLifecycleOwner, Observer<ru.androidschool.intensiv.data.vo.MovieDetails> { details ->
             getDetails(details)
