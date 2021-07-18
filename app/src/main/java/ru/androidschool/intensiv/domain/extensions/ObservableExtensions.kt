@@ -2,6 +2,8 @@ package ru.androidschool.intensiv.domain.extensions
 
 import android.view.ViewGroup
 import android.widget.ProgressBar
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.core.Completable
 import io.reactivex.rxjava3.core.Flowable
@@ -32,5 +34,11 @@ object ObservableExtensions {
 
         progressBar.visibility = ViewGroup.VISIBLE
         return this.doOnTerminate { progressBar.visibility = ViewGroup.GONE }
+    }
+
+    fun <T> Single<T>.animateOnLoading(liveData: MutableLiveData<Boolean>): Single<T> {
+
+        liveData.postValue(true)
+        return this.doOnTerminate { liveData.postValue(false) }
     }
 }
