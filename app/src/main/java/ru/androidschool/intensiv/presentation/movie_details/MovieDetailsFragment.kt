@@ -7,6 +7,7 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
 import io.reactivex.rxjava3.core.Single
@@ -81,7 +82,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
             }
         }
 
-        val model: MovieDetailsViewModel by viewModels()
+        val modelFactory = MovieDetailsViewModelFactory(movieId)
+        val model: MovieDetailsViewModel = ViewModelProviders.of(this, modelFactory).get(MovieDetailsViewModel::class.java)
 
         model.getDetails().observe(viewLifecycleOwner, Observer<ru.androidschool.intensiv.data.vo.MovieDetails> { details ->
             getDetails(details)
