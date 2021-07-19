@@ -66,7 +66,7 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
             getCredits(actors)
         })
 
-        model.getIsLoaded().observe(viewLifecycleOwner, Observer<Boolean> {isLoaded ->
+        model.getIsLoaded().observe(viewLifecycleOwner, Observer<Boolean> { isLoaded ->
             if (isLoaded) {
                 detailsFragmentLoadingImageView.visibility = ViewGroup.VISIBLE
             } else {
@@ -87,6 +87,6 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         textViewAboutMovie.text = details.aboutMovie
         textViewProduction.text = details.productionList[0].name
         textViewGenre.text = details.genre[0].name.capitalize()
-        textViewYear.text = if (details.date.length >= 4) details.date.substring(0,4) else getString(R.string.year_missing)
+        textViewYear.text = if (details.date.length >= 4) details.date.substring(0, 4) else getString(R.string.year_missing)
     }
 }

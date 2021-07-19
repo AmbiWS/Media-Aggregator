@@ -11,7 +11,6 @@ class MovieFinderApp : Application() {
         super.onCreate()
         instance = this
         initDebugTools()
-
     }
 
     private fun initDebugTools() {

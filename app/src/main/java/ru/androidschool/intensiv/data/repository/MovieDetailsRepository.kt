@@ -11,6 +11,6 @@ class MovieDetailsRepository @Inject constructor() : IMovieDetailsRepository {
 
     override fun getMovieDetails(id: Int): Single<MovieDetails> {
         return TheMovieDBClient.apiClient.getMovieDetails(id)
-            .map{ MovieMapper.toValueObject(it) }
+            .map { MovieMapper.toValueObject(it) }
     }
 }
