@@ -6,7 +6,7 @@ import ru.androidschool.intensiv.presentation.movie_details.ViewModelModule
 import javax.inject.Singleton
 
 @Singleton
-@Component(modules = arrayOf(ViewModelModule::class))
+@Component(modules = [ViewModelModule::class])
 interface ApplicationComponent {
 
     fun inject(fragment: MovieDetailsFragment)

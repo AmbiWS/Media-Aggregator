@@ -1,6 +1,7 @@
 package ru.androidschool.intensiv.presentation.movie_details
 
 import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -18,10 +19,9 @@ import ru.androidschool.intensiv.domain.usecase.MovieDetailsUseCase
 import timber.log.Timber
 import javax.inject.Inject
 
-class MovieDetailsViewModel(
-    val id: Int,
-    val application: Application
-) : ViewModel() {
+class MovieDetailsViewModel (
+    application: Application
+) : AndroidViewModel(application) {
 
     private val movieCreditsUseCase: MovieCreditsUseCase = MovieCreditsUseCase(MovieCreditsRepository())
     private val movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsUseCase(MovieDetailsRepository())
@@ -67,17 +67,17 @@ class MovieDetailsViewModel(
             ?.subscribe { Timber.d("Movie deleted") }
     }
 
-    init {
-        loadDetails()
-        loadCredits()
-    }
-
     override fun onCleared() {
         disposables?.clear()
         super.onCleared()
     }
 
-    private fun loadDetails() {
+    fun load(id: Int) {
+        loadDetails(id)
+        loadCredits(id)
+    }
+
+    private fun loadDetails(id: Int) {
         val disp = movieDetailsUseCase.getMovieDetails(id)
             .subscribeIoObserveMT()
             .animateOnLoading(isLoaded)
@@ -92,7 +92,7 @@ class MovieDetailsViewModel(
         disposables?.add(disp)
     }
 
-    private fun loadCredits() {
+    private fun loadCredits(id: Int) {
         val disp = movieCreditsUseCase.getMovieCredits(id)
             .subscribeIoObserveMT()
             .subscribe(
