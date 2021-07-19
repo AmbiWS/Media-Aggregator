@@ -2,13 +2,11 @@ package ru.androidschool.intensiv.presentation.movie_details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
+import javax.inject.Inject
+import javax.inject.Provider
 
-class MovieDetailsViewModelFactory (val model: MovieDetailsViewModel) : ViewModelProvider.Factory {
-
+class MovieDetailsViewModelFactory @Inject constructor(private val viewModels: MutableMap<Class<out ViewModel>,
+        @JvmSuppressWildcards Provider<ViewModel>>): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T =
-        if (modelClass == MovieDetailsViewModel::class.java){
-            model as T
-        } else {
-            throw  IllegalStateException("Unknown entity")
-        }
+        viewModels[modelClass]?.get() as T
 }

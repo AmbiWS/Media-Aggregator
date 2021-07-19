@@ -28,6 +28,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     }
 
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
+    @Inject
+    lateinit var modelFactory: MovieDetailsViewModelFactory
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         (requireActivity().applicationContext as MovieFinderApp).appComponent.inject(this)
@@ -45,7 +47,8 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(requireActivity().application))
+        //val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(requireActivity().application))
+        //val model = ViewModelProvider(this, modelFactory)[MovieDetailsViewModel::class.java]
         val model = ViewModelProvider(this, modelFactory)[MovieDetailsViewModel::class.java]
         model.load(movieId)
 
