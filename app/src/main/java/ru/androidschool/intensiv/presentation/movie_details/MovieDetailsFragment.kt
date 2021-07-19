@@ -16,8 +16,6 @@ import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
 import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
-import ru.androidschool.intensiv.presentation.ViewModelExtensions
-import ru.androidschool.intensiv.presentation.ViewModelExtensions.createViewModel
 import timber.log.Timber
 import javax.inject.Inject
 
@@ -47,8 +45,6 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
 
-        //val modelFactory = MovieDetailsViewModelFactory(MovieDetailsViewModel(requireActivity().application))
-        //val model = ViewModelProvider(this, modelFactory)[MovieDetailsViewModel::class.java]
         val model = ViewModelProvider(this, modelFactory)[MovieDetailsViewModel::class.java]
         model.load(movieId)
 
