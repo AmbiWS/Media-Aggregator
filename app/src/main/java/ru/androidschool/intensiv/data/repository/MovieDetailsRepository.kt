@@ -7,7 +7,7 @@ import ru.androidschool.intensiv.data.vo.MovieDetails
 import ru.androidschool.intensiv.domain.repository.IMovieDetailsRepository
 import javax.inject.Inject
 
-class MovieDetailsRepository @Inject constructor() : IMovieDetailsRepository {
+class MovieDetailsRepository : IMovieDetailsRepository {
 
     override fun getMovieDetails(id: Int): Single<MovieDetails> {
         return TheMovieDBClient.apiClient.getMovieDetails(id)

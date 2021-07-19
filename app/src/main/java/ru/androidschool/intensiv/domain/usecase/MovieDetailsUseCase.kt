@@ -7,7 +7,7 @@ import ru.androidschool.intensiv.domain.repository.IMovieDetailsRepository
 import ru.androidschool.intensiv.domain.usecase.SchedulersExtension.applySchedulers
 import javax.inject.Inject
 
-class MovieDetailsUseCase @Inject constructor(private val repository: IMovieDetailsRepository) {
+class MovieDetailsUseCase (private val repository: IMovieDetailsRepository) {
 
     fun getMovieDetails(id: Int): Single<MovieDetails> {
 

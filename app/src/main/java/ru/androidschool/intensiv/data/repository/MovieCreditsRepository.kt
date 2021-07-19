@@ -7,7 +7,7 @@ import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.domain.repository.IMovieCreditsRepository
 import javax.inject.Inject
 
-class MovieCreditsRepository @Inject constructor() : IMovieCreditsRepository {
+class MovieCreditsRepository : IMovieCreditsRepository {
 
     override fun getMovieCredits(id: Int): Single<List<Actor>> {
         return TheMovieDBClient.apiClient.getMovieCredits(id)
