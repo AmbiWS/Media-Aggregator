@@ -8,6 +8,7 @@ import kotlinx.coroutines.launch
 import ru.androidschool.intensiv.data.repository.TvShowsRepository
 import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.domain.usecase.TvShowsUseCase
+import timber.log.Timber
 import java.lang.Exception
 
 class TvShowsViewModel : ViewModel() {
@@ -32,7 +33,7 @@ class TvShowsViewModel : ViewModel() {
             try {
                 movies.value = tvShowsUseCase.getTvShows()
             } catch (e: Exception) {
-
+                Timber.e(e)
             }
         }
     }
