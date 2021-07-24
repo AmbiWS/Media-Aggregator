@@ -1,15 +1,14 @@
 package ru.androidschool.intensiv.data.repository
 
-import io.reactivex.rxjava3.core.Single
 import ru.androidschool.intensiv.data.mappers.MovieMapper
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.vo.Movie
-import ru.androidschool.intensiv.domain.repository.MoviesRepository
+import ru.androidschool.intensiv.domain.repository.ITvShowsRepository
 
-class TvShowsRepository : MoviesRepository {
+class TvShowsRepository : ITvShowsRepository {
 
-    override fun getMovies(): Single<List<Movie>> {
-        return TheMovieDBClient.apiClient.getPopularTvShows()
-            .map { MovieMapper.toValueObject(it) }
+    override suspend fun getTvShows(): List<Movie> {
+
+        return MovieMapper.toValueObject(TheMovieDBClient.apiClient.getPopularTvShows())
     }
 }
