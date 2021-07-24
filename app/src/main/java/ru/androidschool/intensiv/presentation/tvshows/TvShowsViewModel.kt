@@ -18,7 +18,6 @@ import java.lang.Exception
 class TvShowsViewModel : ViewModel() {
 
     private val tvShowsUseCase: TvShowsUseCase = TvShowsUseCase(TvShowsRepository())
-    private var disposables: CompositeDisposable? = null
 
     private val movies: MutableLiveData<List<Movie>> by lazy {
         MutableLiveData<List<Movie>>()
@@ -40,32 +39,14 @@ class TvShowsViewModel : ViewModel() {
         loadMovies()
     }
 
-    override fun onCleared() {
-        disposables?.clear()
-        super.onCleared()
-    }
-
     private fun loadMovies() {
 
-        /*viewModelScope.launch {
+        viewModelScope.launch {
             try {
-
+                movies.value = tvShowsUseCase.getTvShows()
             } catch (e: Exception) {
 
             }
-        }*/
-
-        movies.value = tvShowsUseCase.getTvShows()
-            /*.subscribeIoObserveMT()
-            .animateOnLoading(isLoaded)
-            .subscribe(
-                { i ->
-                    movies.setValue(i)
-                },
-                { t ->
-                    Timber.e(t, t.toString())
-                })
-
-        disposables?.add(disp)*/
+        }
     }
 }
