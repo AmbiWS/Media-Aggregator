@@ -35,15 +35,8 @@ class TvShowsFragment : Fragment(R.layout.fragment_tv_shows) {
         val model: TvShowsViewModel by viewModels()
         model.getMovies().observe(viewLifecycleOwner, Observer<List<Movie>> { movies ->
             movies.map {
-                adapter.apply { add(TvShowsItem(it) {}) }
-            }
-        })
-
-        model.getIsLoaded().observe(viewLifecycleOwner, Observer<Boolean> { isLoaded ->
-            if (isLoaded) {
-                tvShowsFragmentLoadingImageView.visibility = ViewGroup.VISIBLE
-            } else {
                 tvShowsFragmentLoadingImageView.visibility = ViewGroup.GONE
+                adapter.apply { add(TvShowsItem(it) {}) }
             }
         })
     }
