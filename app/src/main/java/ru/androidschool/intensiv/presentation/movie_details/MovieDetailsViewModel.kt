@@ -21,11 +21,10 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MovieDetailsViewModel @Inject constructor(
-    val dao: MovieDao?
+    val dao: MovieDao?,
+    val movieCreditsUseCase: MovieCreditsUseCase,
+    val movieDetailsUseCase: MovieDetailsUseCase
 ) : ViewModel() {
-
-    private val movieCreditsUseCase: MovieCreditsUseCase = MovieCreditsUseCase(MovieCreditsRepository())
-    private val movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsUseCase(MovieDetailsRepository())
 
     private var disposables: CompositeDisposable? = null
 
