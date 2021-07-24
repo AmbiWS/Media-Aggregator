@@ -5,7 +5,7 @@ import ru.androidschool.intensiv.domain.repository.ITvShowsRepository
 
 class TvShowsUseCase(private val repository: ITvShowsRepository) {
 
-    fun getTvShows(): List<Movie> {
+    suspend fun getTvShows(): List<Movie> {
 
         return repository.getTvShows()
     }

@@ -11,12 +11,13 @@ import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.domain.usecase.MoviesUseCase
+import ru.androidschool.intensiv.domain.usecase.TvShowsUseCase
 import timber.log.Timber
 import java.lang.Exception
 
 class TvShowsViewModel : ViewModel() {
 
-    private val tvShowsUseCase: MoviesUseCase = MoviesUseCase(TvShowsRepository())
+    private val tvShowsUseCase: TvShowsUseCase = TvShowsUseCase(TvShowsRepository())
     private var disposables: CompositeDisposable? = null
 
     private val movies: MutableLiveData<List<Movie>> by lazy {
@@ -46,16 +47,16 @@ class TvShowsViewModel : ViewModel() {
 
     private fun loadMovies() {
 
-        viewModelScope.launch {
+        /*viewModelScope.launch {
             try {
 
             } catch (e: Exception) {
 
             }
-        }
+        }*/
 
-        /*val disp = tvShowsUseCase.getMovies()
-            .subscribeIoObserveMT()
+        movies.value = tvShowsUseCase.getTvShows()
+            /*.subscribeIoObserveMT()
             .animateOnLoading(isLoaded)
             .subscribe(
                 { i ->
