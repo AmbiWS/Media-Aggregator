@@ -14,4 +14,8 @@ class MoviesUseCase(private val repository: MoviesRepository) {
             .errorCatching()
             .applySchedulers()
     }
+
+    fun getTvShows(): List<Movie> {
+
+    }
 }
