@@ -2,24 +2,22 @@ package ru.androidschool.intensiv.presentation.movie_details
 
 import android.os.Bundle
 import android.view.View
+import android.view.ViewGroup
 import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.kotlinandroidextensions.GroupieViewHolder
-import io.reactivex.rxjava3.core.Single
-import io.reactivex.rxjava3.disposables.CompositeDisposable
 import kotlinx.android.synthetic.main.movie_details_fragment.*
+import ru.androidschool.intensiv.MovieFinderApp
 import ru.androidschool.intensiv.R
-import ru.androidschool.intensiv.data.dto.MovieCredits
-import ru.androidschool.intensiv.data.dto.MovieDetails
 import ru.androidschool.intensiv.domain.extensions.ImageViewExtensions.loadImage
-import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
-import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
-import ru.androidschool.intensiv.data.network.TheMovieDBClient
-import ru.androidschool.intensiv.data.room.MovieDB
 import ru.androidschool.intensiv.data.room.MovieDBEntity
+import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.presentation.LoadingProgressBar
 import timber.log.Timber
+import javax.inject.Inject
 
 class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
 
@@ -28,10 +26,11 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
     }
 
     private lateinit var detailsFragmentLoadingImageView: ProgressBar
-
-    private val mDisposable = CompositeDisposable()
+    @Inject
+    lateinit var modelFactory: MovieDetailsViewModelFactory
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        (requireActivity().applicationContext as MovieFinderApp).appComponent.inject(this)
         super.onViewCreated(view, savedInstanceState)
 
         detailsFragmentLoadingImageView = LoadingProgressBar.getLoadingBar(this.requireActivity())
@@ -39,77 +38,55 @@ class MovieDetailsFragment : Fragment(R.layout.movie_details_fragment) {
         val movieId: Int = arguments?.getInt("id") ?: 0
         val posterPath: String? = arguments?.getString("poster")
         val movieTitle: String = arguments.let { it?.getString("title") ?: "" }
+        val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
 
         posterPath?.let { detailsImagePoster.loadImage(it) }
 
         actors_recycleView.adapter = adapter.apply { }
         adapter.clear()
-        getMovieCredits(TheMovieDBClient.apiClient.getMovieCredits(movieId))
-        getMovieDetails(TheMovieDBClient.apiClient.getMovieDetails(movieId))
 
-        val movieDao = MovieDB.getInstance(requireContext())?.movieDao()
-        val currentMovie = MovieDBEntity(movieTitle, posterPath, movieId)
+        val model = ViewModelProvider(this, modelFactory)[MovieDetailsViewModel::class.java]
+        model.load(movieId)
 
-        checkboxFavoriteMovie.setOnCheckedChangeListener { buttonView, isFavorite ->
-
-            Timber.d("Favorite movie: %s", isFavorite)
+        checkboxFavoriteMovie.setOnCheckedChangeListener { _, isFavorite ->
             Timber.d("Current movie: %s", currentMovie)
 
             if (isFavorite) {
-
-                mDisposable.add(
-                    movieDao?.insertMovie(currentMovie)
-                        ?.subscribeIoObserveMT()
-                        ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
-                        ?.subscribe { Timber.d("Movie inserted") }
-                )
+                model.insert(currentMovie)
             } else {
-
-                mDisposable.add(
-                    movieDao?.deleteMovie(currentMovie)
-                        ?.subscribeIoObserveMT()
-                        ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
-                        ?.subscribe { Timber.d("Movie deleted") }
-                )
+                model.delete(currentMovie)
             }
+        }
+
+        model.getDetails().observe(viewLifecycleOwner, Observer<ru.androidschool.intensiv.data.vo.MovieDetails> { details ->
+            getDetails(details)
+        })
+
+        model.getCredits().observe(viewLifecycleOwner, Observer<List<Actor>> { actors ->
+            getCredits(actors)
+        })
+
+        model.getIsLoaded().observe(viewLifecycleOwner, Observer<Boolean> { isLoaded ->
+            if (isLoaded) {
+                detailsFragmentLoadingImageView.visibility = ViewGroup.VISIBLE
+            } else {
+                detailsFragmentLoadingImageView.visibility = ViewGroup.GONE
+            }
+        })
+    }
+
+    private fun getCredits(credits: List<Actor>) {
+        credits.map {
+            adapter.apply { add(ActorItem(it) {}) }
         }
     }
 
-    private fun getMovieCredits(observable: Single<MovieCredits>) {
-
-        observable.subscribeIoObserveMT()
-            .map(MovieCredits::actorsList)
-            .subscribe(
-                { i ->
-                    i?.let {
-                        i.toList().map {
-                            activity?.runOnUiThread {
-                                adapter.apply { add(ActorItem(it) {}) }
-                            }
-                        }
-                    }
-                },
-                { e -> Timber.d("$e") })
-    }
-
-    private fun getMovieDetails(observable: Single<MovieDetails>) {
-
-        observable.subscribeIoObserveMT()
-            .animateOnLoading(detailsFragmentLoadingImageView)
-            .subscribe(
-                { i ->
-                    textDetailsTitle.text = i.title
-                    movie_details_rating.rating = i?.rating ?: 0.0F
-                    textViewAboutMovie.text = i?.aboutMovie
-                    textViewProduction.text =
-                        i?.productionList?.get(0)?.name ?: getString(R.string.production_missing)
-                    textViewGenre.text =
-                        i?.genre?.get(0)?.name?.capitalize() ?: getString(R.string.genre_missing)
-                    textViewYear.text = if (i?.date?.length ?: 0 >= 4) i?.date?.substring(
-                        0,
-                        4
-                    ) else getString(R.string.year_missing)
-                },
-                { e -> Timber.d("$e") })
+    private fun getDetails(details: ru.androidschool.intensiv.data.vo.MovieDetails) {
+        textDetailsTitle.text = details.title
+        movie_details_rating.rating = details.rating
+        textViewAboutMovie.text = details.aboutMovie
+        textViewProduction.text = details.productionList[0].name
+        textViewGenre.text = details.genre[0].name.capitalize()
+        textViewYear.text = if (details.date.length >= 4) details.date.substring(0, 4) else getString(R.string.year_missing)
     }
 }

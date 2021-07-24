@@ -5,6 +5,8 @@ import timber.log.Timber
 
 class MovieFinderApp : Application() {
 
+    val appComponent = DaggerApplicationComponent.builder().appModule(AppModule(this)).build()
+
     override fun onCreate() {
         super.onCreate()
         instance = this

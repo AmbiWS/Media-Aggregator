@@ -1,16 +1,16 @@
 package ru.androidschool.intensiv.domain.usecase
 
 import io.reactivex.rxjava3.core.Single
-import ru.androidschool.intensiv.data.vo.Movie
+import ru.androidschool.intensiv.data.vo.MovieDetails
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.errorCatching
-import ru.androidschool.intensiv.domain.repository.MoviesRepository
+import ru.androidschool.intensiv.domain.repository.IMovieDetailsRepository
 import ru.androidschool.intensiv.domain.usecase.SchedulersExtension.applySchedulers
 
-class MoviesUseCase(private val repository: MoviesRepository) {
+class MovieDetailsUseCase(private val repository: IMovieDetailsRepository) {
 
-    fun getMovies(): Single<List<Movie>> {
+    fun getMovieDetails(id: Int): Single<MovieDetails> {
 
-        return repository.getMovies()
+        return repository.getMovieDetails(id)
             .errorCatching()
             .applySchedulers()
     }
