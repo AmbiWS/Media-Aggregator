@@ -4,11 +4,13 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
 import ru.androidschool.intensiv.data.repository.MovieCreditsRepository
 import ru.androidschool.intensiv.data.repository.MovieDetailsRepository
 import ru.androidschool.intensiv.data.room.MovieDB
 import ru.androidschool.intensiv.data.room.MovieDBEntity
+import ru.androidschool.intensiv.data.room.dao.MovieDao
 import ru.androidschool.intensiv.data.vo.Actor
 import ru.androidschool.intensiv.data.vo.MovieDetails
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
@@ -19,13 +21,12 @@ import timber.log.Timber
 import javax.inject.Inject
 
 class MovieDetailsViewModel @Inject constructor(
-    application: Application
-) : AndroidViewModel(application) {
+    val dao: MovieDao?
+) : ViewModel() {
 
     private val movieCreditsUseCase: MovieCreditsUseCase = MovieCreditsUseCase(MovieCreditsRepository())
     private val movieDetailsUseCase: MovieDetailsUseCase = MovieDetailsUseCase(MovieDetailsRepository())
 
-    private val movieDao = MovieDB.getInstance(application)?.movieDao()
     private var disposables: CompositeDisposable? = null
 
     private val details: MutableLiveData<MovieDetails> by lazy {
@@ -53,14 +54,14 @@ class MovieDetailsViewModel @Inject constructor(
     }
 
     fun insert(movie: MovieDBEntity) {
-        movieDao?.insertMovie(movie)
+        dao?.insertMovie(movie)
             ?.subscribeIoObserveMT()
             ?.doOnError { t: Throwable? -> Timber.d("Movie insert error -> %s", t.toString()) }
             ?.subscribe { Timber.d("Movie inserted") }
     }
 
     fun delete(movie: MovieDBEntity) {
-        movieDao?.deleteMovie(movie)
+        dao?.deleteMovie(movie)
             ?.subscribeIoObserveMT()
             ?.doOnError { t: Throwable? -> Timber.d("Movie delete error -> %s", t.toString()) }
             ?.subscribe { Timber.d("Movie deleted") }
