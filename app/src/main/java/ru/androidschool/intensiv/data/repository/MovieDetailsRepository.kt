@@ -5,7 +5,6 @@ import ru.androidschool.intensiv.data.mappers.MovieMapper
 import ru.androidschool.intensiv.data.network.TheMovieDBClient
 import ru.androidschool.intensiv.data.vo.MovieDetails
 import ru.androidschool.intensiv.domain.repository.IMovieDetailsRepository
-import javax.inject.Inject
 
 class MovieDetailsRepository : IMovieDetailsRepository {
 

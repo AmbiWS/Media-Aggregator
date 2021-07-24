@@ -1,14 +1,9 @@
 package ru.androidschool.intensiv.presentation.movie_details
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import io.reactivex.rxjava3.disposables.CompositeDisposable
-import ru.androidschool.intensiv.data.repository.MovieCreditsRepository
-import ru.androidschool.intensiv.data.repository.MovieDetailsRepository
-import ru.androidschool.intensiv.data.room.MovieDB
 import ru.androidschool.intensiv.data.room.MovieDBEntity
 import ru.androidschool.intensiv.data.room.dao.MovieDao
 import ru.androidschool.intensiv.data.vo.Actor

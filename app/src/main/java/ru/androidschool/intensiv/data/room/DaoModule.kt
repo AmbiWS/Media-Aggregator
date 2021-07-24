@@ -12,5 +12,4 @@ class DaoModule {
     fun dao(application: Application): MovieDao? {
         return MovieDB.getInstance(application)?.movieDao()
     }
-
 }
