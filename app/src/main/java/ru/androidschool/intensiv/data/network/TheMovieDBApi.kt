@@ -20,7 +20,7 @@ interface TheMovieDBApi {
     fun getPopularMovies(@Query("page") page: Int = 1): Single<MovieResponse>
 
     @GET("tv/popular")
-    fun getPopularTvShows(@Query("page") page: Int = 1): Single<MovieResponse>
+    suspend fun getPopularTvShows(@Query("page") page: Int = 1): MovieResponse
 
     @GET("movie/{movie_id}")
     fun getMovieDetails(@Path("movie_id") id: Int): Single<MovieDetails>
