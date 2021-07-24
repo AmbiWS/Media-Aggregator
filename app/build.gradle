@@ -113,4 +113,8 @@ dependencies {
     // DI
     implementation("com.google.dagger:dagger:$rootProject.daggerVersion")
     kapt "com.google.dagger:dagger-compiler:$rootProject.daggerVersion"
+
+    // Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.kotlinCoroutinesVersion"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.kotlinCoroutinesVMScopeVersion"
 }
