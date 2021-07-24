@@ -3,13 +3,16 @@ package ru.androidschool.intensiv.presentation.tvshows
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import io.reactivex.rxjava3.disposables.CompositeDisposable
+import kotlinx.coroutines.launch
 import ru.androidschool.intensiv.data.repository.TvShowsRepository
 import ru.androidschool.intensiv.data.vo.Movie
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.animateOnLoading
 import ru.androidschool.intensiv.domain.extensions.ObservableExtensions.subscribeIoObserveMT
 import ru.androidschool.intensiv.domain.usecase.MoviesUseCase
 import timber.log.Timber
+import java.lang.Exception
 
 class TvShowsViewModel : ViewModel() {
 
@@ -42,7 +45,16 @@ class TvShowsViewModel : ViewModel() {
     }
 
     private fun loadMovies() {
-        val disp = tvShowsUseCase.getMovies()
+
+        viewModelScope.launch {
+            try {
+
+            } catch (e: Exception) {
+
+            }
+        }
+
+        /*val disp = tvShowsUseCase.getMovies()
             .subscribeIoObserveMT()
             .animateOnLoading(isLoaded)
             .subscribe(
@@ -53,6 +65,6 @@ class TvShowsViewModel : ViewModel() {
                     Timber.e(t, t.toString())
                 })
 
-        disposables?.add(disp)
+        disposables?.add(disp)*/
     }
 }
