@@ -53,7 +53,7 @@ class MappingTest {
     @Test
     fun checkMapperDtoToVoIsCorrect() {
         for (i in dtoList.indices) {
-            compareDtoToVo(dtoList[i], )
+            compareDtoToVo(dtoList[i], rawDtoList[i])
         }
     }
 
