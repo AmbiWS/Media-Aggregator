@@ -18,7 +18,6 @@ import java.lang.Exception
 
 class MappingTest {
 
-    private lateinit var dtoMapper: MovieMapper
     private lateinit var dtoList: List<Movie>
     private lateinit var rawDtoList: List<MovieContent>
 
@@ -40,7 +39,7 @@ class MappingTest {
             )
         )
 
-        dtoList = dtoMapper.toValueObject(
+        dtoList = MovieMapper.toValueObject(
             MovieResponse(
                 1,
                 rawDtoList,
