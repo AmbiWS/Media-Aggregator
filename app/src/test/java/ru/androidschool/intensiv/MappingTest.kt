@@ -1,6 +1,9 @@
 package ru.androidschool.intensiv
 
+import org.hamcrest.CoreMatchers
+import org.hamcrest.MatcherAssert
 import org.junit.Before
+import org.junit.Test
 import ru.androidschool.intensiv.data.dto.MovieContent
 import ru.androidschool.intensiv.data.dto.MovieResponse
 import ru.androidschool.intensiv.data.mappers.MovieMapper
@@ -41,5 +44,18 @@ class MappingTest {
                 1
             )
         )
+    }
+
+    @Test
+    fun checkMapperDtoToVoIsCorrect() {
+
+    }
+
+    private fun compareDtoToVo(movie: Movie, movieDto: MovieContent) {
+        MatcherAssert.assertThat(movie.id, CoreMatchers.equalTo(movieDto.id))
+        MatcherAssert.assertThat(movie.posterPath, CoreMatchers.equalTo(movieDto.posterPath))
+        MatcherAssert.assertThat(movie.rating, CoreMatchers.equalTo(movieDto.rating))
+        MatcherAssert.assertThat(movie.title, CoreMatchers.equalTo(movieDto.title))
+        MatcherAssert.assertThat(movie.voteAverage, CoreMatchers.equalTo(movieDto.voteAverage))
     }
 }
